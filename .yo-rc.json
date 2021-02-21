@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.sebastiancoteanu.teachers_uix"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "teachers_uix",
+    "packageName": "com.sebastiancoteanu.teachers_uix",
+    "packageFolder": "com/sebastiancoteanu/teachers_uix",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NDRhNjA4ZThmMDUyYWZlYWVlY2M5NTJlM2I0ODZlOTgyZTRiN2Y0NWNmOGQwZGUwMzk2NTY4ODI4N2I2ODM1NzIyZGFlMDdlMTBiZDI5MDMwYWZhOGVhZjA2M2VhMDQ0ZDIyYWFiMTE4YWIyYjViOGIzYjEyNmQ4Y2RmOTRhNDE=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1613918778286,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": [],
+    "reactive": true
+  }
+}
