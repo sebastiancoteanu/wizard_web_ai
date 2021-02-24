@@ -1,27 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  FC,
+} from 'react';
+
+import { useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Row, Col, Alert, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
-import { IRootState } from 'app/shared/reducers';
-import { handleRegister, reset } from './register.reducer';
+import { handleRegister as handleRegisterAction, reset as resetAction } from './register.reducer';
+import { login as loginAction } from "app/shared/reducers/authentication";
 
 export type IRegisterProps = DispatchProps;
 
-export const RegisterPage = (props: IRegisterProps) => {
+export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset, login }) => {
   const [password, setPassword] = useState('');
+  const history = useHistory();
+
 
   useEffect(
     () => () => {
-      props.reset();
+      reset();
     },
     []
   );
 
   const handleValidSubmit = (event, values) => {
-    props.handleRegister(values.username, values.email, values.firstPassword);
+    handleRegister(values.username, values.email, values.firstPassword);
+    login(values.username, values.firstPassword);
+    history.push('/');
     event.preventDefault();
   };
 
@@ -107,7 +117,11 @@ export const RegisterPage = (props: IRegisterProps) => {
   );
 };
 
-const mapDispatchToProps = { handleRegister, reset };
+const mapDispatchToProps = {
+  handleRegister: handleRegisterAction,
+  login: loginAction,
+  reset: resetAction
+};
 type DispatchProps = typeof mapDispatchToProps;
 
 export default connect(null, mapDispatchToProps)(RegisterPage);
