@@ -1,0 +1,46 @@
+{
+  "name": "Website",
+  "fields": [
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "theme",
+      "fieldType": "ThemeType",
+      "fieldValues": "LIGHT,DARK",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "page",
+      "otherEntityRelationshipName": "website",
+      "relationshipName": "pages"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "website",
+      "relationshipName": "creator",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20210224082601",
+  "entityTableName": "website",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

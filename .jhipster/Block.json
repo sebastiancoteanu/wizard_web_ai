@@ -1,0 +1,41 @@
+{
+  "name": "Block",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "BlockType",
+      "fieldValues": "PARAGRAPH,HEADER,IMAGE,THREE_IMAGE_LIST",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "options",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": "2000"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "pageDraft",
+      "otherEntityRelationshipName": "blocks",
+      "relationshipName": "pageDraft",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210224082901",
+  "entityTableName": "block",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

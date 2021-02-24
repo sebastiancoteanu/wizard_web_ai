@@ -1,0 +1,38 @@
+{
+  "name": "PageDraft",
+  "fields": [
+    {
+      "fieldName": "isPublished",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "block",
+      "otherEntityRelationshipName": "pageDraft",
+      "relationshipName": "blocks"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "page",
+      "otherEntityRelationshipName": "drafts",
+      "relationshipName": "page",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210224082801",
+  "entityTableName": "page_draft",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

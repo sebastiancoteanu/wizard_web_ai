@@ -20,10 +20,11 @@ entity PageDraft {
 }
 
 entity Block {
-  blueprint BlueprintType required
+  type BlockType required
+  options String maxlength(2000)
 }
 
-enum BlueprintType {
+enum BlockType {
   PARAGRAPH,
   HEADER,
   IMAGE,
@@ -40,6 +41,3 @@ relationship OneToMany {
   Page {drafts} to PageDraft {page}
   PageDraft {blocks} to Block
 }
-
-dto * with mapstruct
-service all with serviceImpl

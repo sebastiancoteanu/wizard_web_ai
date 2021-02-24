@@ -1,0 +1,45 @@
+{
+  "name": "Page",
+  "fields": [
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "isRestricted",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "pageDraft",
+      "otherEntityRelationshipName": "page",
+      "relationshipName": "drafts"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "website",
+      "otherEntityRelationshipName": "pages",
+      "relationshipName": "website",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210224082701",
+  "entityTableName": "page",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
