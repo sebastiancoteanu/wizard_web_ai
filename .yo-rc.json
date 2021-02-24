@@ -17,24 +17,23 @@
     "prodDatabaseType": "mysql",
     "searchEngine": false,
     "messageBroker": false,
-    "serviceDiscoveryType": "eureka",
+    "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSwaggerCodegen": false,
-    "jwtSecretKey": "NDRhNjA4ZThmMDUyYWZlYWVlY2M5NTJlM2I0ODZlOTgyZTRiN2Y0NWNmOGQwZGUwMzk2NTY4ODI4N2I2ODM1NzIyZGFlMDdlMTBiZDI5MDMwYWZhOGVhZjA2M2VhMDQ0ZDIyYWFiMTE4YWIyYjViOGIzYjEyNmQ4Y2RmOTRhNDE=",
+    "jwtSecretKey": "Mjk1NDAzYTllMTEzOGRjYjJlYTJhMDcwMDg1MjNiOTQyMjczN2RkNWM2Mjc1M2M4NTg3YmJmZjJhM2RlMDUwNDBmMGQyYjQ2ZTBjNTFhMTJmYzRiMWE5ZDVmMDdjODAyOTMyYzExZWIyNjg4MjUwOTM2YmNiMWJlMWQ2MzZlMGQ=",
     "embeddableLaunchScript": false,
     "useSass": true,
     "clientPackageManager": "npm",
     "clientFramework": "react",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "creationTimestamp": 1613918778286,
+    "creationTimestamp": 1614154673117,
     "testFrameworks": [],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": false,
-    "blueprints": [],
-    "reactive": true
+    "blueprints": []
   }
 }

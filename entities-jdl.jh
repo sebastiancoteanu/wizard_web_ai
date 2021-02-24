@@ -1,0 +1,45 @@
+entity AppUser
+
+entity Website {
+  url String required
+  theme ThemeType required
+}
+
+enum ThemeType {
+  LIGHT,
+  DARK
+}
+
+entity Page {
+  url String required
+  isRestricted Boolean required
+}
+
+entity PageDraft {
+  isPublished Boolean required
+}
+
+entity Block {
+  blueprint BlueprintType required
+}
+
+enum BlueprintType {
+  PARAGRAPH,
+  HEADER,
+  IMAGE,
+  THREE_IMAGE_LIST
+}
+
+relationship OneToOne {
+  AppUser {user} to User {appUser}
+  AppUser {website} to Website {creator}
+}
+
+relationship OneToMany {
+  Website {pages} to Page {website}
+  Page {drafts} to PageDraft {page}
+  PageDraft {blocks} to Block
+}
+
+dto * with mapstruct
+service all with serviceImpl
