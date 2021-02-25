@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'icons';
+  src: url('./icons.ttf?fa3323b33ef7b7c47c16a86727ca8544') format('truetype');
+}
+
+i[class^='icon-']:before,
+i[class*=' icon-']:before {
+  font-family: icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-check-mark:before {
+  content: '\f101';
+}
+.icon-teachers-uix-logo:before {
+  content: '\f102';
+}
+.icon-user:before {
+  content: '\f103';
+}

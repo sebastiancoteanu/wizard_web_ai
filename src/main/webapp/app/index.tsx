@@ -10,6 +10,9 @@ import { clearAuthentication } from './shared/reducers/authentication';
 import ErrorBoundary from './shared/error/error-boundary';
 import AppComponent from './app';
 import { loadIcons } from './config/icon-loader';
+import lightTheme from "app/theme/lightTheme";
+import {ThemeProvider} from "styled-components";
+import AppGlobalStyle from "app/modules/ui-kit/AppGlobalStyle";
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
@@ -27,11 +30,14 @@ const render = Component =>
   ReactDOM.render(
     <ErrorBoundary>
       <Provider store={store}>
-        <div>
-          {/* If this slows down the app in dev disable it and enable when required  */}
-          {devTools}
-          <Component />
-        </div>
+        <ThemeProvider theme={lightTheme}>
+          <AppGlobalStyle />
+          <div>
+            {/* If this slows down the app in dev disable it and enable when required  */}
+            {devTools}
+            <Component />
+          </div>
+        </ThemeProvider>
       </Provider>
     </ErrorBoundary>,
     rootEl

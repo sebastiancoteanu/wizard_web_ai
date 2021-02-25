@@ -11,9 +11,11 @@
     "@fortawesome/fontawesome-svg-core": "1.2.28",
     "@fortawesome/free-solid-svg-icons": "5.13.0",
     "@fortawesome/react-fontawesome": "0.1.9",
+    "@types/styled-components": "^5.1.7",
     "availity-reactstrap-validation": "2.6.1",
     "axios": "0.19.2",
     "bootstrap": "4.4.1",
+    "fantasticon": "^1.1.1",
     "loaders.css": "0.1.2",
     "lodash": "4.17.15",
     "moment": "2.24.0",
@@ -34,6 +36,7 @@
     "redux-devtools-log-monitor": "1.4.0",
     "redux-promise-middleware": "6.1.2",
     "redux-thunk": "2.3.0",
+    "styled-components": "^5.2.1",
     "tslib": "1.11.1",
     "uuid": "7.0.3"
   },
@@ -126,6 +129,7 @@
     "test": "npm run lint && npm run jest",
     "test-ci": "npm run lint && npm run jest:update",
     "test:watch": "npm test -- --watch",
+    "generate-icon-font": "fantasticon && eslint ./src/main/webapp/app/modules/assets/fonts/icons.ts --fix",
     "webpack:dev": "npm run webpack-dev-server -- --config webpack/webpack.dev.js --inline --port=9060 --env.stats=minimal",
     "webpack:dev-verbose": "npm run webpack-dev-server -- --config webpack/webpack.dev.js --inline --port=9060 --profile --progress --env.stats=normal",
     "webpack:build:main": "npm run webpack -- --config webpack/webpack.dev.js --env.stats=minimal",
@@ -135,6 +139,73 @@
     "webpack:test": "npm run test",
     "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "airbnb",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts?(x)"
+        ],
+        "rules": {
+          "max-len": [
+            "error",
+            {
+              "code": 120
+            }
+          ],
+          "no-shadow": "off",
+          "@typescript-eslint/no-shadow": "error",
+          "no-use-before-define": "off",
+          "@typescript-eslint/no-use-before-define": [
+            "error"
+          ],
+          "@typescript-eslint/ban-ts-comment": "off",
+          "arrow-body-style": [
+            "error",
+            "as-needed"
+          ],
+          "react/prop-types": [
+            "off"
+          ],
+          "react/jsx-filename-extension": [
+            1,
+            {
+              "extensions": [
+                ".tsx"
+              ]
+            }
+          ],
+          "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "ts": "never",
+              "tsx": "never"
+            }
+          ],
+          "import/no-cycle": "off"
+        }
+      }
+    ],
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "import/resolver": {
+        "typescript": {
+          "alwaysTryTypes": true
+        }
+      }
+    }
   },
   "jestSonar": {
     "reportPath": "target/test-results/jest",

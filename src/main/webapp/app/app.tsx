@@ -1,9 +1,9 @@
 import 'react-toastify/dist/ReactToastify.css';
+import './modules/assets/fonts/icons.css';
 import './app.scss';
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'reactstrap';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { hot } from 'react-hot-loader';
@@ -12,7 +12,6 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getProfile } from 'app/shared/reducers/application-profile';
 import Header from 'app/shared/layout/header/header';
-import Footer from 'app/shared/layout/footer/footer';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
@@ -28,28 +27,20 @@ export const App = (props: IAppProps) => {
     props.getProfile();
   }, []);
 
-  const paddingTop = '60px';
   return (
     <Router basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
+      <div className="app-container">
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
         <ErrorBoundary>
           <Header
             isAuthenticated={props.isAuthenticated}
             isAdmin={props.isAdmin}
-            ribbonEnv={props.ribbonEnv}
-            isInProduction={props.isInProduction}
             isSwaggerEnabled={props.isSwaggerEnabled}
           />
         </ErrorBoundary>
-        <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </Card>
-          <Footer />
-        </div>
+        <ErrorBoundary>
+          <AppRoutes />
+        </ErrorBoundary>
       </div>
     </Router>
   );
