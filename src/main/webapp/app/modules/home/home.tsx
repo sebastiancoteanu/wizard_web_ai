@@ -2,6 +2,7 @@ import './home.scss';
 
 import React from 'react';
 import styled, { keyframes } from "styled-components";
+import Header from "app/shared/layout/header/header";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,12 +42,15 @@ const BrandDescription = styled.div`
 
 export const Home = () => {
   return (
-    <Wrapper>
-      <Content>
-        <Brand>Teachers UIX</Brand>
-        <BrandDescription>Designed for teachers</BrandDescription>
-      </Content>
-    </Wrapper>
+    <>
+      <Header />
+      <Wrapper>
+        <Content>
+          <Brand>Teachers UIX</Brand>
+          <BrandDescription>Designed for teachers</BrandDescription>
+        </Content>
+      </Wrapper>
+    </>
   );
 };
 

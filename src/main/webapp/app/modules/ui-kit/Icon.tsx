@@ -20,9 +20,13 @@ const sizeToPixel = (size: IconSize): string => {
 const Icon = styled.i.attrs(({
   className, name,
 }: IconProps) => ({ className: `${className} icon-${name}` }))<IconProps>`
-  font-size: ${({ size = IconSize.NORMAL }): string => sizeToPixel(size as IconSize)};
+  font-size: ${({ size = IconSize.NORMAL }): string => sizeToPixel(size)};
   line-height: 1;
   display: inline-flex;
+
+  &:focus {
+    outline: none;
+  }
 
   &:link,
   &:visited,

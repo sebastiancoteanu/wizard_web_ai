@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 import { IconProps } from "app/modules/ui-kit/types";
 import Icon from "app/modules/ui-kit/Icon";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import BaseButton from "app/modules/ui-kit/BaseButton";
 
-const Button = styled.button`
+const Button = styled(BaseButton)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,24 +13,26 @@ const Button = styled.button`
   text-align: center;
   position: relative;
   top: 0;
-  border: none;
-  outline: none;
-  cursor: pointer;
   background: transparent;
   padding: 0;
-
-  &:link, &:active, &:hover, &:visited {
-    text-decoration: none;
-    outline: none;
-  }
 `
 
-const IconButton: FC<IconProps> = ({ className, name, size, to }) => to ? (
-  <Button className={className} as={Link} to={to}>
+interface IconButtonProps extends IconProps {
+  onClick?: () => void
+}
+
+const IconButton: FC<IconButtonProps> = ({
+  className, 
+  name, 
+  size,
+  to,
+  onClick,
+}) => to ? (
+  <Button className={className} as={Link} to={to} onClick={onClick}>
     <Icon name={name} size={size} />
   </Button>
 ) : (
-  <Button className={className}>
+  <Button className={className} onClick={onClick}>
     <Icon name={name} size={size} />
   </Button>
 )
