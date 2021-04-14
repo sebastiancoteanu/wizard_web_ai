@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styled, { css } from "styled-components";
-import { useDrag } from "react-dnd";
 import { BlockType } from "app/shared/model/enumerations/block-type.model";
 import { blockTypeToImageMapper } from "app/common";
+import { Draggable } from "react-beautiful-dnd";
 
-const Blueprint = styled.img<{isDragging: boolean }>`
+const Blueprint = styled.img<{isDragging?: boolean }>`
   height: 200px;
   width: 100%;
   display: flex;
@@ -22,24 +22,21 @@ const Blueprint = styled.img<{isDragging: boolean }>`
 
 interface Props {
   blockType: BlockType;
-  setPageBlocks: (blocks: BlockType[]) => void;
-  pageBlocks: BlockType[];
+  index: number;
 }
 
-const BlockBluePrint: FC<Props> = ({ blockType, setPageBlocks, pageBlocks }) => {
-  const [{ isDragging }, drag] = useDrag({
-    type: 'all',
-    item: { type: blockType },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    end(item) {
-      setPageBlocks([...pageBlocks, item.type]);
-    },
-  });
-
+const BlockBluePrint: FC<Props> = ({ blockType, index }) => {
   return (
-    <Blueprint src={blockTypeToImageMapper[blockType]} ref={drag} isDragging={isDragging} />
+    <Draggable draggableId={blockType} index={index}>
+      {(provided => (
+        <Blueprint
+          src={blockTypeToImageMapper[blockType]}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        />
+      ))}
+    </Draggable>
   );
 }
 

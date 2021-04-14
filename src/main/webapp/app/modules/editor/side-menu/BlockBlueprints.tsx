@@ -3,6 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { blueprints } from "app/common";
 import BlockBluePrint from "app/modules/editor/side-menu/BlockBlueprint";
 import { BlockType } from "app/shared/model/enumerations/block-type.model";
+import { Droppable } from "react-beautiful-dnd";
+import { EDITOR_BLUEPRINTS_ID } from "app/config/constants";
 
 const slideAnimation = keyframes`
  0% { margin-left: -250px }
@@ -37,18 +39,22 @@ const InnerWrapper = styled.div`
   }
 `;
 
-interface Props {
-  setPageBlocks: (blocks: BlockType[]) => void;
-  pageBlocks: BlockType[];
-}
-
-const BlockBlueprints: FC<Props> = ({ setPageBlocks, pageBlocks }) => (
+const BlockBlueprints: FC = () => (
   <Wrapper>
-    <InnerWrapper>
-      {blueprints.map(blockType => (
-        <BlockBluePrint key={blockType} blockType={blockType} setPageBlocks={setPageBlocks} pageBlocks={pageBlocks} />
-      ))}
-    </InnerWrapper>
+    <Droppable droppableId={EDITOR_BLUEPRINTS_ID} isDropDisabled>
+      {(provided) => (
+        <InnerWrapper {...provided.droppableProps} ref={provided.innerRef}>
+          {blueprints.map((blockType, index) => (
+            <BlockBluePrint
+              key={blockType}
+              blockType={blockType}
+              index={index}
+            />
+          ))}
+          {provided.placeholder}
+        </InnerWrapper>
+      )}
+    </Droppable>
   </Wrapper>
 
 );

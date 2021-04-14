@@ -3,7 +3,6 @@ import IconButton from "app/modules/ui-kit/IconButton";
 import { Icons } from "app/modules/assets/fonts/icons";
 import styled from "styled-components";
 import BlockBlueprints from "app/modules/editor/side-menu/BlockBlueprints";
-import { BlockType } from "app/shared/model/enumerations/block-type.model";
 
 const OpenMenuIcon = styled(IconButton)`
   font-size: 20px;
@@ -15,12 +14,7 @@ const OpenMenuIcon = styled(IconButton)`
   padding: 5px;
 `;
 
-interface Props {
-  setPageBlocks: (blocks: BlockType[]) => void;
-  pageBlocks: BlockType[];
-}
-
-const SideMenu: FC<Props> = ({ pageBlocks, setPageBlocks }) => {
+const SideMenu: FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(true);
   return (
     <>
@@ -28,7 +22,7 @@ const SideMenu: FC<Props> = ({ pageBlocks, setPageBlocks }) => {
         name={isMenuOpen ? Icons.Close : Icons.HamburgerMenu}
         onClick={() => setMenuOpen(!isMenuOpen)}
       />
-      {isMenuOpen && <BlockBlueprints pageBlocks={pageBlocks} setPageBlocks={setPageBlocks} />}
+      {isMenuOpen && <BlockBlueprints />}
     </>
   );
 };
