@@ -1,6 +1,7 @@
 export type IconsId =
   | 'check-mark'
   | 'close'
+  | 'drag'
   | 'hamburger-menu'
   | 'header'
   | 'image'
@@ -12,6 +13,7 @@ export type IconsId =
 export type IconsKey =
   | 'CheckMark'
   | 'Close'
+  | 'Drag'
   | 'HamburgerMenu'
   | 'Header'
   | 'Image'
@@ -23,6 +25,7 @@ export type IconsKey =
 export enum Icons {
   CheckMark = 'check-mark',
   Close = 'close',
+  Drag = 'drag',
   HamburgerMenu = 'hamburger-menu',
   Header = 'header',
   Image = 'image',
@@ -35,11 +38,12 @@ export enum Icons {
 export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.CheckMark]: '61697',
   [Icons.Close]: '61698',
-  [Icons.HamburgerMenu]: '61699',
-  [Icons.Header]: '61700',
-  [Icons.Image]: '61701',
-  [Icons.Paragraph]: '61702',
-  [Icons.TeachersUixLogo]: '61703',
-  [Icons.ThreeImage]: '61704',
-  [Icons.User]: '61705',
+  [Icons.Drag]: '61699',
+  [Icons.HamburgerMenu]: '61700',
+  [Icons.Header]: '61701',
+  [Icons.Image]: '61702',
+  [Icons.Paragraph]: '61703',
+  [Icons.TeachersUixLogo]: '61704',
+  [Icons.ThreeImage]: '61705',
+  [Icons.User]: '61706',
 };

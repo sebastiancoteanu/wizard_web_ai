@@ -4,36 +4,46 @@ import SideMenu from "app/modules/editor/side-menu";
 import TopActionButtons from "app/modules/editor/TopActionButtons";
 import DropZone from "app/modules/editor/drop-zone";
 import styled from "styled-components";
-import { BlockType } from "app/shared/model/enumerations/block-type.model";
 import { DragDropContext, DragDropContextProps } from 'react-beautiful-dnd';
 import { blueprints } from "app/common";
-import { EDITOR_DROP_ZONE_ID } from "app/config/constants";
+import { EDITOR_BLUEPRINTS_ID, EDITOR_DROP_ZONE_ID } from "app/config/constants";
+import { Block } from "app/types";
+import { uuid } from "uuidv4";
 
 const DragDropZoneWrapper = styled.div`
   display: flex;
 `;
 
-const Editor: FC = () => {
-  const [pageBlocks, setPageBlocks] = useState<BlockType[]>([]);
+const reorder = (list: Block[], startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
 
-  const onDragEnd: DragDropContextProps['onDragEnd'] = ({ destination, source }) => {
-    if (!destination
-        || destination.droppableId !== EDITOR_DROP_ZONE_ID
-        || (destination.droppableId === source.droppableId && destination.index === source.index)) {
+  return result;
+};
+
+const copy = (source: Block[], destination: Block[], sourceIndex, destinationIndex) => {
+  const sourceClone = Array.from(source);
+  const destClone = Array.from(destination);
+  const item = sourceClone[sourceIndex];
+
+  destClone.splice(destinationIndex, 0, { ...item, id: uuid() });
+  return destClone;
+};
+
+const Editor: FC = () => {
+  const [pageBlocks, setPageBlocks] = useState<Block[]>([]);
+
+  const onDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination }) => {
+    if (!destination) {
       return;
     }
 
-    const updatedPageBlockList = [...pageBlocks];
-    let blockToMove;
-
-    if (source.droppableId === EDITOR_DROP_ZONE_ID) {
-      blockToMove = updatedPageBlockList.splice(source.index, 1)[0];
-    } else {
-      blockToMove = blueprints[source.index];
+    if (source.droppableId === EDITOR_BLUEPRINTS_ID) {
+      setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index))
+    } else if (source.droppableId === destination.droppableId) {
+      setPageBlocks(reorder(pageBlocks, source.index, destination.index));
     }
-
-    updatedPageBlockList.splice(destination.index, 0, blockToMove);
-    setPageBlocks([...updatedPageBlockList]);
   };
 
   return (

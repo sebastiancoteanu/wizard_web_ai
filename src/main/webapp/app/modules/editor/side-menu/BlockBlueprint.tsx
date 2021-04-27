@@ -14,28 +14,38 @@ const Blueprint = styled.img<{isDragging?: boolean }>`
   margin-bottom: 20px;
   border-radius: 5px;
   transition: all 0.1s ease-in;
+  user-select: none;
   
   ${({ isDragging }) => isDragging && css`
     opacity: 0.5;
   `}
 `;
 
+const BlueprintClone = styled(Blueprint)`
+  
+`;
+
 interface Props {
   blockType: BlockType;
   index: number;
+  draggableId: string;
 }
 
-const BlockBluePrint: FC<Props> = ({ blockType, index }) => {
+const BlockBluePrint: FC<Props> = ({ blockType, index, draggableId }) => {
   return (
-    <Draggable draggableId={blockType} index={index}>
-      {(provided => (
-        <Blueprint
-          src={blockTypeToImageMapper[blockType]}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        />
-      ))}
+    <Draggable draggableId={draggableId} index={index}>
+      {(provided, snapshot) => (
+        <>
+          <Blueprint
+            ref={provided.innerRef}
+            src={blockTypeToImageMapper[blockType]}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={provided.draggableProps.style}
+          />
+          {snapshot.isDragging && <BlueprintClone src={blockTypeToImageMapper[blockType]} />}
+        </>
+      )}
     </Draggable>
   );
 }

@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   height: calc(100vh - 60px);
 `;
 
-const InnerWrapper = styled.div`
+const InnerWrapper = styled.div<{ isDraggingOver: boolean }>`
   display: flex;
   flex-direction: column;
   width: 250px;
@@ -42,12 +42,13 @@ const InnerWrapper = styled.div`
 const BlockBlueprints: FC = () => (
   <Wrapper>
     <Droppable droppableId={EDITOR_BLUEPRINTS_ID} isDropDisabled>
-      {(provided) => (
-        <InnerWrapper {...provided.droppableProps} ref={provided.innerRef}>
-          {blueprints.map((blockType, index) => (
+      {(provided, snapshot) => (
+        <InnerWrapper isDraggingOver={snapshot.isDraggingOver} ref={provided.innerRef}>
+          {blueprints.map((block, index) => (
             <BlockBluePrint
-              key={blockType}
-              blockType={blockType}
+              key={block.id}
+              draggableId={block.id}
+              blockType={block.type}
               index={index}
             />
           ))}

@@ -24,5 +24,5 @@ export const APP_LOCAL_DATETIME_FORMAT_Z = 'YYYY-MM-DDTHH:mm Z';
 export const APP_WHOLE_NUMBER_FORMAT = '0,0';
 export const APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT = '0,0.[00]';
 
-export const EDITOR_BLUEPRINTS_ID = '-2';
-export const EDITOR_DROP_ZONE_ID = ' 1';
+export const EDITOR_BLUEPRINTS_ID = 'BLUEPRINTS';
+export const EDITOR_DROP_ZONE_ID = 'DROPZONE';
