@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { BlockType } from "app/shared/model/enumerations/block-type.model";
 import { Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ActionBar from "app/modules/editor/action-bar";
 import withClickInside from "app/modules/editor/side-menu/withClickInside";
 
@@ -11,18 +11,20 @@ interface Props {
   draggableId: string;
 }
 
-const Wrapper = styled.div<{ isDragging: boolean }>`
-  min-height: 100px;
+const Wrapper = styled.div<{ isSelected: boolean }>`
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.palette.primary.main};
   box-sizing: border-box;
-  position: relative;
+  ${({ isSelected, theme }) => isSelected && css`
+    outline: 1px solid ${theme.palette.primary.main};
+  `}
+  box-sizing: border-box;
   margin-bottom: 10px;
 `;
 
 const InnerWrapper = styled.div`
   width: 100%;
   height: 100%;
+  padding: 5px;
   position: relative;
 `;
 
@@ -30,16 +32,16 @@ const EditablePageBlock: FC<Props> = ({ index, type, draggableId }) => {
   const { clickInside, isClickedInside, wrapperRef } = withClickInside();
   return (
     <Draggable draggableId={draggableId} index={index}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <Wrapper
           ref={provided.innerRef}
           {...provided.draggableProps}
-          isDragging={snapshot.isDragging}
           style={provided.draggableProps.style}
+          isSelected={isClickedInside}
         >
-          <InnerWrapper ref={wrapperRef} onClick={() => clickInside()}>
-            <ActionBar dragProps={provided.dragHandleProps} isSelected={isClickedInside} />
+          <InnerWrapper onClick={() => clickInside()} ref={wrapperRef}>
             {type}
+            <ActionBar dragProps={provided.dragHandleProps} isSelected={isClickedInside} />
           </InnerWrapper>
         </Wrapper>
       )}

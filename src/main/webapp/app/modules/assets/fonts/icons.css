@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'icons';
-  src: url('./icons.ttf?eb9ca6cbc93b0af2a5da69c0d2d13dd9') format('truetype');
+  src: url('./icons.ttf?b5ced4685a50f0096df25e4a77884425') format('truetype');
 }
 
 i[class^='icon-']:before,
@@ -21,27 +21,33 @@ i[class*=' icon-']:before {
 .icon-close:before {
   content: '\f102';
 }
-.icon-drag:before {
+.icon-down-arrow:before {
   content: '\f103';
 }
-.icon-hamburger-menu:before {
+.icon-drag:before {
   content: '\f104';
 }
-.icon-header:before {
+.icon-hamburger-menu:before {
   content: '\f105';
 }
-.icon-image:before {
+.icon-header:before {
   content: '\f106';
 }
-.icon-paragraph:before {
+.icon-image:before {
   content: '\f107';
 }
-.icon-teachers-uix-logo:before {
+.icon-paragraph:before {
   content: '\f108';
 }
-.icon-three-image:before {
+.icon-teachers-uix-logo:before {
   content: '\f109';
 }
-.icon-user:before {
+.icon-three-image:before {
   content: '\f10a';
+}
+.icon-up-arrow:before {
+  content: '\f10b';
+}
+.icon-user:before {
+  content: '\f10c';
 }

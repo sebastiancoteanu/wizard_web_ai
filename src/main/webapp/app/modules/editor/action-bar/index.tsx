@@ -10,13 +10,14 @@ const reveal = keyframes`
 `;
 
 const Wrapper = styled.div<Pick<Props, 'isSelected'>>`
+  display: flex;
   pointer-events: none;
   opacity: 0;
   background: ${({ theme }) => theme.palette.primary.main};
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -16px;
   box-sizing: border-box;
   border-radius: 10px;
 
@@ -25,16 +26,18 @@ const Wrapper = styled.div<Pick<Props, 'isSelected'>>`
   `}
 `;
 
-const ActionButtonWrapper = styled.div`
-  padding: 5px;
-`;
-
 const ActionButton = styled(IconButton)`
   color: ${({ theme }) => theme.palette.neutral.white};
-  pointer-events: none;
+  padding: 5px;
 
   &:hover, &:focus {
     color: ${({ theme }) => theme.palette.neutral.white};
+  }
+`;
+
+const GrabButtonWrapper = styled.div`
+  ${ActionButton} {
+    pointer-events: none;
   }
 `;
 
@@ -45,9 +48,11 @@ interface Props {
 
 const ActionBar: FC<Props> = ({ dragProps, isSelected }) => (
   <Wrapper isSelected={isSelected}>
-    <ActionButtonWrapper {...dragProps}>
-      <ActionButton name={Icons.Drag} {...dragProps} />
-    </ActionButtonWrapper>
+    <GrabButtonWrapper {...dragProps}>
+      <ActionButton name={Icons.Drag} />
+    </GrabButtonWrapper>
+    <ActionButton name={Icons.UpArrow} />
+    <ActionButton name={Icons.DownArrow} />
   </Wrapper>
 );
 
