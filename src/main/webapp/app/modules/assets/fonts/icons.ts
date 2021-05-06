@@ -1,4 +1,6 @@
 export type IconsId =
+  | 'arrowhead-pointing-to-the-right'
+  | 'caret-down'
   | 'check-mark'
   | 'close'
   | 'down-arrow'
@@ -13,6 +15,8 @@ export type IconsId =
   | 'user';
 
 export type IconsKey =
+  | 'ArrowheadPointingToTheRight'
+  | 'CaretDown'
   | 'CheckMark'
   | 'Close'
   | 'DownArrow'
@@ -27,6 +31,8 @@ export type IconsKey =
   | 'User';
 
 export enum Icons {
+  ArrowheadPointingToTheRight = 'arrowhead-pointing-to-the-right',
+  CaretDown = 'caret-down',
   CheckMark = 'check-mark',
   Close = 'close',
   DownArrow = 'down-arrow',
@@ -42,16 +48,18 @@ export enum Icons {
 }
 
 export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
-  [Icons.CheckMark]: '61697',
-  [Icons.Close]: '61698',
-  [Icons.DownArrow]: '61699',
-  [Icons.Drag]: '61700',
-  [Icons.HamburgerMenu]: '61701',
-  [Icons.Header]: '61702',
-  [Icons.Image]: '61703',
-  [Icons.Paragraph]: '61704',
-  [Icons.TeachersUixLogo]: '61705',
-  [Icons.ThreeImage]: '61706',
-  [Icons.UpArrow]: '61707',
-  [Icons.User]: '61708',
+  [Icons.ArrowheadPointingToTheRight]: '61697',
+  [Icons.CaretDown]: '61698',
+  [Icons.CheckMark]: '61699',
+  [Icons.Close]: '61700',
+  [Icons.DownArrow]: '61701',
+  [Icons.Drag]: '61702',
+  [Icons.HamburgerMenu]: '61703',
+  [Icons.Header]: '61704',
+  [Icons.Image]: '61705',
+  [Icons.Paragraph]: '61706',
+  [Icons.TeachersUixLogo]: '61707',
+  [Icons.ThreeImage]: '61708',
+  [Icons.UpArrow]: '61709',
+  [Icons.User]: '61710',
 };

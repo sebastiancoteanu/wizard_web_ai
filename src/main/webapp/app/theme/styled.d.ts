@@ -32,10 +32,11 @@ declare module 'styled-components' {
       warning: string;
       danger: string;
       dark: string;
-      darkGray: string;
+      darkestGray: string;
       lighter: string;
       lightGray: string;
       lightestGray: string;
+      ivory: string;
       rockBlue: string;
       gray: string;
       borderRadius: string;

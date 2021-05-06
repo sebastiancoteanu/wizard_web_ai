@@ -9,8 +9,9 @@ import { blueprints } from "app/common";
 import { EDITOR_BLUEPRINTS_ID, EDITOR_DROP_ZONE_ID } from "app/config/constants";
 import { Block } from "app/types";
 import { uuid } from "uuidv4";
+import StyleManager from "app/modules/editor/style-manager";
 
-const DragDropZoneWrapper = styled.div`
+const EditorWorkingSpace = styled.div`
   display: flex;
 `;
 
@@ -51,12 +52,13 @@ const Editor: FC = () => {
       <Header>
         <TopActionButtons/>
       </Header>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <DragDropZoneWrapper>
+      <EditorWorkingSpace>
+        <DragDropContext onDragEnd={onDragEnd}>
           <SideMenu />
           <DropZone pageBlocks={pageBlocks} />
-        </DragDropZoneWrapper>
-      </DragDropContext>
+        </DragDropContext>
+        <StyleManager />
+      </EditorWorkingSpace>
     </>
   );
 }

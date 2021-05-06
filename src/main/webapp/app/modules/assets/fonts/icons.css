@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'icons';
-  src: url('./icons.ttf?b5ced4685a50f0096df25e4a77884425') format('truetype');
+  src: url('./icons.ttf?72a14fdcb376fdaa979c12d0beb95365') format('truetype');
 }
 
 i[class^='icon-']:before,
@@ -15,39 +15,45 @@ i[class*=' icon-']:before {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-check-mark:before {
+.icon-arrowhead-pointing-to-the-right:before {
   content: '\f101';
 }
-.icon-close:before {
+.icon-caret-down:before {
   content: '\f102';
 }
-.icon-down-arrow:before {
+.icon-check-mark:before {
   content: '\f103';
 }
-.icon-drag:before {
+.icon-close:before {
   content: '\f104';
 }
-.icon-hamburger-menu:before {
+.icon-down-arrow:before {
   content: '\f105';
 }
-.icon-header:before {
+.icon-drag:before {
   content: '\f106';
 }
-.icon-image:before {
+.icon-hamburger-menu:before {
   content: '\f107';
 }
-.icon-paragraph:before {
+.icon-header:before {
   content: '\f108';
 }
-.icon-teachers-uix-logo:before {
+.icon-image:before {
   content: '\f109';
 }
-.icon-three-image:before {
+.icon-paragraph:before {
   content: '\f10a';
 }
-.icon-up-arrow:before {
+.icon-teachers-uix-logo:before {
   content: '\f10b';
 }
-.icon-user:before {
+.icon-three-image:before {
   content: '\f10c';
+}
+.icon-up-arrow:before {
+  content: '\f10d';
+}
+.icon-user:before {
+  content: '\f10e';
 }

@@ -14,7 +14,7 @@ const slideAnimation = keyframes`
 const Wrapper = styled.div`
   box-shadow: 2px 0 5px 0 #888888a8;
   display: inline-flex;
-  background: ${({theme}) => theme.colors.darkGray};
+  background: ${({theme}) => theme.colors.gray};
   padding-top: 60px;
   overflow: hidden;
   height: calc(100vh - 60px);
@@ -35,7 +35,7 @@ const InnerWrapper = styled.div<{ isDraggingOver: boolean }>`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.lightestGray};;
+    background: ${({ theme }) => theme.colors.ivory};;
   }
 `;
 
