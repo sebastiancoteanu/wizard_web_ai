@@ -11,6 +11,7 @@ import activate, { ActivateState } from 'app/modules/account/activate/activate.r
 import password, { PasswordState } from 'app/modules/account/password/password.reducer';
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
+import editor, { EditorState } from 'app/modules/editor/editor.register';
 // prettier-ignore
 import appUser, {
   AppUserState
@@ -50,6 +51,7 @@ export interface IRootState {
   readonly block: BlockState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
+  readonly editor: EditorState;
 }
 
 const rootReducer = combineReducers<IRootState>({
@@ -69,6 +71,7 @@ const rootReducer = combineReducers<IRootState>({
   block,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
+  editor,
 });
 
 export default rootReducer;
