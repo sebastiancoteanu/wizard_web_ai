@@ -47,7 +47,7 @@ interface EditableProp extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onCh
 const EditableProp: FC<EditableProp> = ({
   name,
   label,
-  value,
+  value = '',
   type,
   onChange,
   ...rest

@@ -57,7 +57,7 @@ const Editor: FC = () => {
           <SideMenu />
           <DropZone pageBlocks={pageBlocks} />
         </DragDropContext>
-        <StyleManager />
+        {/*<StyleManager />*/}
       </EditorWorkingSpace>
     </>
   );

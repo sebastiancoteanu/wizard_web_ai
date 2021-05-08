@@ -4,6 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import styled, { css } from "styled-components";
 import ActionBar from "app/modules/editor/action-bar";
 import withClickInside from "app/modules/editor/side-menu/withClickInside";
+import Paragraph from "app/modules/editor/drop-zone/editable-page-block/Paragraph";
 
 interface Props {
   index: number;
@@ -24,12 +25,21 @@ const Wrapper = styled.div<{ isSelected: boolean }>`
 const InnerWrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 5px;
   position: relative;
 `;
 
+const renderBlockType = (type: BlockType, isSelected) => {
+  switch (type) {
+    case BlockType.PARAGRAPH:
+      return <Paragraph isSelected={isSelected} />
+    default:
+      return <div>type</div>
+  }
+};
+
 const EditablePageBlock: FC<Props> = ({ index, type, draggableId }) => {
   const { clickInside, isClickedInside, wrapperRef } = withClickInside();
+
   return (
     <Draggable draggableId={draggableId} index={index}>
       {(provided) => (
@@ -40,7 +50,7 @@ const EditablePageBlock: FC<Props> = ({ index, type, draggableId }) => {
           isSelected={isClickedInside}
         >
           <InnerWrapper onClick={() => clickInside()} ref={wrapperRef}>
-            {type}
+            {renderBlockType(type, isClickedInside)}
             <ActionBar dragProps={provided.dragHandleProps} isSelected={isClickedInside} />
           </InnerWrapper>
         </Wrapper>
