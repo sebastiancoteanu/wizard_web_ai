@@ -20,6 +20,7 @@
     "loaders.css": "0.1.2",
     "lodash": "4.17.15",
     "moment": "2.24.0",
+    "nanoid": "^3.1.22",
     "react": "17.0.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-dnd": "^14.0.2",
@@ -42,8 +43,7 @@
     "redux-thunk": "2.3.0",
     "styled-components": "^5.2.1",
     "tslib": "1.11.1",
-    "uuid": "7.0.3",
-    "uuidv4": "^6.2.7"
+    "uuid": "7.0.3"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "1.0.13-4.3.1",

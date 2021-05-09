@@ -47,7 +47,7 @@ const BlockBlueprints: FC = () => (
           {blueprints.map((block, index) => (
             <BlockBluePrint
               key={block.id}
-              draggableId={block.id}
+              draggableId={String(block.id)}
               blockType={block.type}
               index={index}
             />

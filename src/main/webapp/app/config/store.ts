@@ -18,7 +18,10 @@ const defaultMiddlewares = [
 ];
 const composedMiddlewares = middlewares =>
   process.env.NODE_ENV === 'development'
-    ? compose(applyMiddleware(...defaultMiddlewares, ...middlewares), DevTools.instrument())
+    ? compose(
+        applyMiddleware(...defaultMiddlewares, ...middlewares),
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      )
     : compose(applyMiddleware(...defaultMiddlewares, ...middlewares));
 
 const initialize = (initialState?: IRootState, middlewares = []) => createStore(reducer, initialState, composedMiddlewares(middlewares));

@@ -3,24 +3,24 @@ import HEADER from 'app/modules/assets/images/HEADER.PNG';
 import PARAGRAPH from 'app/modules/assets/images/PARAGRAPH.PNG';
 import SINGLE_IMAGE from 'app/modules/assets/images/SINGLE_IMAGE.PNG';
 import THREE_IMAGE_GALLERY from 'app/modules/assets/images/THREE_IMAGE_GALLERY.PNG';
-import { uuid } from 'uuidv4';
-import { Block } from 'app/types';
+import generateId from 'app/utils/generateId';
+import { IBlock } from 'app/shared/model/block.model';
 
-export const blueprints: Block[] = [
+export const blueprints: IBlock[] = [
   {
-    id: uuid(),
+    id: generateId(),
     type: BlockType.HEADER,
   },
   {
-    id: uuid(),
+    id: generateId(),
     type: BlockType.PARAGRAPH,
   },
   {
-    id: uuid(),
+    id: generateId(),
     type: BlockType.IMAGE,
   },
   {
-    id: uuid(),
+    id: generateId(),
     type: BlockType.THREE_IMAGE_LIST,
   },
 ];

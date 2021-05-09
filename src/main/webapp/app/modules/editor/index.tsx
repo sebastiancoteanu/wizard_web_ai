@@ -6,34 +6,20 @@ import DropZone from "app/modules/editor/drop-zone";
 import styled from "styled-components";
 import { DragDropContext, DragDropContextProps } from 'react-beautiful-dnd';
 import { blueprints } from "app/common";
-import { EDITOR_BLUEPRINTS_ID, EDITOR_DROP_ZONE_ID } from "app/config/constants";
-import { Block } from "app/types";
-import { uuid } from "uuidv4";
-import StyleManager from "app/modules/editor/style-manager";
+import { EDITOR_BLUEPRINTS_ID } from "app/config/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "app/shared/reducers";
+import { IBlock } from "app/shared/model/block.model";
+import { setPageBlocks } from "app/entities/block/block.reducer";
+import { copy, reorder } from "app/utils/blockDrag";
 
 const EditorWorkingSpace = styled.div`
   display: flex;
 `;
 
-const reorder = (list: Block[], startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-const copy = (source: Block[], destination: Block[], sourceIndex, destinationIndex) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const item = sourceClone[sourceIndex];
-
-  destClone.splice(destinationIndex, 0, { ...item, id: uuid() });
-  return destClone;
-};
-
 const Editor: FC = () => {
-  const [pageBlocks, setPageBlocks] = useState<Block[]>([]);
+  const { entities: pageBlocks } = useSelector<IRootState, IRootState['block']>(state => state.block);
+  const dispatch = useDispatch();
 
   const onDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination }) => {
     if (!destination) {
@@ -41,9 +27,9 @@ const Editor: FC = () => {
     }
 
     if (source.droppableId === EDITOR_BLUEPRINTS_ID) {
-      setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index))
+      dispatch(setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index)));
     } else if (source.droppableId === destination.droppableId) {
-      setPageBlocks(reorder(pageBlocks, source.index, destination.index));
+      dispatch(setPageBlocks(reorder(pageBlocks, source.index, destination.index)));
     }
   };
 
@@ -55,9 +41,9 @@ const Editor: FC = () => {
       <EditorWorkingSpace>
         <DragDropContext onDragEnd={onDragEnd}>
           <SideMenu />
-          <DropZone pageBlocks={pageBlocks} />
+          <DropZone pageBlocks={pageBlocks as IBlock[]} />
         </DragDropContext>
-        {/*<StyleManager />*/}
+        {/* <StyleManager /> */}
       </EditorWorkingSpace>
     </>
   );

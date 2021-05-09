@@ -4,7 +4,7 @@ import StyleSection from "app/modules/editor/style-manager/StyleSection";
 import EditableProp from "app/modules/editor/style-manager/EditableProp";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
-import { changeBlockProps } from "app/modules/editor/editor.register";
+import { changeBlockProps } from "app/modules/editor/editor.reducer";
 
 const Wrapper = styled.div`
   padding: 12px 0;

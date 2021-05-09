@@ -5,8 +5,12 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IBlock, defaultValue } from 'app/shared/model/block.model';
+import { reorder } from 'app/utils/blockDrag';
 
 export const ACTION_TYPES = {
+  SET_PAGE_BLOCKS: 'block/SET_PAGE_BLOCKS',
+  MOVE_PAGE_BLOCK_ONE_POSITION: 'block/MOVE_PAGE_BLOCK_ONE_POSITION',
+  DELETE_PAGE_BLOCK: 'block/DELETE_PAGE_BLOCK',
   FETCH_BLOCK_LIST: 'block/FETCH_BLOCK_LIST',
   FETCH_BLOCK: 'block/FETCH_BLOCK',
   CREATE_BLOCK: 'block/CREATE_BLOCK',
@@ -90,6 +94,21 @@ export default (state: BlockState = initialState, action): BlockState => {
       return {
         ...initialState,
       };
+    case ACTION_TYPES.SET_PAGE_BLOCKS:
+      return {
+        ...initialState,
+        entities: action.payload,
+      };
+    case ACTION_TYPES.DELETE_PAGE_BLOCK:
+      return {
+        ...initialState,
+        entities: state.entities.filter((_, index) => index !== action.payload),
+      };
+    case ACTION_TYPES.MOVE_PAGE_BLOCK_ONE_POSITION:
+      return {
+        ...initialState,
+        entities: reorder(state.entities, action.payload.startIndex, action.payload.endIndex),
+      };
     default:
       return state;
   }
@@ -102,6 +121,24 @@ const apiUrl = 'api/blocks';
 export const getEntities: ICrudGetAllAction<IBlock> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_BLOCK_LIST,
   payload: axios.get<IBlock>(`${apiUrl}?cacheBuster=${new Date().getTime()}`),
+});
+
+export const setPageBlocks = (blocks: IBlock[]) => ({
+  type: ACTION_TYPES.SET_PAGE_BLOCKS,
+  payload: blocks,
+});
+
+export const deletePageBlock = index => ({
+  type: ACTION_TYPES.DELETE_PAGE_BLOCK,
+  payload: index,
+});
+
+export const moveBlockOnePosition = (startIndex: number, endIndex: number) => ({
+  type: ACTION_TYPES.MOVE_PAGE_BLOCK_ONE_POSITION,
+  payload: {
+    startIndex,
+    endIndex,
+  },
 });
 
 export const getEntity: ICrudGetAction<IBlock> = id => {

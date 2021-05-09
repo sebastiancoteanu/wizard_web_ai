@@ -3,6 +3,10 @@ import styled, { css, keyframes } from "styled-components";
 import IconButton from "app/modules/ui-kit/IconButton";
 import { Icons } from "app/modules/assets/fonts/icons";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
+import { IconSize } from "app/modules/ui-kit/types";
+import { useDispatch } from "react-redux";
+import { deletePageBlock, moveBlockOnePosition } from "app/entities/block/block.reducer";
+import { BlockMove } from "app/modules/editor/action-bar/types";
 
 const reveal = keyframes`
   0% { opacity: 0; pointer-events: none; }
@@ -15,11 +19,9 @@ const Wrapper = styled.div<Pick<Props, 'isSelected'>>`
   opacity: 0;
   background: ${({ theme }) => theme.palette.primary.main};
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -16px;
+  right: -0.5px;
+  top: -24px;
   box-sizing: border-box;
-  border-radius: 10px;
 
   ${({ isSelected }) => isSelected && css`
     animation: ${reveal} 0.1s ease-in 0s normal forwards;
@@ -44,16 +46,37 @@ const GrabButtonWrapper = styled.div`
 interface Props {
   dragProps: DraggableProvidedDragHandleProps;
   isSelected: boolean;
+  index: number;
 }
 
-const ActionBar: FC<Props> = ({ dragProps, isSelected }) => (
-  <Wrapper isSelected={isSelected}>
-    <GrabButtonWrapper {...dragProps}>
-      <ActionButton name={Icons.Drag} />
-    </GrabButtonWrapper>
-    <ActionButton name={Icons.UpArrow} />
-    <ActionButton name={Icons.DownArrow} />
-  </Wrapper>
-);
+const ActionBar: FC<Props> = ({ dragProps, isSelected, index   }) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteBlock = () => {
+    dispatch(deletePageBlock(index));
+  }
+
+  /**
+   * @function
+   * @param direction - BlockMove.DOWN moves down, BlockMove.UP moves up
+   */
+  const moveBlock = (direction) => {
+    if (index === 0 && direction === BlockMove.UP) {
+      return;
+    }
+    dispatch(moveBlockOnePosition(index, index + direction))
+  }
+
+  return (
+    <Wrapper isSelected={isSelected}>
+      <GrabButtonWrapper {...dragProps}>
+        <ActionButton name={Icons.Drag} size={IconSize.SMALL}/>
+      </GrabButtonWrapper>
+      <ActionButton name={Icons.UpArrow} size={IconSize.SMALL} onClick={() => moveBlock(BlockMove.UP)}/>
+      <ActionButton name={Icons.DownArrow} size={IconSize.SMALL} onClick={() => moveBlock(BlockMove.DOWN)} />
+      <ActionButton name={Icons.Delete} size={IconSize.SMALL} onClick={handleDeleteBlock}/>
+    </Wrapper>
+  );
+}
 
 export default ActionBar;

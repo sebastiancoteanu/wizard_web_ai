@@ -11,7 +11,7 @@ import activate, { ActivateState } from 'app/modules/account/activate/activate.r
 import password, { PasswordState } from 'app/modules/account/password/password.reducer';
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
-import editor, { EditorState } from 'app/modules/editor/editor.register';
+import editor, { EditorState } from 'app/modules/editor/editor.reducer';
 // prettier-ignore
 import appUser, {
   AppUserState

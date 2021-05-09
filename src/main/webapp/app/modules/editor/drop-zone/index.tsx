@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Droppable } from 'react-beautiful-dnd';
 import { EDITOR_DROP_ZONE_ID } from "app/config/constants";
 import EditablePageBlock from "app/modules/editor/drop-zone/editable-page-block";
-import { Block } from "app/types";
+import { IBlock } from "app/shared/model/block.model";
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const InnerWrapper = styled.div<{ isDraggingOver: boolean }>`
 `;
 
 interface Props {
-  pageBlocks: Block[];
+  pageBlocks: IBlock[];
 }
 
 const DropZone: FC<Props> = ({ pageBlocks }) => {
@@ -35,7 +35,7 @@ const DropZone: FC<Props> = ({ pageBlocks }) => {
             isDraggingOver={snapshot.isDraggingOver}
           >
             {pageBlocks.map((block, index) => (
-              <EditablePageBlock key={block.id} draggableId={block.id} index={index} type={block.type} />
+              <EditablePageBlock key={block.id} index={index} block={block} />
             ))}
             {provided.placeholder}
           </InnerWrapper>
