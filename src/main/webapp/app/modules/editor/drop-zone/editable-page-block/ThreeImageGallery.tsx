@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from "styled-components";
 import ImageWithPlaceholder from "app/modules/editor/drop-zone/editable-page-block/common/ImageWithPlaceholder";
+import { IBlock } from "app/shared/model/block.model";
 
 const Wrapper = styled.div`
   display: flex;
@@ -9,7 +10,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-interface Props {
+interface Props extends Pick<IBlock, 'options'>{
   sources: string[];
   isSelected: boolean;
 }

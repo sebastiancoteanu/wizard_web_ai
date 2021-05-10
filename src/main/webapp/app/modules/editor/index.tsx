@@ -10,8 +10,9 @@ import { EDITOR_BLUEPRINTS_ID } from "app/config/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { IBlock } from "app/shared/model/block.model";
-import { setPageBlocks } from "app/entities/block/block.reducer";
+import { BlockState, setPageBlocks } from "app/entities/block/block.reducer";
 import { copy, reorder } from "app/utils/blockDrag";
+import StyleManager from "app/modules/editor/style-manager";
 
 const EditorWorkingSpace = styled.div`
   display: flex;
@@ -19,6 +20,8 @@ const EditorWorkingSpace = styled.div`
 
 const Editor: FC = () => {
   const { entities: pageBlocks } = useSelector<IRootState, IRootState['block']>(state => state.block);
+  const editingBlockId = useSelector<IRootState, BlockState['editingBlockId']>(state => state.block.editingBlockId);
+
   const dispatch = useDispatch();
 
   const onDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination }) => {
@@ -43,7 +46,7 @@ const Editor: FC = () => {
           <SideMenu />
           <DropZone pageBlocks={pageBlocks as IBlock[]} />
         </DragDropContext>
-        {/* <StyleManager /> */}
+        {editingBlockId && <StyleManager />}
       </EditorWorkingSpace>
     </>
   );

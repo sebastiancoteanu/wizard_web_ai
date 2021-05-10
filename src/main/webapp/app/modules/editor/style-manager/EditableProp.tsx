@@ -5,10 +5,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-
-  &:not(:last-child) {
-    margin-right: 12px;
-  }
 `;
 
 const Input = styled.input`
@@ -40,11 +36,12 @@ const Label = styled.label`
 `;
 
 interface EditableProp extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
-  label: string;
+  label?: string;
   onChange: (name: string, value: InputHTMLAttributes<HTMLInputElement>['value']) => void;
 }
 
 const EditableProp: FC<EditableProp> = ({
+  className,
   name,
   label,
   value = '',
@@ -55,10 +52,10 @@ const EditableProp: FC<EditableProp> = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(name, e.target.value);
   };
-  console.log(name + ' ' + value);
+
   return (
-    <Wrapper>
-      <Label htmlFor={name}>{label}</Label>
+    <Wrapper className={className}>
+      {label && <Label htmlFor={name}>{label}</Label>}
       <Input name={name} type={type} value={value} onChange={handleChange} {...rest} />
     </Wrapper>
   )

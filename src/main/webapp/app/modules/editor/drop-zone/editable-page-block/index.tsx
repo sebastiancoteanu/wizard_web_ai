@@ -3,12 +3,14 @@ import { BlockType } from "app/shared/model/enumerations/block-type.model";
 import { Draggable } from "react-beautiful-dnd";
 import styled, { css } from "styled-components";
 import ActionBar from "app/modules/editor/action-bar";
-import withClickInside from "app/modules/editor/side-menu/withClickInside";
 import Paragraph from "app/modules/editor/drop-zone/editable-page-block/Paragraph";
 import { IBlock } from "app/shared/model/block.model";
 import Header from "app/modules/editor/drop-zone/editable-page-block/Header";
 import ImageWithPlaceholder from "app/modules/editor/drop-zone/editable-page-block/common/ImageWithPlaceholder";
 import ThreeImageGallery from "app/modules/editor/drop-zone/editable-page-block/ThreeImageGallery";
+import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "app/shared/reducers";
+import { setEditingPageBlock } from "app/entities/block/block.reducer";
 
 const BlockTypeLabel = styled.div`
   background: ${({ theme }) => theme.palette.primary.main};
@@ -52,16 +54,16 @@ const InnerWrapper = styled.div`
   display: flex;
 `;
 
-const renderBlockType = (type: BlockType, isSelected) => {
-  switch (type) {
+const renderBlockType = (block: IBlock, isSelected) => {
+  switch (block.type) {
     case BlockType.PARAGRAPH:
-      return <Paragraph isSelected={isSelected} />
+      return <Paragraph isSelected={isSelected} options={block?.options} />
     case BlockType.HEADER:
-      return <Header isSelected={isSelected} />
+      return <Header isSelected={isSelected} options={block?.options} />
     case BlockType.IMAGE:
-      return <ImageWithPlaceholder isSelected={isSelected} />
+      return <ImageWithPlaceholder isSelected={isSelected} options={block?.options} />
     case BlockType.THREE_IMAGE_LIST:
-      return <ThreeImageGallery isSelected={isSelected} sources={[]} />
+      return <ThreeImageGallery isSelected={isSelected} sources={[]} options={block?.options} />
     default:
       return <div>type</div>
   }
@@ -73,7 +75,12 @@ interface Props {
 }
 
 const EditablePageBlock: FC<Props> = ({ index, block }) => {
-  const { clickInside, isClickedInside, wrapperRef } = withClickInside();
+  const isBlockSelected = useSelector<IRootState, boolean>(state => state.block.editingBlockId === block.id);
+  const dispatch = useDispatch();
+
+  const handleBlockSelect = () => {
+    dispatch(setEditingPageBlock(block.id));
+  }
 
   return (
     <Draggable draggableId={String(block.id)} index={index}>
@@ -82,14 +89,14 @@ const EditablePageBlock: FC<Props> = ({ index, block }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           style={provided.draggableProps.style}
-          isSelected={isClickedInside}
+          isSelected={isBlockSelected}
         >
-          <InnerWrapper onClick={() => clickInside()} ref={wrapperRef}>
+          <InnerWrapper onClick={handleBlockSelect}>
             <BlockTypeLabel>{block.type}</BlockTypeLabel>
-            {renderBlockType(block.type, isClickedInside)}
+            {renderBlockType(block, isBlockSelected)}
             <ActionBar
               dragProps={provided.dragHandleProps}
-              isSelected={isClickedInside}
+              isSelected={isBlockSelected}
               index={index}
             />
           </InnerWrapper>

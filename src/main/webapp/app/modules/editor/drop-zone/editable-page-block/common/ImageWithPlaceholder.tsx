@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from "styled-components";
 import Icon from "app/modules/ui-kit/Icon";
 import { Icons } from "app/modules/assets/fonts/icons";
+import { IBlock } from "app/shared/model/block.model";
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const Image = styled.img`
   
 `;
 
-interface Props {
+interface Props extends Pick<IBlock, 'options'>{
   src?: string;
   isSelected: boolean;
 }
