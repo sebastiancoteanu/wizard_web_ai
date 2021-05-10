@@ -27,7 +27,7 @@ const Paragraph: FC<Props> = ({ isSelected, options }) => {
   return (
     <StyledParagraph cssProps={options?.cssProperties}>
       {isSelected ? (
-        <EditableText placeHolder={textPlaceholder} cssProps={options?.cssProperties} />
+        <EditableText placeHolder={textPlaceholder} />
       ) : text}
     </StyledParagraph>
   );

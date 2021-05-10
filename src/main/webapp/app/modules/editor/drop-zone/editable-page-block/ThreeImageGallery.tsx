@@ -15,11 +15,11 @@ interface Props extends Pick<IBlock, 'options'>{
   isSelected: boolean;
 }
 
-const ThreeImageGallery: FC<Props> = ({ sources = Array(3), isSelected }) => (
+const ThreeImageGallery: FC<Props> = ({ sources = Array(3), isSelected, options }) => (
   <Wrapper>
-    <ImageWithPlaceholder src={sources[0]} isSelected={isSelected} />
-    <ImageWithPlaceholder src={sources[1]} isSelected={isSelected} />
-    <ImageWithPlaceholder src={sources[2]} isSelected={isSelected} />
+    <ImageWithPlaceholder src={sources[0]} isSelected={isSelected} options={options} />
+    <ImageWithPlaceholder src={sources[1]} isSelected={isSelected} options={options} />
+    <ImageWithPlaceholder src={sources[2]} isSelected={isSelected} options={options} />
   </Wrapper>
 );
 

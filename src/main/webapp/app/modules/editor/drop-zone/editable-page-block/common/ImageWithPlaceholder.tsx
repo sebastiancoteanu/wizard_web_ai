@@ -1,16 +1,10 @@
 import React, { FC } from 'react';
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 import Icon from "app/modules/ui-kit/Icon";
 import { Icons } from "app/modules/assets/fonts/icons";
 import { IBlock } from "app/shared/model/block.model";
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Placeholder = styled.div`
+const PreStyledPlaceholder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,23 +14,25 @@ const Placeholder = styled.div`
   color: ${({ theme }) => theme.colors.ivory};
 `;
 
-const Image = styled.img`
-  
-`;
+const Placeholder = styled(PreStyledPlaceholder)<{ cssProps: CSSProperties}>(({ cssProps }) => ({
+  ...cssProps
+}));
+
+const Image = styled.img<{ cssProps: CSSProperties}>(({ cssProps }) => ({
+  ...cssProps
+}));
 
 interface Props extends Pick<IBlock, 'options'>{
   src?: string;
   isSelected: boolean;
 }
 
-const ImageWithPlaceholder: FC<Props> = ({ src, isSelected }) => (
-  <Wrapper>
-    {src ? <Image src={src} /> : (
-      <Placeholder>
-        <Icon name={Icons.Picture} />
-      </Placeholder>
-    )}
-  </Wrapper>
-);
+const ImageWithPlaceholder: FC<Props> = ({ src, isSelected, options }) => {
+  return src ? <Image src={src} cssProps={options?.cssProperties} /> : (
+    <Placeholder cssProps={options?.cssProperties}>
+      <Icon name={Icons.Picture} />
+    </Placeholder>
+  );
+}
 
 export default ImageWithPlaceholder;
