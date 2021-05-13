@@ -162,18 +162,6 @@
           "**/*.ts?(x)"
         ],
         "rules": {
-          "block-spacing": "error",
-          "comma-dangle": [
-            "error",
-            "always-multiline"
-          ],
-          "indent": [
-            "error",
-            2,
-            {
-              "SwitchCase": 1
-            }
-          ],
           "max-len": [
             "error",
             {

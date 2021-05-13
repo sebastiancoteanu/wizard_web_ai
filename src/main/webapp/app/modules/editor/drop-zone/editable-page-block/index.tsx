@@ -6,11 +6,11 @@ import ActionBar from "app/modules/editor/action-bar";
 import Paragraph from "app/modules/editor/drop-zone/editable-page-block/Paragraph";
 import { IBlock } from "app/shared/model/block.model";
 import Header from "app/modules/editor/drop-zone/editable-page-block/Header";
-import ImageWithPlaceholder from "app/modules/editor/drop-zone/editable-page-block/common/ImageWithPlaceholder";
 import ThreeImageGallery from "app/modules/editor/drop-zone/editable-page-block/ThreeImageGallery";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { setEditingPageBlock } from "app/entities/block/block.reducer";
+import SingleImage from "app/modules/editor/drop-zone/editable-page-block/SingleImage";
 
 const BlockTypeLabel = styled.div`
   background: ${({ theme }) => theme.palette.primary.main};
@@ -61,7 +61,7 @@ const renderBlockType = (block: IBlock, isSelected) => {
   case BlockType.HEADER:
     return <Header isSelected={isSelected} options={block?.options} />
   case BlockType.IMAGE:
-    return <ImageWithPlaceholder isSelected={isSelected} options={block?.options} />
+    return <SingleImage isSelected={isSelected} options={block?.options} />
   case BlockType.THREE_IMAGE_LIST:
     return <ThreeImageGallery isSelected={isSelected} options={block?.options} />
   default:

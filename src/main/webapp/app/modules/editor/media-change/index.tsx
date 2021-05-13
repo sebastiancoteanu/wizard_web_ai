@@ -98,6 +98,7 @@ const MediaChange: FC<Props> = ({ index }) => {
   const handleConfirm = () => {
     content[index] = src;
     dispatch(updateEditingPageBlockContent(content));
+    setModalOpen(false);
   }
 
   const onClose = () => setModalOpen(false);

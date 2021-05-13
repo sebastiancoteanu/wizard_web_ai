@@ -14,7 +14,7 @@ const MediaSelect = styled.div`
   transition: all 0.1s ease-in;
 `;
 
-const Wrapper = styled.div`
+const StyledWrapper = styled.div`
   position: relative;
 
   &:hover {
@@ -23,6 +23,10 @@ const Wrapper = styled.div`
     }
   }
 `;
+
+const Wrapper = styled(StyledWrapper)<{ cssProps: CSSProperties}>(({ cssProps }) => ({
+  ...cssProps,
+}));
 
 const PreStyledPlaceholder = styled.div`
   display: flex;
@@ -38,10 +42,10 @@ const Placeholder = styled(PreStyledPlaceholder)<{ cssProps: CSSProperties}>(({ 
   ...cssProps,
 }));
 
-const Image = styled.img<{ cssProps: CSSProperties}>(({ cssProps }) => ({
-  ...cssProps,
-  width: '100%',
-}));
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+`;
 
 interface Props extends Pick<IBlock, 'options'>{
   src?: string;
@@ -51,8 +55,8 @@ interface Props extends Pick<IBlock, 'options'>{
 
 const ImageWithPlaceholder: FC<Props> = ({ src, isSelected, options, index = 0 }) => {
   return (
-    <Wrapper>
-      {src ? <Image src={src} cssProps={options?.cssProperties} /> : (
+    <Wrapper cssProps={options?.cssProperties}>
+      {src ? <Image src={src} /> : (
         <Placeholder cssProps={options?.cssProperties}>
           <Icon name={Icons.Picture} />
         </Placeholder>
