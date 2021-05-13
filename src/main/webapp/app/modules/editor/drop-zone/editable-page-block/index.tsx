@@ -56,16 +56,16 @@ const InnerWrapper = styled.div`
 
 const renderBlockType = (block: IBlock, isSelected) => {
   switch (block.type) {
-    case BlockType.PARAGRAPH:
-      return <Paragraph isSelected={isSelected} options={block?.options} />
-    case BlockType.HEADER:
-      return <Header isSelected={isSelected} options={block?.options} />
-    case BlockType.IMAGE:
-      return <ImageWithPlaceholder isSelected={isSelected} options={block?.options} />
-    case BlockType.THREE_IMAGE_LIST:
-      return <ThreeImageGallery isSelected={isSelected} sources={[]} options={block?.options} />
-    default:
-      return <div>type</div>
+  case BlockType.PARAGRAPH:
+    return <Paragraph isSelected={isSelected} options={block?.options} />
+  case BlockType.HEADER:
+    return <Header isSelected={isSelected} options={block?.options} />
+  case BlockType.IMAGE:
+    return <ImageWithPlaceholder isSelected={isSelected} options={block?.options} />
+  case BlockType.THREE_IMAGE_LIST:
+    return <ThreeImageGallery isSelected={isSelected} options={block?.options} />
+  default:
+    return <div>type</div>
   }
 };
 
@@ -89,9 +89,10 @@ const EditablePageBlock: FC<Props> = ({ index, block }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           style={provided.draggableProps.style}
+          onClick={handleBlockSelect}
           isSelected={isBlockSelected}
         >
-          <InnerWrapper onClick={handleBlockSelect}>
+          <InnerWrapper>
             <BlockTypeLabel>{block.type}</BlockTypeLabel>
             {renderBlockType(block, isBlockSelected)}
             <ActionBar

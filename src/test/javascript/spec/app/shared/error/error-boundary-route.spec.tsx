@@ -31,7 +31,7 @@ describe('error-boundary-route component', () => {
     const comp = mount(
       renderFn({
         location: '/',
-      })
+      }),
     );
     expect(comp.length).toEqual(1);
     expect(comp.html()).toEqual('<div><h2 class="error">An unexpected error has occurred.</h2></div>');

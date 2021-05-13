@@ -25,7 +25,7 @@ export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset, login 
     () => () => {
       reset();
     },
-    []
+    [],
   );
 
   const handleValidSubmit = (event, values) => {
@@ -120,7 +120,7 @@ export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset, login 
 const mapDispatchToProps = {
   handleRegister: handleRegisterAction,
   login: loginAction,
-  reset: resetAction
+  reset: resetAction,
 };
 type DispatchProps = typeof mapDispatchToProps;
 

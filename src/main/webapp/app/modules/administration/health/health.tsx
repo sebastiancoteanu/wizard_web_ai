@@ -71,7 +71,7 @@ export const HealthPage = (props: IHealthPageProps) => {
                       ) : null}
                     </td>
                   </tr>
-                ) : null
+                ) : null,
               )}
             </tbody>
           </Table>

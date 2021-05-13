@@ -7,11 +7,13 @@ const SecondaryButton = styled(BaseButton)`
   height: 40px;
   border-radius: 40px;
   background:  ${({ theme }) => theme.palette.neutral.white};
-  color: ${({ theme }): string => theme.palette.primary.main};
+  color: ${({ theme }) => theme.palette.primary.main};
   box-shadow: 4px 4px 5px 0 rgba(13, 39, 80, 0.16);
+  
+  transition: all 0.1s ease-in;
 
-  &:hover {
-    color: ${({ theme }): string => theme.palette.primary.main};
+  &:hover, &:focus, &:active {
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 
   &:disabled {

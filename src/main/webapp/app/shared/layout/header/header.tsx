@@ -40,14 +40,14 @@ const Header: FC<IHeaderProps> = ({ children }) => {
       <Navigation>
         {children}
       </Navigation>
-        {/*<NavbarToggler aria-label="Menu" onClick={toggleMenu} />*/}
-        {/*<Collapse isOpen={menuOpen} navbar>*/}
-        {/*  <Nav id="header-tabs" className="ml-auto" navbar>*/}
-        {/*    {props.isAuthenticated && props.isAdmin && <EntitiesMenu />}*/}
-        {/*    {props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}*/}
-        {/*    <AccountMenu isAuthenticated={props.isAuthenticated} />*/}
-        {/*  </Nav>*/}
-        {/*</Collapse>*/}
+      {/* <NavbarToggler aria-label="Menu" onClick={toggleMenu} />*/}
+      {/* <Collapse isOpen={menuOpen} navbar>*/}
+      {/*  <Nav id="header-tabs" className="ml-auto" navbar>*/}
+      {/*    {props.isAuthenticated && props.isAdmin && <EntitiesMenu />}*/}
+      {/*    {props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}*/}
+      {/*    <AccountMenu isAuthenticated={props.isAuthenticated} />*/}
+      {/*  </Nav>*/}
+      {/* </Collapse>*/}
     </div>
   );
 };

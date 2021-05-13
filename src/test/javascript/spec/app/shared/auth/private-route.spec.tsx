@@ -15,7 +15,7 @@ describe('private-route component', () => {
 
   it('Should render an error message when the user has no authorities', () => {
     const route = shallow(
-      <PrivateRouteComponent component={TestComp} isAuthenticated sessionHasBeenFetched isAuthorized={false} path="/" />
+      <PrivateRouteComponent component={TestComp} isAuthenticated sessionHasBeenFetched isAuthorized={false} path="/" />,
     );
     const renderedRoute = route.find(Route);
     const props = renderedRoute.props() as any;
@@ -23,7 +23,7 @@ describe('private-route component', () => {
     const comp = shallow(
       renderFn({
         location: '/',
-      })
+      }),
     );
     expect(comp.length).toEqual(1);
     const error = comp.find('div.insufficient-authority');
@@ -42,7 +42,7 @@ describe('private-route component', () => {
     const comp = shallow(
       renderFn({
         location: '/',
-      })
+      }),
     );
     expect(comp.length).toEqual(1);
     expect(comp.html()).toEqual('<div>Test</div>');
@@ -50,7 +50,7 @@ describe('private-route component', () => {
 
   it('Should render a redirect to login when not authenticated', () => {
     const route = shallow(
-      <PrivateRouteComponent component={TestComp} isAuthenticated={false} sessionHasBeenFetched isAuthorized path="/" />
+      <PrivateRouteComponent component={TestComp} isAuthenticated={false} sessionHasBeenFetched isAuthorized path="/" />,
     );
     const renderedRoute = route.find(Route);
     expect(renderedRoute.length).toEqual(1);
@@ -61,8 +61,8 @@ describe('private-route component', () => {
       shallow(
         renderFn({
           location: '/',
-        })
-      ).html()
+        }),
+      ).html(),
     ).toThrow(Error);
   });
 });

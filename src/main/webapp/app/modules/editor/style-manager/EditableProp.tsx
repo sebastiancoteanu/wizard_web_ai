@@ -9,7 +9,8 @@ const Wrapper = styled.div`
 
 const Input = styled.input`
   transition: all ease-in 0.1s;
-  border: none;
+  border: 1px solid ${({ theme }) => `${theme.colors.darkestGray}8c`};
+  border-radius: 2px;
   background: ${({theme}) => theme.colors.gray} none;
   color: ${({ theme }) => `${theme.colors.lightestGray}bd`};
   display: flex;

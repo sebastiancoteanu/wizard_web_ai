@@ -40,7 +40,7 @@ const render = Component =>
         </ThemeProvider>
       </Provider>
     </ErrorBoundary>,
-    rootEl
+    rootEl,
   );
 
 render(AppComponent);

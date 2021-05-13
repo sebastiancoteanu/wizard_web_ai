@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 60px);
-  width: 300px;
+  flex: 0 0 300px;
   background: ${({ theme }) => theme.colors.gray};
   color: ${({ theme }) => theme.colors.lightestGray};
 `;
@@ -50,6 +50,10 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
         <InlineGroupProps>
           <EditableProp name="fontSize" label="Font size" value={cssProps?.fontSize} onChange={handleOnChange} />
           <EditableProp name="fontWeight" label="Font weight" value={cssProps?.fontWeight} onChange={handleOnChange} />
+        </InlineGroupProps>
+        <InlineGroupProps>
+          <EditableProp name="letterSpacing" label="Letter spacing" value={cssProps?.letterSpacing} onChange={handleOnChange} />
+          <EditableProp name="textDecoration" label="Text decoration" value={cssProps?.textDecoration} onChange={handleOnChange} />
         </InlineGroupProps>
         <InlineGroupProps>
           <EditableProp name="color" label="Font color" value={cssProps?.color} type="color" onChange={handleOnChange} />

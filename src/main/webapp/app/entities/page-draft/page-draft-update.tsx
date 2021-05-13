@@ -88,10 +88,10 @@ export const PageDraftUpdate = (props: IPageDraftUpdateProps) => {
                   <option value="" key="0" />
                   {pages
                     ? pages.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>

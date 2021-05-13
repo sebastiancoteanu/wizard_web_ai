@@ -11,16 +11,19 @@ const Wrapper = styled.div`
 `;
 
 interface Props extends Pick<IBlock, 'options'>{
-  sources: string[];
   isSelected: boolean;
 }
 
-const ThreeImageGallery: FC<Props> = ({ sources = Array(3), isSelected, options }) => (
-  <Wrapper>
-    <ImageWithPlaceholder src={sources[0]} isSelected={isSelected} options={options} />
-    <ImageWithPlaceholder src={sources[1]} isSelected={isSelected} options={options} />
-    <ImageWithPlaceholder src={sources[2]} isSelected={isSelected} options={options} />
-  </Wrapper>
-);
+const ThreeImageGallery: FC<Props> = ({ isSelected, options }) => {
+  const sources = options?.content || Array(3).fill('');
+
+  return (
+    <Wrapper>
+      {sources.map((source, index) => (
+        <ImageWithPlaceholder src={source} key={`${source}-${index}`} isSelected={isSelected} options={options} index={index} />
+      ))}
+    </Wrapper>
+  );
+}
 
 export default ThreeImageGallery;

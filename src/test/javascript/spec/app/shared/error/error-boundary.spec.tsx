@@ -23,7 +23,7 @@ describe('error component', () => {
     mount(
       <ErrorBoundary>
         <ErrorComp />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
     expect(spy).toHaveBeenCalled();
   });

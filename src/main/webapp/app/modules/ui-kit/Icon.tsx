@@ -4,16 +4,16 @@ import { IconProps, IconSize } from "app/modules/ui-kit/types";
 
 const sizeToPixel = (size: IconSize): string => {
   switch (size) {
-    case IconSize.SMALLEST:
-      return '0.8em';
-    case IconSize.SMALL:
-      return '1em';
-    case IconSize.MEDIUM:
-      return '1.8em';
-    case IconSize.LARGE:
-      return '2.6em';
-    default:
-      return '1.5em';
+  case IconSize.SMALLEST:
+    return '0.8em';
+  case IconSize.SMALL:
+    return '1em';
+  case IconSize.MEDIUM:
+    return '1.8em';
+  case IconSize.LARGE:
+    return '2.6em';
+  default:
+    return '1.5em';
   }
 };
 

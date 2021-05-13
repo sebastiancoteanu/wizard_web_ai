@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import StyleSection from "app/modules/editor/style-manager/StyleSection";
 import styled from "styled-components";
 import EditableProp from "app/modules/editor/style-manager/EditableProp";
-import SpacingSectionBox from "app/modules/editor/style-manager/spacing-section/SpacingSeciontBox";
+import SpacingSectionBox from "app/modules/editor/style-manager/spacing-section/SpacingSectionBox";
 
 const InnerWrapper = styled.div`
   width: 100%;

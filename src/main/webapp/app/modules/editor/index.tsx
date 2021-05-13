@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { IBlock } from "app/shared/model/block.model";
 import { BlockState, setPageBlocks } from "app/entities/block/block.reducer";
-import { copy, reorder } from "app/utils/blockDrag";
+import { copy, reorder } from "app/utils/blockManipulation";
 import StyleManager from "app/modules/editor/style-manager";
 
 const EditorWorkingSpace = styled.div`

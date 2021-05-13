@@ -112,10 +112,10 @@ export const BlockUpdate = (props: IBlockUpdateProps) => {
                   <option value="" key="0" />
                   {pageDrafts
                     ? pageDrafts.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>

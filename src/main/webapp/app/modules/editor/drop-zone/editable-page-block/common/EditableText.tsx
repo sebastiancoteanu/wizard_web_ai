@@ -1,10 +1,8 @@
 import React, { ChangeEvent, FC } from 'react';
 import styled, { CSSProperties } from "styled-components";
 import TextareaAutosize from 'react-textarea-autosize';
-import { IBlockOptions } from "app/shared/model/block.model";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "app/shared/reducers";
-import { BlockState, updateEditingPageBlockContent, updateEditingPageBlockCss } from "app/entities/block/block.reducer";
+import { updateEditingPageBlockContent } from "app/entities/block/block.reducer";
 import useCurrentEditingBlock from "app/modules/editor/style-manager/useCurrentEditingBlock";
 
 const StyledTextArea = styled(TextareaAutosize)`
@@ -19,20 +17,18 @@ const StyledTextArea = styled(TextareaAutosize)`
   }
 `;
 
-const TextArea = styled(StyledTextArea)`
-  font-size: inherit;
-  line-height: inherit;
-  font-weight: inherit;
-  color: inherit;
-  background: inherit;
-`;
+const TextArea = styled(StyledTextArea)<{ cssProps: CSSProperties}>(({ cssProps }) => ({
+  ...cssProps,
+  margin: '0 !important',
+  padding: '0 !important',
+}));
 
 interface Props {
   cssProps?: CSSProperties;
   placeHolder: string;
 }
 
-const EditableText: FC<Props> = ({ placeHolder }) => {
+const EditableText: FC<Props> = ({ placeHolder, cssProps }) => {
   const editingBlock = useCurrentEditingBlock();
   const dispatch = useDispatch()
 
@@ -43,7 +39,7 @@ const EditableText: FC<Props> = ({ placeHolder }) => {
   };
 
   return (
-    <TextArea placeholder={content} value={content} onChange={handleOnChange} autoFocus/>
+    <TextArea cssProps={cssProps} placeholder={content} value={content} onChange={handleOnChange} autoFocus/>
   );
 }
 

@@ -54,10 +54,10 @@ export const UserManagementDetail = (props: IUserManagementDetailProps) => {
             <ul className="list-unstyled">
               {user.authorities
                 ? user.authorities.map((authority, i) => (
-                    <li key={`user-auth-${i}`}>
-                      <Badge color="info">{authority}</Badge>
-                    </li>
-                  ))
+                  <li key={`user-auth-${i}`}>
+                    <Badge color="info">{authority}</Badge>
+                  </li>
+                ))
                 : null}
             </ul>
           </dd>

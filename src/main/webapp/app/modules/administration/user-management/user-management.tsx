@@ -15,7 +15,7 @@ export interface IUserManagementProps extends StateProps, DispatchProps, RouteCo
 
 export const UserManagement = (props: IUserManagementProps) => {
   const [pagination, setPagination] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
+    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search),
   );
 
   useEffect(() => {
@@ -125,10 +125,10 @@ export const UserManagement = (props: IUserManagementProps) => {
               <td>
                 {user.authorities
                   ? user.authorities.map((authority, j) => (
-                      <div key={`user-auth-${i}-${j}`}>
-                        <Badge color="info">{authority}</Badge>
-                      </div>
-                    ))
+                    <div key={`user-auth-${i}-${j}`}>
+                      <Badge color="info">{authority}</Badge>
+                    </div>
+                  ))
                   : null}
               </td>
               <td>

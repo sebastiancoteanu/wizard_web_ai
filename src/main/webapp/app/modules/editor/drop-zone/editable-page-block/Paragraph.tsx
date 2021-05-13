@@ -13,7 +13,7 @@ const PreStyledParagraph = styled.p`
 `;
 
 const StyledParagraph = styled(PreStyledParagraph)<{ cssProps: CSSProperties}>(({ cssProps }) => ({
-  ...cssProps
+  ...cssProps,
 }));
 
 interface Props extends Pick<IBlock, 'options'> {
@@ -27,7 +27,7 @@ const Paragraph: FC<Props> = ({ isSelected, options }) => {
   return (
     <StyledParagraph cssProps={options?.cssProperties}>
       {isSelected ? (
-        <EditableText placeHolder={textPlaceholder} />
+        <EditableText cssProps={options?.cssProperties} placeHolder={textPlaceholder} />
       ) : text}
     </StyledParagraph>
   );

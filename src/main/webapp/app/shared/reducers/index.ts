@@ -13,23 +13,23 @@ import settings, { SettingsState } from 'app/modules/account/settings/settings.r
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
 import appUser, {
-  AppUserState
+  AppUserState,
 } from 'app/entities/app-user/app-user.reducer';
 // prettier-ignore
 import website, {
-  WebsiteState
+  WebsiteState,
 } from 'app/entities/website/website.reducer';
 // prettier-ignore
 import page, {
-  PageState
+  PageState,
 } from 'app/entities/page/page.reducer';
 // prettier-ignore
 import pageDraft, {
-  PageDraftState
+  PageDraftState,
 } from 'app/entities/page-draft/page-draft.reducer';
 // prettier-ignore
 import block, {
-  BlockState
+  BlockState,
 } from 'app/entities/block/block.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 

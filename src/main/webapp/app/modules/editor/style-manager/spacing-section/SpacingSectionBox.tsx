@@ -24,7 +24,7 @@ const EditableSpaceProp = styled(EditableProp)`
   max-width: 40px;
   justify-content: center;
   
-  > input {
+  > input, input:focus {
     background-color: transparent;
     -webkit-box-shadow: none;
   }
@@ -32,6 +32,7 @@ const EditableSpaceProp = styled(EditableProp)`
   > input {
     text-align: center;
     padding: 0;
+    border: none;
   }
 `;
 

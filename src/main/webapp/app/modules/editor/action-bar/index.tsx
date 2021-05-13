@@ -5,7 +5,11 @@ import { Icons } from "app/modules/assets/fonts/icons";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import { IconSize } from "app/modules/ui-kit/types";
 import { useDispatch } from "react-redux";
-import { deletePageBlock, moveBlockOnePosition } from "app/entities/block/block.reducer";
+import {
+  deletePageBlock,
+  duplicateBlock as duplicatePageBlock,
+  moveBlockOnePosition,
+} from "app/entities/block/block.reducer";
 import { BlockMove } from "app/modules/editor/action-bar/types";
 
 const reveal = keyframes`
@@ -65,7 +69,9 @@ const ActionBar: FC<Props> = ({ dragProps, isSelected, index   }) => {
       return;
     }
     dispatch(moveBlockOnePosition(index, index + direction))
-  }
+  };
+
+  const duplicateBlock = () => dispatch(duplicatePageBlock(index));
 
   return (
     <Wrapper isSelected={isSelected}>
@@ -74,6 +80,7 @@ const ActionBar: FC<Props> = ({ dragProps, isSelected, index   }) => {
       </GrabButtonWrapper>
       <ActionButton name={Icons.UpArrow} size={IconSize.SMALL} onClick={() => moveBlock(BlockMove.UP)}/>
       <ActionButton name={Icons.DownArrow} size={IconSize.SMALL} onClick={() => moveBlock(BlockMove.DOWN)} />
+      <ActionButton name={Icons.Copy} size={IconSize.SMALL} onClick={duplicateBlock} />
       <ActionButton name={Icons.Delete} size={IconSize.SMALL} onClick={handleDeleteBlock}/>
     </Wrapper>
   );

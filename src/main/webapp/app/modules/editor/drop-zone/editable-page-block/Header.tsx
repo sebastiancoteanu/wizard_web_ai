@@ -11,7 +11,7 @@ const PreStyledHeader = styled.h1`
 `;
 
 const StyledHeader = styled(PreStyledHeader)<{ cssProps: CSSProperties}>(({ cssProps }) => ({
-  ...cssProps
+  ...cssProps,
 }));
 
 interface Props extends Pick<IBlock, 'options'> {
@@ -24,7 +24,7 @@ const Header: FC<Props> = ({ isSelected, options }) => {
   return (
     <StyledHeader cssProps={options?.cssProperties}>
       {isSelected ? (
-        <EditableText placeHolder={textPlaceholder} />
+        <EditableText cssProps={options?.cssProperties} placeHolder={textPlaceholder} />
       ) : text}
     </StyledHeader>
   );

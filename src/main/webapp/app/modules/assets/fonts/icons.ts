@@ -1,8 +1,10 @@
 export type IconsId =
   | 'arrowhead-pointing-to-the-right'
+  | 'cancel'
   | 'caret-down'
   | 'check-mark'
   | 'close'
+  | 'copy'
   | 'delete'
   | 'down-arrow'
   | 'drag'
@@ -10,6 +12,7 @@ export type IconsId =
   | 'header'
   | 'image'
   | 'paragraph'
+  | 'pen'
   | 'picture'
   | 'teachers-uix-logo'
   | 'three-image'
@@ -18,9 +21,11 @@ export type IconsId =
 
 export type IconsKey =
   | 'ArrowheadPointingToTheRight'
+  | 'Cancel'
   | 'CaretDown'
   | 'CheckMark'
   | 'Close'
+  | 'Copy'
   | 'Delete'
   | 'DownArrow'
   | 'Drag'
@@ -28,6 +33,7 @@ export type IconsKey =
   | 'Header'
   | 'Image'
   | 'Paragraph'
+  | 'Pen'
   | 'Picture'
   | 'TeachersUixLogo'
   | 'ThreeImage'
@@ -36,9 +42,11 @@ export type IconsKey =
 
 export enum Icons {
   ArrowheadPointingToTheRight = 'arrowhead-pointing-to-the-right',
+  Cancel = 'cancel',
   CaretDown = 'caret-down',
   CheckMark = 'check-mark',
   Close = 'close',
+  Copy = 'copy',
   Delete = 'delete',
   DownArrow = 'down-arrow',
   Drag = 'drag',
@@ -46,6 +54,7 @@ export enum Icons {
   Header = 'header',
   Image = 'image',
   Paragraph = 'paragraph',
+  Pen = 'pen',
   Picture = 'picture',
   TeachersUixLogo = 'teachers-uix-logo',
   ThreeImage = 'three-image',
@@ -55,19 +64,22 @@ export enum Icons {
 
 export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.ArrowheadPointingToTheRight]: '61697',
-  [Icons.CaretDown]: '61698',
-  [Icons.CheckMark]: '61699',
-  [Icons.Close]: '61700',
-  [Icons.Delete]: '61701',
-  [Icons.DownArrow]: '61702',
-  [Icons.Drag]: '61703',
-  [Icons.HamburgerMenu]: '61704',
-  [Icons.Header]: '61705',
-  [Icons.Image]: '61706',
-  [Icons.Paragraph]: '61707',
-  [Icons.Picture]: '61708',
-  [Icons.TeachersUixLogo]: '61709',
-  [Icons.ThreeImage]: '61710',
-  [Icons.UpArrow]: '61711',
-  [Icons.User]: '61712',
+  [Icons.Cancel]: '61698',
+  [Icons.CaretDown]: '61699',
+  [Icons.CheckMark]: '61700',
+  [Icons.Close]: '61701',
+  [Icons.Copy]: '61702',
+  [Icons.Delete]: '61703',
+  [Icons.DownArrow]: '61704',
+  [Icons.Drag]: '61705',
+  [Icons.HamburgerMenu]: '61706',
+  [Icons.Header]: '61707',
+  [Icons.Image]: '61708',
+  [Icons.Paragraph]: '61709',
+  [Icons.Pen]: '61710',
+  [Icons.Picture]: '61711',
+  [Icons.TeachersUixLogo]: '61712',
+  [Icons.ThreeImage]: '61713',
+  [Icons.UpArrow]: '61714',
+  [Icons.User]: '61715',
 };

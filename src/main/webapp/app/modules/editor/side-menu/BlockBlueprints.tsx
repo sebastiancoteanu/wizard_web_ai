@@ -18,12 +18,12 @@ const Wrapper = styled.div`
   padding-top: 60px;
   overflow: hidden;
   height: calc(100vh - 60px);
+  flex: 0 0 250px;
 `;
 
 const InnerWrapper = styled.div<{ isDraggingOver: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 250px;
   background: transparent;
   animation: ${slideAnimation} .2s ease-in 0s normal forwards;
   padding: 0 20px 60px;

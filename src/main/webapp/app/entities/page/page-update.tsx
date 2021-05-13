@@ -101,10 +101,10 @@ export const PageUpdate = (props: IPageUpdateProps) => {
                   <option value="" key="0" />
                   {websites
                     ? websites.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>

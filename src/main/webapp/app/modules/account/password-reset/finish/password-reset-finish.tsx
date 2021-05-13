@@ -18,7 +18,7 @@ export const PasswordResetFinishPage = (props: IPasswordResetFinishProps) => {
     () => () => {
       props.reset();
     },
-    []
+    [],
   );
 
   const handleValidSubmit = (event, values) => props.handlePasswordResetFinish(key, values.newPassword);

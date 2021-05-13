@@ -65,7 +65,7 @@ export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string
 
 const mapStateToProps = (
   { authentication: { isAuthenticated, account, sessionHasBeenFetched } }: IRootState,
-  { hasAnyAuthorities = [] }: IOwnProps
+  { hasAnyAuthorities = [] }: IOwnProps,
 ) => ({
   isAuthenticated,
   isAuthorized: hasAnyAuthority(account.authorities, hasAnyAuthorities),

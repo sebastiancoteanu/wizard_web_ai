@@ -4,6 +4,9 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "block-spacing": "error",
+    "comma-dangle": ["error", "always-multiline"],
+    "indent": ["error", 2]
   }
 }

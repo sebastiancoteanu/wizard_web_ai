@@ -36,7 +36,7 @@ const withClickInside: Hook = () => {
   return {
     wrapperRef,
     isClickedInside,
-    clickInside
+    clickInside,
   }
 };
 

@@ -7,7 +7,7 @@ const PrimaryButton = styled(BaseButton)`
   height: 40px;
   border-radius: 40px;
   background:  ${({ theme }) => (
-          ` linear-gradient(
+    ` linear-gradient(
       104deg, 
       ${theme.palette.primary.main} 9%, 
       ${theme.palette.primary.second} 92%
@@ -15,7 +15,7 @@ const PrimaryButton = styled(BaseButton)`
   )};
   color: ${({ theme }) => theme.palette.neutral.white};
   box-shadow: 4px 4px 5px 0 rgba(13, 39, 80, 0.16);
-  transition: background .2s, box-shadow .2s;
+  transition: all .1s ease-in;
 
   &:hover {
     background:  ${({ theme }) => theme.palette.neutral.white};
