@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import styled, { css, keyframes } from "styled-components";
 import IconButton from "app/modules/ui-kit/IconButton";
 import { Icons } from "app/modules/assets/fonts/icons";
@@ -56,8 +56,9 @@ interface Props {
 const ActionBar: FC<Props> = ({ dragProps, isSelected, index   }) => {
   const dispatch = useDispatch();
 
-  const handleDeleteBlock = () => {
+  const handleDeleteBlock = (e: MouseEvent) => {
     dispatch(deletePageBlock(index));
+    e.stopPropagation();
   }
 
   /**

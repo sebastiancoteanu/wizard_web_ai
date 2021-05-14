@@ -56,9 +56,7 @@ const SideMenu: FC = () => {
         onClick={() => setMenuOpen(!isMenuOpen)}
       />
       <InnerWrapper isMenuOpen={isMenuOpen}>
-        {isMenuOpen && (
-          <MenuItems />
-        )}
+        {isMenuOpen && <MenuItems />}
       </InnerWrapper>
     </Wrapper>
   );

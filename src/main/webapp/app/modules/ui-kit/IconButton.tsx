@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { IconProps } from "app/modules/ui-kit/types";
 import Icon from "app/modules/ui-kit/Icon";
 import styled from "styled-components";
@@ -18,7 +18,7 @@ const Button = styled(BaseButton)`
 `
 
 interface IconButtonProps extends IconProps {
-  onClick?: () => void
+  onClick?: (e: MouseEvent) => void
 }
 
 const IconButton: FC<IconButtonProps> = ({

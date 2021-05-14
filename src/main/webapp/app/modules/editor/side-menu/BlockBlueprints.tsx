@@ -8,7 +8,6 @@ import { EDITOR_BLUEPRINTS_ID } from "app/config/constants";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
 `;
 
 const BlockBlueprints: FC = () => (

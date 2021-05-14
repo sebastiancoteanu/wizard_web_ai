@@ -85,11 +85,11 @@ const EditablePageBlock: FC<Props> = ({ index, block }) => {
     if ((e.key === 'Delete' || e.key === 'Backspace') && isBlockSelected && (e.target as HTMLElement).id === WRAPPER_ID) {
       dispatch(deletePageBlock(index));
     }
-  }
+  };
 
   const handleBlockSelect = () => {
     dispatch(setEditingPageBlock(block.id));
-  }
+  };
 
   return (
     <Draggable draggableId={String(block.id)} index={index}>

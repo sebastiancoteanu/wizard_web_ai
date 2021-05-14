@@ -5,6 +5,7 @@ import { MenuItemsTypes } from "app/modules/editor/side-menu/types";
 import { Icons } from "app/modules/assets/fonts/icons";
 import Icon from "app/modules/ui-kit/Icon";
 import BlockBlueprints from "app/modules/editor/side-menu/BlockBlueprints";
+import Pages from "app/modules/editor/side-menu/pages";
 
 const Wrapper = styled.div`
 `;
@@ -12,6 +13,7 @@ const Wrapper = styled.div`
 const Items = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
 `;
 
 const Item = styled(TextButton)<{ active: boolean }>`
@@ -43,6 +45,17 @@ const BackIcon = styled(Icon)`
 
 const menuItems = [MenuItemsTypes.PAGES, MenuItemsTypes.BLUEPRINTS];
 
+const renderActiveItem = (itemType: MenuItemsTypes) => {
+  switch (itemType) {
+    case MenuItemsTypes.BLUEPRINTS:
+      return <BlockBlueprints/>;
+    case MenuItemsTypes.PAGES:
+      return <Pages />;
+    default:
+      return null;
+  }
+};
+
 const MenuItems = () => {
   const [activeItem, setActiveItem] = useState(-1);
   return (
@@ -55,9 +68,7 @@ const MenuItems = () => {
           </Item>
         ))}
       </Items>
-      {(activeItem >= 0 && menuItems[activeItem] === MenuItemsTypes.BLUEPRINTS) && (
-        <BlockBlueprints />
-      )}
+      {activeItem >= 0 && renderActiveItem(menuItems[activeItem])}
     </Wrapper>
   );
 };

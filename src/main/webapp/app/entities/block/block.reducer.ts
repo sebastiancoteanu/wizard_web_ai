@@ -107,6 +107,7 @@ export default (state: BlockState = initialState, action): BlockState => {
     case ACTION_TYPES.DELETE_PAGE_BLOCK:
       return {
         ...state,
+        editingBlockId: state.editingBlockId === state.entities[action.payload].id ? null : state.editingBlockId,
         entities: state.entities.filter((_, index) => index !== action.payload),
       };
     case ACTION_TYPES.MOVE_PAGE_BLOCK_ONE_POSITION:
