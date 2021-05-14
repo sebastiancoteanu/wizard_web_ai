@@ -23,6 +23,7 @@
     "loaders.css": "0.1.2",
     "lodash": "4.17.15",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
     "moment": "2.24.0",
     "nanoid": "^3.1.22",
     "react": "17.0.0",

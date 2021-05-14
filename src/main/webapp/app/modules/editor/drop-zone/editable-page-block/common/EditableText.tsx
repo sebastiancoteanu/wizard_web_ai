@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FC } from 'react';
 import styled, { CSSProperties } from "styled-components";
 import TextareaAutosize from 'react-textarea-autosize';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateEditingPageBlockContent } from "app/entities/block/block.reducer";
 import useCurrentEditingBlock from "app/modules/editor/style-manager/useCurrentEditingBlock";
 
-const StyledTextArea = styled(TextareaAutosize)`
+const StyledTextArea = styled(TextareaAutosize)<{ cssProps: CSSProperties}>`
   width: 100%;
   border: none;
   margin: 0;
@@ -17,7 +17,7 @@ const StyledTextArea = styled(TextareaAutosize)`
   }
 `;
 
-const TextArea = styled(StyledTextArea)<{ cssProps: CSSProperties}>(({ cssProps }) => ({
+const TextArea = styled(StyledTextArea)(({ cssProps }) => ({
   ...cssProps,
   margin: '0 !important',
   padding: '0 !important',
@@ -39,8 +39,15 @@ const EditableText: FC<Props> = ({ placeHolder, cssProps }) => {
   };
 
   return (
-    <TextArea cssProps={cssProps} placeholder={content} value={content} onChange={handleOnChange} autoFocus/>
+    <TextArea
+      spellCheck={false}
+      placeholder={content}
+      value={content}
+      onChange={handleOnChange}
+      autoFocus
+      {...{cssProps}}
+    />
   );
-}
+};
 
 export default EditableText;

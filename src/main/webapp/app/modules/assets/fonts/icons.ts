@@ -11,6 +11,7 @@ export type IconsId =
   | 'hamburger-menu'
   | 'header'
   | 'image'
+  | 'left-arrow'
   | 'paragraph'
   | 'pen'
   | 'picture'
@@ -32,6 +33,7 @@ export type IconsKey =
   | 'HamburgerMenu'
   | 'Header'
   | 'Image'
+  | 'LeftArrow'
   | 'Paragraph'
   | 'Pen'
   | 'Picture'
@@ -53,6 +55,7 @@ export enum Icons {
   HamburgerMenu = 'hamburger-menu',
   Header = 'header',
   Image = 'image',
+  LeftArrow = 'left-arrow',
   Paragraph = 'paragraph',
   Pen = 'pen',
   Picture = 'picture',
@@ -75,11 +78,12 @@ export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.HamburgerMenu]: '61706',
   [Icons.Header]: '61707',
   [Icons.Image]: '61708',
-  [Icons.Paragraph]: '61709',
-  [Icons.Pen]: '61710',
-  [Icons.Picture]: '61711',
-  [Icons.TeachersUixLogo]: '61712',
-  [Icons.ThreeImage]: '61713',
-  [Icons.UpArrow]: '61714',
-  [Icons.User]: '61715',
+  [Icons.LeftArrow]: '61709',
+  [Icons.Paragraph]: '61710',
+  [Icons.Pen]: '61711',
+  [Icons.Picture]: '61712',
+  [Icons.TeachersUixLogo]: '61713',
+  [Icons.ThreeImage]: '61714',
+  [Icons.UpArrow]: '61715',
+  [Icons.User]: '61716',
 };

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo, KeyboardEvent } from 'react';
 import { BlockType } from "app/shared/model/enumerations/block-type.model";
 import { Draggable } from "react-beautiful-dnd";
 import styled, { css } from "styled-components";
@@ -9,8 +9,9 @@ import Header from "app/modules/editor/drop-zone/editable-page-block/Header";
 import ThreeImageGallery from "app/modules/editor/drop-zone/editable-page-block/ThreeImageGallery";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
-import { setEditingPageBlock } from "app/entities/block/block.reducer";
+import { deletePageBlock, setEditingPageBlock } from "app/entities/block/block.reducer";
 import SingleImage from "app/modules/editor/drop-zone/editable-page-block/SingleImage";
+import generateId from "app/utils/generateId";
 
 const BlockTypeLabel = styled.div`
   background: ${({ theme }) => theme.palette.primary.main};
@@ -75,8 +76,16 @@ interface Props {
 }
 
 const EditablePageBlock: FC<Props> = ({ index, block }) => {
+  const WRAPPER_ID = useMemo(() => String(generateId()), []);
+
   const isBlockSelected = useSelector<IRootState, boolean>(state => state.block.editingBlockId === block.id);
   const dispatch = useDispatch();
+
+  const handleDeleteBlock = (e: KeyboardEvent<HTMLDivElement>) => {
+    if ((e.key === 'Delete' || e.key === 'Backspace') && isBlockSelected && (e.target as HTMLElement).id === WRAPPER_ID) {
+      dispatch(deletePageBlock(index));
+    }
+  }
 
   const handleBlockSelect = () => {
     dispatch(setEditingPageBlock(block.id));
@@ -86,11 +95,14 @@ const EditablePageBlock: FC<Props> = ({ index, block }) => {
     <Draggable draggableId={String(block.id)} index={index}>
       {(provided) => (
         <Wrapper
+          id={WRAPPER_ID}
           ref={provided.innerRef}
           {...provided.draggableProps}
           style={provided.draggableProps.style}
           onClick={handleBlockSelect}
           isSelected={isBlockSelected}
+          tabIndex={1}
+          onKeyDown={handleDeleteBlock}
         >
           <InnerWrapper>
             <BlockTypeLabel>{block.type}</BlockTypeLabel>
