@@ -11,14 +11,18 @@ export type IconsId =
   | 'hamburger-menu'
   | 'header'
   | 'image'
+  | 'invisible'
   | 'left-arrow'
   | 'paragraph'
   | 'pen'
   | 'picture'
+  | 'scroll'
   | 'teachers-uix-logo'
   | 'three-image'
   | 'up-arrow'
-  | 'user';
+  | 'user'
+  | 'vertical'
+  | 'visible';
 
 export type IconsKey =
   | 'ArrowheadPointingToTheRight'
@@ -33,14 +37,18 @@ export type IconsKey =
   | 'HamburgerMenu'
   | 'Header'
   | 'Image'
+  | 'Invisible'
   | 'LeftArrow'
   | 'Paragraph'
   | 'Pen'
   | 'Picture'
+  | 'Scroll'
   | 'TeachersUixLogo'
   | 'ThreeImage'
   | 'UpArrow'
-  | 'User';
+  | 'User'
+  | 'Vertical'
+  | 'Visible';
 
 export enum Icons {
   ArrowheadPointingToTheRight = 'arrowhead-pointing-to-the-right',
@@ -55,14 +63,18 @@ export enum Icons {
   HamburgerMenu = 'hamburger-menu',
   Header = 'header',
   Image = 'image',
+  Invisible = 'invisible',
   LeftArrow = 'left-arrow',
   Paragraph = 'paragraph',
   Pen = 'pen',
   Picture = 'picture',
+  Scroll = 'scroll',
   TeachersUixLogo = 'teachers-uix-logo',
   ThreeImage = 'three-image',
   UpArrow = 'up-arrow',
   User = 'user',
+  Vertical = 'vertical',
+  Visible = 'visible',
 }
 
 export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
@@ -78,12 +90,16 @@ export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.HamburgerMenu]: '61706',
   [Icons.Header]: '61707',
   [Icons.Image]: '61708',
-  [Icons.LeftArrow]: '61709',
-  [Icons.Paragraph]: '61710',
-  [Icons.Pen]: '61711',
-  [Icons.Picture]: '61712',
-  [Icons.TeachersUixLogo]: '61713',
-  [Icons.ThreeImage]: '61714',
-  [Icons.UpArrow]: '61715',
-  [Icons.User]: '61716',
+  [Icons.Invisible]: '61709',
+  [Icons.LeftArrow]: '61710',
+  [Icons.Paragraph]: '61711',
+  [Icons.Pen]: '61712',
+  [Icons.Picture]: '61713',
+  [Icons.Scroll]: '61714',
+  [Icons.TeachersUixLogo]: '61715',
+  [Icons.ThreeImage]: '61716',
+  [Icons.UpArrow]: '61717',
+  [Icons.User]: '61718',
+  [Icons.Vertical]: '61719',
+  [Icons.Visible]: '61720',
 };

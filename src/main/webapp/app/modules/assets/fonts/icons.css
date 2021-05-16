@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'icons';
-  src: url('./icons.ttf?b38587076b8657785a692e1986eb5559') format('truetype');
+  src: url('./icons.ttf?ae412f5f7c288626f0022186f720964f') format('truetype');
 }
 
 i[class^='icon-']:before,
@@ -51,27 +51,39 @@ i[class*=' icon-']:before {
 .icon-image:before {
   content: '\f10c';
 }
-.icon-left-arrow:before {
+.icon-invisible:before {
   content: '\f10d';
 }
-.icon-paragraph:before {
+.icon-left-arrow:before {
   content: '\f10e';
 }
-.icon-pen:before {
+.icon-paragraph:before {
   content: '\f10f';
 }
-.icon-picture:before {
+.icon-pen:before {
   content: '\f110';
 }
-.icon-teachers-uix-logo:before {
+.icon-picture:before {
   content: '\f111';
 }
-.icon-three-image:before {
+.icon-scroll:before {
   content: '\f112';
 }
-.icon-up-arrow:before {
+.icon-teachers-uix-logo:before {
   content: '\f113';
 }
-.icon-user:before {
+.icon-three-image:before {
   content: '\f114';
+}
+.icon-up-arrow:before {
+  content: '\f115';
+}
+.icon-user:before {
+  content: '\f116';
+}
+.icon-vertical:before {
+  content: '\f117';
+}
+.icon-visible:before {
+  content: '\f118';
 }

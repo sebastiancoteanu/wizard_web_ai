@@ -17,7 +17,7 @@ const Items = styled.div`
 `;
 
 const Item = styled(TextButton)<{ active: boolean }>`
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
   display: flex;
   justify-content: flex-start;
@@ -41,6 +41,10 @@ const Item = styled(TextButton)<{ active: boolean }>`
 const BackIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.lightestGray};
   margin-right: 12px;
+`;
+
+const ActiveItem = styled.div`
+  padding: 0 12px;
 `;
 
 const menuItems = [MenuItemsTypes.PAGES, MenuItemsTypes.BLUEPRINTS];
@@ -68,7 +72,11 @@ const MenuItems = () => {
           </Item>
         ))}
       </Items>
-      {activeItem >= 0 && renderActiveItem(menuItems[activeItem])}
+      {activeItem >= 0 && (
+        <ActiveItem>
+          {renderActiveItem(menuItems[activeItem])}
+        </ActiveItem>
+      )}
     </Wrapper>
   );
 };

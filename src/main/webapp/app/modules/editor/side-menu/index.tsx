@@ -18,11 +18,12 @@ const InnerWrapper = styled.div<{ isMenuOpen: boolean }>`
   display: flex;
   flex-direction: column;
   background: transparent;
-  padding: 0 20px 60px;
+  padding: 0 12px 60px;
 
   ${({ isMenuOpen }) => isMenuOpen ? css`
     width: 250px;
     overflow: auto;
+    overflow-x: hidden;
   ` : css`
     width: 60px;
   `}
