@@ -4,6 +4,7 @@ export type IconsId =
   | 'caret-down'
   | 'check-mark'
   | 'close'
+  | 'confirm'
   | 'copy'
   | 'delete'
   | 'down-arrow'
@@ -16,6 +17,7 @@ export type IconsId =
   | 'paragraph'
   | 'pen'
   | 'picture'
+  | 'plus'
   | 'right-arrow'
   | 'scroll'
   | 'teachers-uix-logo'
@@ -31,6 +33,7 @@ export type IconsKey =
   | 'CaretDown'
   | 'CheckMark'
   | 'Close'
+  | 'Confirm'
   | 'Copy'
   | 'Delete'
   | 'DownArrow'
@@ -43,6 +46,7 @@ export type IconsKey =
   | 'Paragraph'
   | 'Pen'
   | 'Picture'
+  | 'Plus'
   | 'RightArrow'
   | 'Scroll'
   | 'TeachersUixLogo'
@@ -58,6 +62,7 @@ export enum Icons {
   CaretDown = 'caret-down',
   CheckMark = 'check-mark',
   Close = 'close',
+  Confirm = 'confirm',
   Copy = 'copy',
   Delete = 'delete',
   DownArrow = 'down-arrow',
@@ -70,6 +75,7 @@ export enum Icons {
   Paragraph = 'paragraph',
   Pen = 'pen',
   Picture = 'picture',
+  Plus = 'plus',
   RightArrow = 'right-arrow',
   Scroll = 'scroll',
   TeachersUixLogo = 'teachers-uix-logo',
@@ -86,24 +92,26 @@ export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.CaretDown]: '61699',
   [Icons.CheckMark]: '61700',
   [Icons.Close]: '61701',
-  [Icons.Copy]: '61702',
-  [Icons.Delete]: '61703',
-  [Icons.DownArrow]: '61704',
-  [Icons.Drag]: '61705',
-  [Icons.HamburgerMenu]: '61706',
-  [Icons.Header]: '61707',
-  [Icons.Image]: '61708',
-  [Icons.Invisible]: '61709',
-  [Icons.LeftArrow]: '61710',
-  [Icons.Paragraph]: '61711',
-  [Icons.Pen]: '61712',
-  [Icons.Picture]: '61713',
-  [Icons.RightArrow]: '61714',
-  [Icons.Scroll]: '61715',
-  [Icons.TeachersUixLogo]: '61716',
-  [Icons.ThreeImage]: '61717',
-  [Icons.UpArrow]: '61718',
-  [Icons.User]: '61719',
-  [Icons.Vertical]: '61720',
-  [Icons.Visible]: '61721',
+  [Icons.Confirm]: '61702',
+  [Icons.Copy]: '61703',
+  [Icons.Delete]: '61704',
+  [Icons.DownArrow]: '61705',
+  [Icons.Drag]: '61706',
+  [Icons.HamburgerMenu]: '61707',
+  [Icons.Header]: '61708',
+  [Icons.Image]: '61709',
+  [Icons.Invisible]: '61710',
+  [Icons.LeftArrow]: '61711',
+  [Icons.Paragraph]: '61712',
+  [Icons.Pen]: '61713',
+  [Icons.Picture]: '61714',
+  [Icons.Plus]: '61715',
+  [Icons.RightArrow]: '61716',
+  [Icons.Scroll]: '61717',
+  [Icons.TeachersUixLogo]: '61718',
+  [Icons.ThreeImage]: '61719',
+  [Icons.UpArrow]: '61720',
+  [Icons.User]: '61721',
+  [Icons.Vertical]: '61722',
+  [Icons.Visible]: '61723',
 };

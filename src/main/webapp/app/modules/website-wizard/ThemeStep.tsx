@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, useState } from 'react';
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IWebsite } from "app/shared/model/website.model";
 import { useDispatch } from "react-redux";
 import { setDraftWebsite } from "app/entities/website/website.reducer";
@@ -35,9 +35,22 @@ const ThemeSelection = styled.label<{ isSelected: boolean }>`
   width: 200px;
   margin-bottom: 0;
   cursor: pointer;
-  border: 1px solid ${({ theme, isSelected }) => isSelected ? theme.palette.primary.main : 'transparent' };
+  border: 1px solid;
   overflow: hidden;
   border-radius: 4px;
+  transition: all 0.1s ease-in;
+
+  ${({ theme, isSelected }) => isSelected ? css`
+    border-color: ${theme.palette.primary.main};
+    opacity: 1;
+   ` : css`
+    border-color: transparent;
+    opacity: 0.8;
+  `}
+  
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const ThemeImage = styled.img`
