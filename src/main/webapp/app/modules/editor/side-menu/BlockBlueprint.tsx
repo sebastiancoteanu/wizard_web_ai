@@ -5,7 +5,7 @@ import { blockTypeToImageMapper } from "app/common";
 import { Draggable } from "react-beautiful-dnd";
 
 const Blueprint = styled.img<{isDragging?: boolean }>`
-  height: 200px;
+  height: auto;
   width: 100%;
   display: flex;
   justify-content: center;

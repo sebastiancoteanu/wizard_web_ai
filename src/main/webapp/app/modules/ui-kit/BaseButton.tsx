@@ -7,6 +7,8 @@ const BaseButton = styled.button`
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  transition: 0.1s all ease-in;
+  background: transparent;
 
   &:link, &:active, &:hover, &:visited, &:focus {
     text-decoration: none;

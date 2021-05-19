@@ -8,15 +8,31 @@ import { useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col, Alert, Button } from 'reactstrap';
+import { Row, Col, Button, CustomInput, Container } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { handleRegister as handleRegisterAction, reset as resetAction } from './register.reducer';
 import { login as loginAction } from "app/shared/reducers/authentication";
-
+import styled from "styled-components";
 export type IRegisterProps = DispatchProps;
 
-export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset, login }) => {
+const Wrapper = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+`;
+
+const CreatorCheck = styled(AvField)`
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+`;
+
+const RegisterButton = styled(Button)`
+  margin-top: 36px;
+`;
+
+export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset }) => {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
@@ -29,16 +45,15 @@ export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset, login 
   );
 
   const handleValidSubmit = (event, values) => {
-    handleRegister(values.username, values.email, values.firstPassword);
-    login(values.username, values.firstPassword);
-    history.push('/');
+    handleRegister(values.username, values.email, values.firstPassword, 'en', values.isCreator);
+    history.push('/login');
     event.preventDefault();
   };
 
   const updatePassword = event => setPassword(event.target.value);
 
   return (
-    <div>
+    <Wrapper>
       <Row className="justify-content-center">
         <Col md="8">
           <h1 id="register-title">Registration</h1>
@@ -97,23 +112,14 @@ export const RegisterPage: FC<IRegisterProps> = ({ handleRegister, reset, login 
                 match: { value: 'firstPassword', errorMessage: 'The password and its confirmation do not match!' },
               }}
             />
-            <Button id="register-submit" color="primary" type="submit">
+            <CreatorCheck tag={CustomInput} type="checkbox" name="isCreator" label="Are you a creator?" />
+            <RegisterButton id="register-submit" color="primary" type="submit">
               Register
-            </Button>
+            </RegisterButton>
           </AvForm>
-          <p>&nbsp;</p>
-          <Alert color="warning">
-            <span>If you want to</span>
-            <a className="alert-link"> sign in</a>
-            <span>
-              , you can try the default accounts:
-              <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-              <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-            </span>
-          </Alert>
         </Col>
       </Row>
-    </div>
+    </Wrapper>
   );
 };
 

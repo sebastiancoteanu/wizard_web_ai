@@ -112,6 +112,14 @@ export const getEntity: ICrudGetAction<IAppUser> = id => {
   };
 };
 
+export const getEntityByUserId: ICrudGetAction<IAppUser> = id => {
+  const requestUrl = `${apiUrl}/user/${id}`;
+  return {
+    type: ACTION_TYPES.FETCH_APPUSER,
+    payload: axios.get<IAppUser>(requestUrl),
+  };
+};
+
 export const createEntity: ICrudPutAction<IAppUser> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_APPUSER,

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import DevTools from './config/devtools';
 import initStore from './config/store';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import { clearAuthentication } from './shared/reducers/authentication';
@@ -13,8 +12,6 @@ import { loadIcons } from './config/icon-loader';
 import lightTheme from "app/theme/lightTheme";
 import {ThemeProvider} from "styled-components";
 import AppGlobalStyle from "app/modules/ui-kit/AppGlobalStyle";
-
-const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
 const store = initStore();
 
@@ -33,8 +30,6 @@ const render = Component =>
         <ThemeProvider theme={lightTheme}>
           <AppGlobalStyle />
           <div>
-            {/* If this slows down the app in dev disable it and enable when required  */}
-            {devTools}
             <Component />
           </div>
         </ThemeProvider>

@@ -1,8 +1,10 @@
 package com.sebastiancoteanu.teachers_uix.service;
 
 import com.sebastiancoteanu.teachers_uix.config.Constants;
+import com.sebastiancoteanu.teachers_uix.domain.AppUser;
 import com.sebastiancoteanu.teachers_uix.domain.Authority;
 import com.sebastiancoteanu.teachers_uix.domain.User;
+import com.sebastiancoteanu.teachers_uix.repository.AppUserRepository;
 import com.sebastiancoteanu.teachers_uix.repository.AuthorityRepository;
 import com.sebastiancoteanu.teachers_uix.repository.UserRepository;
 import com.sebastiancoteanu.teachers_uix.security.AuthoritiesConstants;
@@ -35,13 +37,15 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, AppUserRepository appUserRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
+        this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
     }
@@ -80,7 +84,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(UserDTO userDTO, String password, Boolean isCreator) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -111,9 +115,20 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+
+        if (isCreator) {
+          authorityRepository.findById(AuthoritiesConstants.CREATOR).ifPresent(authorities::add);
+        }
+
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
+        AppUser appUser = new AppUser();
+        appUser.setUser(newUser);
+        appUserRepository.save(appUser);
+
         log.debug("Created Information for User: {}", newUser);
+
         return newUser;
     }
 

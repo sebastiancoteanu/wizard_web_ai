@@ -15,6 +15,8 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
+    private Boolean isCreator;
+
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
     }
@@ -31,5 +33,13 @@ public class ManagedUserVM extends UserDTO {
     @Override
     public String toString() {
         return "ManagedUserVM{" + super.toString() + "} ";
+    }
+
+    public Boolean getIsCreator() {
+        return isCreator;
+    }
+
+    public void setIsCreator(Boolean creator) {
+        isCreator = creator;
     }
 }

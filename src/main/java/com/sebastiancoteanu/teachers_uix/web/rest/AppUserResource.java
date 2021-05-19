@@ -1,7 +1,10 @@
 package com.sebastiancoteanu.teachers_uix.web.rest;
 
 import com.sebastiancoteanu.teachers_uix.domain.AppUser;
+import com.sebastiancoteanu.teachers_uix.domain.User;
 import com.sebastiancoteanu.teachers_uix.repository.AppUserRepository;
+
+import com.sebastiancoteanu.teachers_uix.repository.UserRepository;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -34,9 +37,11 @@ public class AppUserResource {
     private String applicationName;
 
     private final AppUserRepository appUserRepository;
+    private final UserRepository userRepository;
 
-    public AppUserResource(AppUserRepository appUserRepository) {
+    public AppUserResource(AppUserRepository appUserRepository, UserRepository userRepository) {
         this.appUserRepository = appUserRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -100,6 +105,14 @@ public class AppUserResource {
     public ResponseEntity<AppUser> getAppUser(@PathVariable Long id) {
         log.debug("REST request to get AppUser : {}", id);
         Optional<AppUser> appUser = appUserRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(appUser);
+    }
+
+    @GetMapping("/app-users/user/{id}")
+    public ResponseEntity<AppUser> getAppUserByUserId(@PathVariable Long id) {
+        log.debug("REST request to get AppUser by user id : {}", id);
+        Optional<User> user = userRepository.findById(id);
+        Optional<AppUser> appUser = appUserRepository.findOneByUser(user.get());
         return ResponseUtil.wrapOrNotFound(appUser);
     }
 

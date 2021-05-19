@@ -7,6 +7,8 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IWebsite, defaultValue } from 'app/shared/model/website.model';
 
 export const ACTION_TYPES = {
+  SET_DRAFT_WEBSITE: 'website/SET_DRAFT_WEBSITE',
+  RESET_DRAFT_WEBSITE: 'website/RESET_DRAFT_WEBSITE',
   FETCH_WEBSITE_LIST: 'website/FETCH_WEBSITE_LIST',
   FETCH_WEBSITE: 'website/FETCH_WEBSITE',
   CREATE_WEBSITE: 'website/CREATE_WEBSITE',
@@ -90,6 +92,19 @@ export default (state: WebsiteState = initialState, action): WebsiteState => {
       return {
         ...initialState,
       };
+    case ACTION_TYPES.SET_DRAFT_WEBSITE:
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          ...action.payload,
+        },
+      };
+    case ACTION_TYPES.RESET_DRAFT_WEBSITE:
+      return {
+        ...state,
+        entity: defaultValue,
+      };
     default:
       return state;
   }
@@ -98,6 +113,15 @@ export default (state: WebsiteState = initialState, action): WebsiteState => {
 const apiUrl = 'api/websites';
 
 // Actions
+
+export const setDraftWebsite = (website: Partial<IWebsite>) => ({
+  type: ACTION_TYPES.SET_DRAFT_WEBSITE,
+  payload: website,
+});
+
+export const resetDraftWebsite = () => ({
+  type: ACTION_TYPES.RESET_DRAFT_WEBSITE,
+});
 
 export const getEntities: ICrudGetAllAction<IWebsite> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_WEBSITE_LIST,

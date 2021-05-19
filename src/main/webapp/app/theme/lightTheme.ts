@@ -38,6 +38,7 @@ const lightTheme: DefaultTheme = {
     lightGray: '#818181',
     lightestGray: '#d5d5d5',
     ivory: '#ececec',
+    lightIvory: '#F9F6FC',
     borderRadius: '4px',
   },
   special: {

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { IRootState } from 'app/shared/reducers';
@@ -20,6 +20,12 @@ export const Logout = (props: ILogoutProps) => {
         : logoutUrl + '?id_token_hint=' + props.idToken + '&post_logout_redirect_uri=' + window.location.origin;
     }
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2000);
+  }, []);
 
   return (
     <div className="p-5">

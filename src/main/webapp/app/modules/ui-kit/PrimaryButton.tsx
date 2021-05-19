@@ -17,7 +17,7 @@ const PrimaryButton = styled(BaseButton)`
   box-shadow: 4px 4px 5px 0 rgba(13, 39, 80, 0.16);
   transition: all .1s ease-in;
 
-  &:hover {
+  &:hover, &:active {
     background:  ${({ theme }) => theme.palette.neutral.white};
     color: ${({ theme }) => theme.palette.primary.main};
     box-shadow: 4px 4px 5px 0 rgba(13, 39, 80, 0.16);
@@ -27,6 +27,7 @@ const PrimaryButton = styled(BaseButton)`
     box-shadow: none;
     background:  ${({ theme }) => theme.palette.neutral.disabledGrey};
     color: ${({ theme }) => theme.palette.neutral.white};
+    border-color: ${({ theme }) => theme.palette.neutral.disabledGrey};
   }
 `;
 

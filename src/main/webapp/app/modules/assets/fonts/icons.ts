@@ -16,6 +16,7 @@ export type IconsId =
   | 'paragraph'
   | 'pen'
   | 'picture'
+  | 'right-arrow'
   | 'scroll'
   | 'teachers-uix-logo'
   | 'three-image'
@@ -42,6 +43,7 @@ export type IconsKey =
   | 'Paragraph'
   | 'Pen'
   | 'Picture'
+  | 'RightArrow'
   | 'Scroll'
   | 'TeachersUixLogo'
   | 'ThreeImage'
@@ -68,6 +70,7 @@ export enum Icons {
   Paragraph = 'paragraph',
   Pen = 'pen',
   Picture = 'picture',
+  RightArrow = 'right-arrow',
   Scroll = 'scroll',
   TeachersUixLogo = 'teachers-uix-logo',
   ThreeImage = 'three-image',
@@ -95,11 +98,12 @@ export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.Paragraph]: '61711',
   [Icons.Pen]: '61712',
   [Icons.Picture]: '61713',
-  [Icons.Scroll]: '61714',
-  [Icons.TeachersUixLogo]: '61715',
-  [Icons.ThreeImage]: '61716',
-  [Icons.UpArrow]: '61717',
-  [Icons.User]: '61718',
-  [Icons.Vertical]: '61719',
-  [Icons.Visible]: '61720',
+  [Icons.RightArrow]: '61714',
+  [Icons.Scroll]: '61715',
+  [Icons.TeachersUixLogo]: '61716',
+  [Icons.ThreeImage]: '61717',
+  [Icons.UpArrow]: '61718',
+  [Icons.User]: '61719',
+  [Icons.Vertical]: '61720',
+  [Icons.Visible]: '61721',
 };

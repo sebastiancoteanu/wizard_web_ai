@@ -39,7 +39,7 @@ const InnerWrapper = styled.div<{ isMenuOpen: boolean }>`
 `;
 
 const OpenMenuIcon = styled(IconButton)`
-  font-size: 20px;
+  font-size: 16px;
   background: #d7d7d745;
   border-radius: 50%;
   padding: 5px;

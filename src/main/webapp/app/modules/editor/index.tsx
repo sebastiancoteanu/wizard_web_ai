@@ -1,53 +1,51 @@
-import React, { FC, useState } from 'react';
-import Header from "app/shared/layout/header/header";
-import SideMenu from "app/modules/editor/side-menu";
-import TopActionButtons from "app/modules/editor/TopActionButtons";
-import DropZone from "app/modules/editor/drop-zone";
-import styled from "styled-components";
-import { DragDropContext, DragDropContextProps } from 'react-beautiful-dnd';
-import { blueprints } from "app/common";
-import { EDITOR_BLUEPRINTS_ID } from "app/config/constants";
+import React, { FC, useEffect } from 'react';
+import EditorWorkingSpace from "app/modules/editor/editor-working-space";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
-import { IBlock } from "app/shared/model/block.model";
-import { BlockState, setPageBlocks } from "app/entities/block/block.reducer";
-import { copy, reorder } from "app/utils/blockManipulation";
-import StyleManager from "app/modules/editor/style-manager";
+import { IUser } from "app/shared/model/user.model";
+import { getEntityByUserId } from "app/entities/app-user/app-user.reducer";
+import PageLoader from "app/modules/ui-kit/PageLoader";
+import styled from "styled-components";
+import WebsiteWizard from "app/modules/website-wizard";
 
-const EditorWorkingSpace = styled.div`
-  display: flex;
+const LoaderWrapper = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Editor: FC = () => {
-  const { entities: pageBlocks } = useSelector<IRootState, IRootState['block']>(state => state.block);
-  const editingBlockId = useSelector<IRootState, BlockState['editingBlockId']>(state => state.block.editingBlockId);
+  const account = useSelector<IRootState, IUser>(state => state.authentication.account);
+  const { loading, entity, errorMessage } = useSelector<IRootState, IRootState['appUser']>(state => state.appUser);
 
   const dispatch = useDispatch();
 
-  const onDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination }) => {
-    if (!destination) {
-      return;
+  useEffect(() => {
+    if (account.id) {
+      dispatch(getEntityByUserId(account.id));
     }
+  }, [account.id]);
 
-    if (source.droppableId === EDITOR_BLUEPRINTS_ID) {
-      dispatch(setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index)));
-    } else if (source.droppableId === destination.droppableId) {
-      dispatch(setPageBlocks(reorder(pageBlocks, source.index, destination.index)));
-    }
-  };
+  if (errorMessage) {
+    return errorMessage;
+  }
+
+  if (loading) {
+    return (
+      <LoaderWrapper>
+        <PageLoader />
+      </LoaderWrapper>
+    );
+  }
 
   return (
     <>
-      <Header>
-        <TopActionButtons/>
-      </Header>
-      <EditorWorkingSpace>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <SideMenu />
-          <DropZone pageBlocks={pageBlocks as IBlock[]} />
-        </DragDropContext>
-        {editingBlockId && <StyleManager />}
-      </EditorWorkingSpace>
+      {entity.website ? (
+        <EditorWorkingSpace />
+      ) : (
+        <WebsiteWizard />
+      )}
     </>
   );
 }

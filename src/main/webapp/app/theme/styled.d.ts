@@ -37,6 +37,7 @@ declare module 'styled-components' {
       lightGray: string;
       lightestGray: string;
       ivory: string;
+      lightIvory: string;
       rockBlue: string;
       gray: string;
       borderRadius: string;
