@@ -30,7 +30,7 @@ export const PageDraftDetail = (props: IPageDraftDetailProps) => {
           </dt>
           <dd>{pageDraftEntity.isPublished ? 'true' : 'false'}</dd>
           <dt>Page</dt>
-          <dd>{pageDraftEntity.page ? pageDraftEntity.page.id : ''}</dd>
+          <dd>{pageDraftEntity.pageId ? pageDraftEntity.pageId : ''}</dd>
         </dl>
         <Button tag={Link} to="/page-draft" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

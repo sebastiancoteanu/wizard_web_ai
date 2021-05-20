@@ -2,7 +2,7 @@ package com.sebastiancoteanu.teachers_uix.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import com.sebastiancoteanu.teachers_uix.domain.enumeration.BlueprintType;
+import com.sebastiancoteanu.teachers_uix.domain.enumeration.BlockType;
 
 /**
  * A DTO for the {@link com.sebastiancoteanu.teachers_uix.domain.Block} entity.
@@ -12,7 +12,10 @@ public class BlockDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private BlueprintType blueprint;
+    private BlockType type;
+
+    @Size(max = 2000)
+    private String options;
 
 
     private Long pageDraftId;
@@ -25,12 +28,20 @@ public class BlockDTO implements Serializable {
         this.id = id;
     }
 
-    public BlueprintType getBlueprint() {
-        return blueprint;
+    public BlockType getType() {
+        return type;
     }
 
-    public void setBlueprint(BlueprintType blueprint) {
-        this.blueprint = blueprint;
+    public void setType(BlockType type) {
+        this.type = type;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
     }
 
     public Long getPageDraftId() {
@@ -63,7 +74,8 @@ public class BlockDTO implements Serializable {
     public String toString() {
         return "BlockDTO{" +
             "id=" + getId() +
-            ", blueprint='" + getBlueprint() + "'" +
+            ", type='" + getType() + "'" +
+            ", options='" + getOptions() + "'" +
             ", pageDraftId=" + getPageDraftId() +
             "}";
     }

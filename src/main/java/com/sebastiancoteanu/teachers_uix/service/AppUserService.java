@@ -34,6 +34,8 @@ public interface AppUserService {
      */
     Optional<AppUserDTO> findOne(Long id);
 
+    Optional<AppUserDTO> findOneByUserId(Long id);
+
     /**
      * Delete the "id" appUser.
      *

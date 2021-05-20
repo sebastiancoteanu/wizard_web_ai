@@ -49,7 +49,7 @@ export const Page = (props: IPageProps) => {
                   </td>
                   <td>{page.url}</td>
                   <td>{page.isRestricted ? 'true' : 'false'}</td>
-                  <td>{page.website ? <Link to={`website/${page.website.id}`}>{page.website.id}</Link> : ''}</td>
+                  <td>{page.websiteId ? <Link to={`website/${page.websiteId}`}>{page.websiteId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${page.id}`} color="info" size="sm">

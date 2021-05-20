@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import EditablePage from "app/modules/editor/side-menu/pages/EditablePage";
+import ActionBar from "app/modules/editor/action-bar";
 
 const Wrapper = styled.div`
 `;
@@ -21,7 +22,7 @@ const DraggablePage: FC<Props> = ({ index, name }) => {
           {...provided.dragHandleProps}
           {...provided.draggableProps}
         >
-          <EditablePage name={name} />
+          <EditablePage name={name} dragProps={provided.dragHandleProps} />
         </Wrapper>
       )}
     </Draggable>

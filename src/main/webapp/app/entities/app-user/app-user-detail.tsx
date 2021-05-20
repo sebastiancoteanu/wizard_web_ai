@@ -26,9 +26,9 @@ export const AppUserDetail = (props: IAppUserDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>User</dt>
-          <dd>{appUserEntity.user ? appUserEntity.user.id : ''}</dd>
+          <dd>{appUserEntity.userId ? appUserEntity.userId : ''}</dd>
           <dt>Website</dt>
-          <dd>{appUserEntity.website ? appUserEntity.website.id : ''}</dd>
+          <dd>{appUserEntity.websiteId ? appUserEntity.websiteId : ''}</dd>
         </dl>
         <Button tag={Link} to="/app-user" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

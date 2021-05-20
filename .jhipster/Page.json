@@ -4,16 +4,12 @@
     {
       "fieldName": "url",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "isRestricted",
       "fieldType": "Boolean",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -33,9 +29,9 @@
   ],
   "changelogDate": "20210224082701",
   "entityTableName": "page",
-  "dto": "no",
+  "dto": "mapstruct",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,

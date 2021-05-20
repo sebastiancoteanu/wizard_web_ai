@@ -34,7 +34,7 @@ export const BlockDetail = (props: IBlockDetailProps) => {
           </dt>
           <dd>{blockEntity.options}</dd>
           <dt>Page Draft</dt>
-          <dd>{blockEntity.pageDraft ? blockEntity.pageDraft.id : ''}</dd>
+          <dd>{blockEntity.pageDraftId ? blockEntity.pageDraftId : ''}</dd>
         </dl>
         <Button tag={Link} to="/block" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

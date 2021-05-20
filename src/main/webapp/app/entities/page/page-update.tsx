@@ -97,14 +97,14 @@ export const PageUpdate = (props: IPageUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label for="page-website">Website</Label>
-                <AvInput id="page-website" type="select" className="form-control" name="website.id">
+                <AvInput id="page-website" type="select" className="form-control" name="websiteId">
                   <option value="" key="0" />
                   {websites
                     ? websites.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
                     : null}
                 </AvInput>
               </AvGroup>

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { BlockState, setPageBlocks } from "app/entities/block/block.reducer";
 import { DragDropContext, DragDropContextProps } from "react-beautiful-dnd";
-import { EDITOR_BLUEPRINTS_ID, EDITOR_DROP_ZONE_ID, PAGES_DRAG_DROP_ID } from "app/config/constants";
+import { EDITOR_BLUEPRINTS_ID, EDITOR_DROP_ZONE_ID } from "app/config/constants";
 import { copy, reorder } from "app/utils/blockManipulation";
 import { blueprints } from "app/common";
 import SideMenu from "app/modules/editor/side-menu";
@@ -12,6 +12,7 @@ import { IBlock } from "app/shared/model/block.model";
 import StyleManager from "app/modules/editor/style-manager";
 import styled from "styled-components";
 import TopActionButtons from "app/modules/editor/TopActionButtons";
+import { IWebsite } from "app/shared/model/website.model";
 
 const Header = styled.div`
   height: 60px;
@@ -28,7 +29,11 @@ const WorkingSpace = styled.div`
   display: flex;
 `;
 
-const EditorWorkingSpace = () => {
+interface Props {
+  websiteId: IWebsite['id'];
+}
+
+const EditorWorkingSpace: FC<Props> = () => {
   const { entities: pageBlocks } = useSelector<IRootState, IRootState['block']>(state => state.block);
   const editingBlockId = useSelector<IRootState, BlockState['editingBlockId']>(state => state.block.editingBlockId);
 
@@ -43,8 +48,6 @@ const EditorWorkingSpace = () => {
       dispatch(setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index)));
     } else if (source.droppableId === destination.droppableId && destination.droppableId === EDITOR_DROP_ZONE_ID) {
       dispatch(setPageBlocks(reorder(pageBlocks, source.index, destination.index)));
-    } else if (source.droppableId === destination.droppableId && destination.droppableId === PAGES_DRAG_DROP_ID) {
-      console.log('dddddddddrop');
     }
   };
 

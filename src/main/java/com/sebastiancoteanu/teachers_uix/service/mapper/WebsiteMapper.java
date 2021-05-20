@@ -9,14 +9,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Website} and its DTO {@link WebsiteDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {AppUserMapper.class})
 public interface WebsiteMapper extends EntityMapper<WebsiteDTO, Website> {
 
 
     @Mapping(target = "pages", ignore = true)
     @Mapping(target = "removePages", ignore = true)
-    @Mapping(target = "creator", ignore = true)
+    @Mapping(source = "creatorId", target = "creator")
     Website toEntity(WebsiteDTO websiteDTO);
+
+    @Mapping(source = "creator.id", target = "creatorId")
+    WebsiteDTO toDto(Website website);
 
     default Website fromId(Long id) {
         if (id == null) {

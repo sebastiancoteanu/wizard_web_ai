@@ -3,6 +3,9 @@ package com.sebastiancoteanu.teachers_uix.web.rest;
 import com.sebastiancoteanu.teachers_uix.TeachersUixApp;
 import com.sebastiancoteanu.teachers_uix.domain.Block;
 import com.sebastiancoteanu.teachers_uix.repository.BlockRepository;
+import com.sebastiancoteanu.teachers_uix.service.BlockService;
+import com.sebastiancoteanu.teachers_uix.service.dto.BlockDTO;
+import com.sebastiancoteanu.teachers_uix.service.mapper.BlockMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +41,12 @@ public class BlockResourceIT {
 
     @Autowired
     private BlockRepository blockRepository;
+
+    @Autowired
+    private BlockMapper blockMapper;
+
+    @Autowired
+    private BlockService blockService;
 
     @Autowired
     private EntityManager em;
@@ -82,9 +91,10 @@ public class BlockResourceIT {
     public void createBlock() throws Exception {
         int databaseSizeBeforeCreate = blockRepository.findAll().size();
         // Create the Block
+        BlockDTO blockDTO = blockMapper.toDto(block);
         restBlockMockMvc.perform(post("/api/blocks")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(block)))
+            .content(TestUtil.convertObjectToJsonBytes(blockDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Block in the database
@@ -102,11 +112,12 @@ public class BlockResourceIT {
 
         // Create the Block with an existing ID
         block.setId(1L);
+        BlockDTO blockDTO = blockMapper.toDto(block);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBlockMockMvc.perform(post("/api/blocks")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(block)))
+            .content(TestUtil.convertObjectToJsonBytes(blockDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Block in the database
@@ -123,11 +134,12 @@ public class BlockResourceIT {
         block.setType(null);
 
         // Create the Block, which fails.
+        BlockDTO blockDTO = blockMapper.toDto(block);
 
 
         restBlockMockMvc.perform(post("/api/blocks")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(block)))
+            .content(TestUtil.convertObjectToJsonBytes(blockDTO)))
             .andExpect(status().isBadRequest());
 
         List<Block> blockList = blockRepository.findAll();
@@ -186,10 +198,11 @@ public class BlockResourceIT {
         updatedBlock
             .type(UPDATED_TYPE)
             .options(UPDATED_OPTIONS);
+        BlockDTO blockDTO = blockMapper.toDto(updatedBlock);
 
         restBlockMockMvc.perform(put("/api/blocks")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedBlock)))
+            .content(TestUtil.convertObjectToJsonBytes(blockDTO)))
             .andExpect(status().isOk());
 
         // Validate the Block in the database
@@ -205,10 +218,13 @@ public class BlockResourceIT {
     public void updateNonExistingBlock() throws Exception {
         int databaseSizeBeforeUpdate = blockRepository.findAll().size();
 
+        // Create the Block
+        BlockDTO blockDTO = blockMapper.toDto(block);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restBlockMockMvc.perform(put("/api/blocks")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(block)))
+            .content(TestUtil.convertObjectToJsonBytes(blockDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Block in the database

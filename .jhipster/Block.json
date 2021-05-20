@@ -5,16 +5,12 @@
       "fieldName": "type",
       "fieldType": "BlockType",
       "fieldValues": "PARAGRAPH,HEADER,IMAGE,THREE_IMAGE_LIST",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "options",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "maxlength"
-      ],
+      "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "2000"
     }
   ],
@@ -29,9 +25,9 @@
   ],
   "changelogDate": "20210224082901",
   "entityTableName": "block",
-  "dto": "no",
+  "dto": "mapstruct",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,

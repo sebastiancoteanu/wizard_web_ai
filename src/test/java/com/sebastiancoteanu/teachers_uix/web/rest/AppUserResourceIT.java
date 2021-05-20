@@ -3,6 +3,9 @@ package com.sebastiancoteanu.teachers_uix.web.rest;
 import com.sebastiancoteanu.teachers_uix.TeachersUixApp;
 import com.sebastiancoteanu.teachers_uix.domain.AppUser;
 import com.sebastiancoteanu.teachers_uix.repository.AppUserRepository;
+import com.sebastiancoteanu.teachers_uix.service.AppUserService;
+import com.sebastiancoteanu.teachers_uix.service.dto.AppUserDTO;
+import com.sebastiancoteanu.teachers_uix.service.mapper.AppUserMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +34,12 @@ public class AppUserResourceIT {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private AppUserMapper appUserMapper;
+
+    @Autowired
+    private AppUserService appUserService;
 
     @Autowired
     private EntityManager em;
@@ -71,9 +80,10 @@ public class AppUserResourceIT {
     public void createAppUser() throws Exception {
         int databaseSizeBeforeCreate = appUserRepository.findAll().size();
         // Create the AppUser
+        AppUserDTO appUserDTO = appUserMapper.toDto(appUser);
         restAppUserMockMvc.perform(post("/api/app-users")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(appUser)))
+            .content(TestUtil.convertObjectToJsonBytes(appUserDTO)))
             .andExpect(status().isCreated());
 
         // Validate the AppUser in the database
@@ -89,11 +99,12 @@ public class AppUserResourceIT {
 
         // Create the AppUser with an existing ID
         appUser.setId(1L);
+        AppUserDTO appUserDTO = appUserMapper.toDto(appUser);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAppUserMockMvc.perform(post("/api/app-users")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(appUser)))
+            .content(TestUtil.convertObjectToJsonBytes(appUserDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AppUser in the database
@@ -147,10 +158,11 @@ public class AppUserResourceIT {
         AppUser updatedAppUser = appUserRepository.findById(appUser.getId()).get();
         // Disconnect from session so that the updates on updatedAppUser are not directly saved in db
         em.detach(updatedAppUser);
+        AppUserDTO appUserDTO = appUserMapper.toDto(updatedAppUser);
 
         restAppUserMockMvc.perform(put("/api/app-users")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedAppUser)))
+            .content(TestUtil.convertObjectToJsonBytes(appUserDTO)))
             .andExpect(status().isOk());
 
         // Validate the AppUser in the database
@@ -164,10 +176,13 @@ public class AppUserResourceIT {
     public void updateNonExistingAppUser() throws Exception {
         int databaseSizeBeforeUpdate = appUserRepository.findAll().size();
 
+        // Create the AppUser
+        AppUserDTO appUserDTO = appUserMapper.toDto(appUser);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAppUserMockMvc.perform(put("/api/app-users")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(appUser)))
+            .content(TestUtil.convertObjectToJsonBytes(appUserDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AppUser in the database

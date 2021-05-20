@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction, IPayloadResult } from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { getEntity as getAppUser } from '../app-user/app-user.reducer';
 
 import { IWebsite, defaultValue } from 'app/shared/model/website.model';
 
@@ -137,11 +138,18 @@ export const getEntity: ICrudGetAction<IWebsite> = id => {
 };
 
 export const createEntity: ICrudPutAction<IWebsite> = entity => async dispatch => {
-  const result = await dispatch({
-    type: ACTION_TYPES.CREATE_WEBSITE,
-    payload: axios.post(apiUrl, cleanEntity(entity)),
-  });
-  dispatch(getEntities());
+  let result;
+  try {
+    result = await dispatch({
+      type: ACTION_TYPES.CREATE_WEBSITE,
+      payload: axios.post(apiUrl, cleanEntity(entity)),
+    });
+    dispatch(getEntities());
+    dispatch(getAppUser(entity.creatorId));
+  } catch (e) {
+    console.log(e);
+  }
+
   return result;
 };
 

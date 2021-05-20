@@ -34,7 +34,7 @@ export const PageDetail = (props: IPageDetailProps) => {
           </dt>
           <dd>{pageEntity.isRestricted ? 'true' : 'false'}</dd>
           <dt>Website</dt>
-          <dd>{pageEntity.website ? pageEntity.website.id : ''}</dd>
+          <dd>{pageEntity.websiteId ? pageEntity.websiteId : ''}</dd>
         </dl>
         <Button tag={Link} to="/page" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

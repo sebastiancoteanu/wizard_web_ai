@@ -3,6 +3,9 @@ package com.sebastiancoteanu.teachers_uix.web.rest;
 import com.sebastiancoteanu.teachers_uix.TeachersUixApp;
 import com.sebastiancoteanu.teachers_uix.domain.Page;
 import com.sebastiancoteanu.teachers_uix.repository.PageRepository;
+import com.sebastiancoteanu.teachers_uix.service.PageService;
+import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
+import com.sebastiancoteanu.teachers_uix.service.mapper.PageMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +40,12 @@ public class PageResourceIT {
 
     @Autowired
     private PageRepository pageRepository;
+
+    @Autowired
+    private PageMapper pageMapper;
+
+    @Autowired
+    private PageService pageService;
 
     @Autowired
     private EntityManager em;
@@ -81,9 +90,10 @@ public class PageResourceIT {
     public void createPage() throws Exception {
         int databaseSizeBeforeCreate = pageRepository.findAll().size();
         // Create the Page
+        PageDTO pageDTO = pageMapper.toDto(page);
         restPageMockMvc.perform(post("/api/pages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(page)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Page in the database
@@ -101,11 +111,12 @@ public class PageResourceIT {
 
         // Create the Page with an existing ID
         page.setId(1L);
+        PageDTO pageDTO = pageMapper.toDto(page);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPageMockMvc.perform(post("/api/pages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(page)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Page in the database
@@ -122,11 +133,12 @@ public class PageResourceIT {
         page.setUrl(null);
 
         // Create the Page, which fails.
+        PageDTO pageDTO = pageMapper.toDto(page);
 
 
         restPageMockMvc.perform(post("/api/pages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(page)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
             .andExpect(status().isBadRequest());
 
         List<Page> pageList = pageRepository.findAll();
@@ -141,11 +153,12 @@ public class PageResourceIT {
         page.setIsRestricted(null);
 
         // Create the Page, which fails.
+        PageDTO pageDTO = pageMapper.toDto(page);
 
 
         restPageMockMvc.perform(post("/api/pages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(page)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
             .andExpect(status().isBadRequest());
 
         List<Page> pageList = pageRepository.findAll();
@@ -204,10 +217,11 @@ public class PageResourceIT {
         updatedPage
             .url(UPDATED_URL)
             .isRestricted(UPDATED_IS_RESTRICTED);
+        PageDTO pageDTO = pageMapper.toDto(updatedPage);
 
         restPageMockMvc.perform(put("/api/pages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPage)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
             .andExpect(status().isOk());
 
         // Validate the Page in the database
@@ -223,10 +237,13 @@ public class PageResourceIT {
     public void updateNonExistingPage() throws Exception {
         int databaseSizeBeforeUpdate = pageRepository.findAll().size();
 
+        // Create the Page
+        PageDTO pageDTO = pageMapper.toDto(page);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPageMockMvc.perform(put("/api/pages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(page)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Page in the database

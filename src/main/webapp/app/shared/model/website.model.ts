@@ -1,5 +1,4 @@
 import { IPage } from 'app/shared/model/page.model';
-import { IAppUser } from 'app/shared/model/app-user.model';
 import { ThemeType } from 'app/shared/model/enumerations/theme-type.model';
 
 export interface IWebsite {
@@ -7,7 +6,7 @@ export interface IWebsite {
   url?: string;
   theme?: ThemeType;
   pages?: IPage[];
-  creator?: IAppUser;
+  creatorId?: number;
 }
 
 export const defaultValue: Readonly<IWebsite> = {};

@@ -3,6 +3,9 @@ package com.sebastiancoteanu.teachers_uix.web.rest;
 import com.sebastiancoteanu.teachers_uix.TeachersUixApp;
 import com.sebastiancoteanu.teachers_uix.domain.Website;
 import com.sebastiancoteanu.teachers_uix.repository.WebsiteRepository;
+import com.sebastiancoteanu.teachers_uix.service.WebsiteService;
+import com.sebastiancoteanu.teachers_uix.service.dto.WebsiteDTO;
+import com.sebastiancoteanu.teachers_uix.service.mapper.WebsiteMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +41,12 @@ public class WebsiteResourceIT {
 
     @Autowired
     private WebsiteRepository websiteRepository;
+
+    @Autowired
+    private WebsiteMapper websiteMapper;
+
+    @Autowired
+    private WebsiteService websiteService;
 
     @Autowired
     private EntityManager em;
@@ -82,9 +91,10 @@ public class WebsiteResourceIT {
     public void createWebsite() throws Exception {
         int databaseSizeBeforeCreate = websiteRepository.findAll().size();
         // Create the Website
+        WebsiteDTO websiteDTO = websiteMapper.toDto(website);
         restWebsiteMockMvc.perform(post("/api/websites")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(website)))
+            .content(TestUtil.convertObjectToJsonBytes(websiteDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Website in the database
@@ -102,11 +112,12 @@ public class WebsiteResourceIT {
 
         // Create the Website with an existing ID
         website.setId(1L);
+        WebsiteDTO websiteDTO = websiteMapper.toDto(website);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWebsiteMockMvc.perform(post("/api/websites")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(website)))
+            .content(TestUtil.convertObjectToJsonBytes(websiteDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Website in the database
@@ -123,11 +134,12 @@ public class WebsiteResourceIT {
         website.setUrl(null);
 
         // Create the Website, which fails.
+        WebsiteDTO websiteDTO = websiteMapper.toDto(website);
 
 
         restWebsiteMockMvc.perform(post("/api/websites")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(website)))
+            .content(TestUtil.convertObjectToJsonBytes(websiteDTO)))
             .andExpect(status().isBadRequest());
 
         List<Website> websiteList = websiteRepository.findAll();
@@ -142,11 +154,12 @@ public class WebsiteResourceIT {
         website.setTheme(null);
 
         // Create the Website, which fails.
+        WebsiteDTO websiteDTO = websiteMapper.toDto(website);
 
 
         restWebsiteMockMvc.perform(post("/api/websites")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(website)))
+            .content(TestUtil.convertObjectToJsonBytes(websiteDTO)))
             .andExpect(status().isBadRequest());
 
         List<Website> websiteList = websiteRepository.findAll();
@@ -205,10 +218,11 @@ public class WebsiteResourceIT {
         updatedWebsite
             .url(UPDATED_URL)
             .theme(UPDATED_THEME);
+        WebsiteDTO websiteDTO = websiteMapper.toDto(updatedWebsite);
 
         restWebsiteMockMvc.perform(put("/api/websites")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWebsite)))
+            .content(TestUtil.convertObjectToJsonBytes(websiteDTO)))
             .andExpect(status().isOk());
 
         // Validate the Website in the database
@@ -224,10 +238,13 @@ public class WebsiteResourceIT {
     public void updateNonExistingWebsite() throws Exception {
         int databaseSizeBeforeUpdate = websiteRepository.findAll().size();
 
+        // Create the Website
+        WebsiteDTO websiteDTO = websiteMapper.toDto(website);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restWebsiteMockMvc.perform(put("/api/websites")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(website)))
+            .content(TestUtil.convertObjectToJsonBytes(websiteDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Website in the database

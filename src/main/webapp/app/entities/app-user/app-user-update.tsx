@@ -82,27 +82,27 @@ export const AppUserUpdate = (props: IAppUserUpdateProps) => {
               ) : null}
               <AvGroup>
                 <Label for="app-user-user">User</Label>
-                <AvInput id="app-user-user" type="select" className="form-control" name="user.id">
+                <AvInput id="app-user-user" type="select" className="form-control" name="userId">
                   <option value="" key="0" />
                   {users
                     ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
                     : null}
                 </AvInput>
               </AvGroup>
               <AvGroup>
                 <Label for="app-user-website">Website</Label>
-                <AvInput id="app-user-website" type="select" className="form-control" name="website.id">
+                <AvInput id="app-user-website" type="select" className="form-control" name="websiteId">
                   <option value="" key="0" />
                   {websites
                     ? websites.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
                     : null}
                 </AvInput>
               </AvGroup>

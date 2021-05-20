@@ -39,8 +39,8 @@ const Editor: FC = () => {
     );
   }
 
-  return entity.website ? (
-    <EditorWorkingSpace />
+  return entity.websiteId ? (
+    <EditorWorkingSpace websiteId={entity.websiteId} />
   ) : (
     <WebsiteWizard userId={entity.id} />
   );

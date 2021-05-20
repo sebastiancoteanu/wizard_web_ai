@@ -17,7 +17,16 @@ public class WebsiteDTO implements Serializable {
     @NotNull
     private ThemeType theme;
 
-    
+    private Long creatorId;
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
     public Long getId() {
         return id;
     }

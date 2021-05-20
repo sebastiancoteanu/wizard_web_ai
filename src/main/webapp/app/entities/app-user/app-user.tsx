@@ -46,8 +46,8 @@ export const AppUser = (props: IAppUserProps) => {
                       {appUser.id}
                     </Button>
                   </td>
-                  <td>{appUser.user ? appUser.user.id : ''}</td>
-                  <td>{appUser.website ? <Link to={`website/${appUser.website.id}`}>{appUser.website.id}</Link> : ''}</td>
+                  <td>{appUser.userId ? appUser.userId : ''}</td>
+                  <td>{appUser.websiteId ? <Link to={`website/${appUser.websiteId}`}>{appUser.websiteId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${appUser.id}`} color="info" size="sm">

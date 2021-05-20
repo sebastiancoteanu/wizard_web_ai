@@ -4,9 +4,7 @@
     {
       "fieldName": "isPublished",
       "fieldType": "Boolean",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -26,9 +24,9 @@
   ],
   "changelogDate": "20210224082801",
   "entityTableName": "page_draft",
-  "dto": "no",
+  "dto": "mapstruct",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceImpl",
   "jpaMetamodelFiltering": false,
   "fluentMethods": true,
   "readOnly": false,

@@ -7,6 +7,8 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IPage, defaultValue } from 'app/shared/model/page.model';
 
 export const ACTION_TYPES = {
+  SET_PAGES: 'page/SET_PAGES',
+  CREATE_LOCAL_PAGE: 'page/CREATE_LOCAL_PAGE',
   FETCH_PAGE_LIST: 'page/FETCH_PAGE_LIST',
   FETCH_PAGE: 'page/FETCH_PAGE',
   CREATE_PAGE: 'page/CREATE_PAGE',
@@ -71,6 +73,16 @@ export default (state: PageState = initialState, action): PageState => {
         loading: false,
         entity: action.payload.data,
       };
+    case ACTION_TYPES.CREATE_LOCAL_PAGE:
+      return {
+        ...state,
+        entities: [...state.entities, action.payload],
+      };
+    case ACTION_TYPES.SET_PAGES:
+      return {
+        ...state,
+        entities: action.payload,
+      };
     case SUCCESS(ACTION_TYPES.CREATE_PAGE):
     case SUCCESS(ACTION_TYPES.UPDATE_PAGE):
       return {
@@ -99,9 +111,13 @@ const apiUrl = 'api/pages';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IPage> = (page, size, sort) => ({
+export const getEntities: ICrudGetAllAction<IPage> = (websiteId?: number) => ({
   type: ACTION_TYPES.FETCH_PAGE_LIST,
-  payload: axios.get<IPage>(`${apiUrl}?cacheBuster=${new Date().getTime()}`),
+  payload: axios.get<IPage>(`${apiUrl}?cacheBuster=${new Date().getTime()}`, {
+    params: {
+      websiteId,
+    },
+  }),
 });
 
 export const getEntity: ICrudGetAction<IPage> = id => {
@@ -112,12 +128,23 @@ export const getEntity: ICrudGetAction<IPage> = id => {
   };
 };
 
+export const createLocalPage = (page: IPage) => ({
+  type: ACTION_TYPES.CREATE_LOCAL_PAGE,
+  payload: page,
+});
+
+export const setPages = (pages: IPage[]) => ({
+  type: ACTION_TYPES.SET_PAGES,
+  payload: pages,
+});
+
 export const createEntity: ICrudPutAction<IPage> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_PAGE,
     payload: axios.post(apiUrl, cleanEntity(entity)),
   });
-  dispatch(getEntities());
+
+  dispatch(getEntities(entity.websiteId));
   return result;
 };
 

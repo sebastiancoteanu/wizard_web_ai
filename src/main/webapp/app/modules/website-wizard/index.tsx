@@ -9,7 +9,7 @@ import { IRootState } from "app/shared/reducers";
 import ThemeStep from "app/modules/website-wizard/ThemeStep";
 import { isStepValid } from "app/modules/website-wizard/utils";
 import PageStep from "app/modules/website-wizard/pages-step";
-import ActionButtons from "app/modules/website-wizard/ActionButtons";
+import ActionButtons from "app/modules/website-wizard/action-buttons";
 import { IAppUser } from "app/shared/model/app-user.model";
 import { createEntity } from "app/entities/website/website.reducer";
 
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 const StepContent = styled.div`
   padding: 40px 40px 40px 40px;
   min-height: 250px;
-  width: 70%;
+  width: 80%;
   align-self: center;
 `;
 
@@ -56,7 +56,7 @@ interface Props {
 const WebsiteWizard: FC<Props> = ({ userId }) => {
   const [activeStep, setActiveStep] = useState(0);
   const dispatch = useDispatch();
-  const draftWebsite = useSelector<IRootState, IWebsite>(state => state.website.entity);
+  const { entity: draftWebsite, loading, updating } = useSelector<IRootState, IRootState['website']>(state => state.website);
 
   const isNextStepDisabled = useMemo(
     () => !isStepValid(activeStep, draftWebsite),
@@ -64,7 +64,7 @@ const WebsiteWizard: FC<Props> = ({ userId }) => {
   );
 
   const handleOptionsConfirm = () => {
-    dispatch(createEntity({ ...draftWebsite, creator: { id: userId } }));
+    dispatch(createEntity({ ...draftWebsite, creatorId: userId }));
   }
 
   return (
@@ -83,6 +83,7 @@ const WebsiteWizard: FC<Props> = ({ userId }) => {
         activeStep={activeStep}
         setActiveStep={setActiveStep}
         onOptionsConfirm={handleOptionsConfirm}
+        isLoading={loading || updating}
       />
     </Wrapper>
   );

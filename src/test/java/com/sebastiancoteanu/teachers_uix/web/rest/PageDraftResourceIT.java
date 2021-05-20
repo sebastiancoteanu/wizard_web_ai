@@ -3,6 +3,9 @@ package com.sebastiancoteanu.teachers_uix.web.rest;
 import com.sebastiancoteanu.teachers_uix.TeachersUixApp;
 import com.sebastiancoteanu.teachers_uix.domain.PageDraft;
 import com.sebastiancoteanu.teachers_uix.repository.PageDraftRepository;
+import com.sebastiancoteanu.teachers_uix.service.PageDraftService;
+import com.sebastiancoteanu.teachers_uix.service.dto.PageDraftDTO;
+import com.sebastiancoteanu.teachers_uix.service.mapper.PageDraftMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +37,12 @@ public class PageDraftResourceIT {
 
     @Autowired
     private PageDraftRepository pageDraftRepository;
+
+    @Autowired
+    private PageDraftMapper pageDraftMapper;
+
+    @Autowired
+    private PageDraftService pageDraftService;
 
     @Autowired
     private EntityManager em;
@@ -76,9 +85,10 @@ public class PageDraftResourceIT {
     public void createPageDraft() throws Exception {
         int databaseSizeBeforeCreate = pageDraftRepository.findAll().size();
         // Create the PageDraft
+        PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(pageDraft);
         restPageDraftMockMvc.perform(post("/api/page-drafts")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(pageDraft)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDraftDTO)))
             .andExpect(status().isCreated());
 
         // Validate the PageDraft in the database
@@ -95,11 +105,12 @@ public class PageDraftResourceIT {
 
         // Create the PageDraft with an existing ID
         pageDraft.setId(1L);
+        PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(pageDraft);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPageDraftMockMvc.perform(post("/api/page-drafts")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(pageDraft)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDraftDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the PageDraft in the database
@@ -116,11 +127,12 @@ public class PageDraftResourceIT {
         pageDraft.setIsPublished(null);
 
         // Create the PageDraft, which fails.
+        PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(pageDraft);
 
 
         restPageDraftMockMvc.perform(post("/api/page-drafts")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(pageDraft)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDraftDTO)))
             .andExpect(status().isBadRequest());
 
         List<PageDraft> pageDraftList = pageDraftRepository.findAll();
@@ -176,10 +188,11 @@ public class PageDraftResourceIT {
         em.detach(updatedPageDraft);
         updatedPageDraft
             .isPublished(UPDATED_IS_PUBLISHED);
+        PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(updatedPageDraft);
 
         restPageDraftMockMvc.perform(put("/api/page-drafts")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPageDraft)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDraftDTO)))
             .andExpect(status().isOk());
 
         // Validate the PageDraft in the database
@@ -194,10 +207,13 @@ public class PageDraftResourceIT {
     public void updateNonExistingPageDraft() throws Exception {
         int databaseSizeBeforeUpdate = pageDraftRepository.findAll().size();
 
+        // Create the PageDraft
+        PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(pageDraft);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPageDraftMockMvc.perform(put("/api/page-drafts")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(pageDraft)))
+            .content(TestUtil.convertObjectToJsonBytes(pageDraftDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the PageDraft in the database

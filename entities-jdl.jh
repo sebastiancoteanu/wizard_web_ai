@@ -41,3 +41,6 @@ relationship OneToMany {
   Page {drafts} to PageDraft {page}
   PageDraft {blocks} to Block
 }
+
+dto * with mapstruct
+service all with serviceImpl

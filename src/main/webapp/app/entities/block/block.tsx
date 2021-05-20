@@ -49,7 +49,7 @@ export const Block = (props: IBlockProps) => {
                   </td>
                   <td>{block.type}</td>
                   <td>{block.options}</td>
-                  <td>{block.pageDraft ? <Link to={`page-draft/${block.pageDraft.id}`}>{block.pageDraft.id}</Link> : ''}</td>
+                  <td>{block.pageDraftId ? <Link to={`page-draft/${block.pageDraftId}`}>{block.pageDraftId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${block.id}`} color="info" size="sm">

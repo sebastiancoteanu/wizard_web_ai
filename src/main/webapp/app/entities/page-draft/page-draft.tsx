@@ -47,7 +47,7 @@ export const PageDraft = (props: IPageDraftProps) => {
                     </Button>
                   </td>
                   <td>{pageDraft.isPublished ? 'true' : 'false'}</td>
-                  <td>{pageDraft.page ? <Link to={`page/${pageDraft.page.id}`}>{pageDraft.page.id}</Link> : ''}</td>
+                  <td>{pageDraft.pageId ? <Link to={`page/${pageDraft.pageId}`}>{pageDraft.pageId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${pageDraft.id}`} color="info" size="sm">

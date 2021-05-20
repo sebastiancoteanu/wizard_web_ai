@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import styled from "styled-components";
-import EditablePage from "app/modules/editor/side-menu/pages/EditablePage";
-import { Droppable } from "react-beautiful-dnd";
+import { DragDropContext, DragDropContextProps, Droppable } from "react-beautiful-dnd";
 import DraggablePage from "app/modules/editor/side-menu/pages/DraggablePage";
 import { PAGES_DRAG_DROP_ID } from "app/config/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
+import NewPage from "app/modules/editor/side-menu/pages/NewPage";
+import { reorder } from "app/utils/blockManipulation";
+import { setPages } from "app/entities/page/page.reducer";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,19 +17,28 @@ const Wrapper = styled.div`
 
 const Pages: FC = () => {
   const { entities: pages } = useSelector<IRootState, IRootState['page']>(state => state.page);
+  const dispatch = useDispatch();
+
+  const handleDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination}) => {
+    if (source.droppableId === destination.droppableId && destination.droppableId === PAGES_DRAG_DROP_ID) {
+      dispatch(setPages(reorder(pages, source.index, destination.index)));
+    }
+  };
 
   return (
-    <Droppable droppableId={PAGES_DRAG_DROP_ID}>
-      {provided => (
-        <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
-          {pages.map((page, index) => (
-            <DraggablePage name={page.url} index={index} key={page.url }/>
-          ))}
-          {provided.placeholder}
-          <EditablePage isEdit />
-        </Wrapper>
-      )}
-    </Droppable>
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <Droppable droppableId={PAGES_DRAG_DROP_ID}>
+        {provided => (
+          <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
+            <NewPage />
+            {pages.map((page, index) => (
+              <DraggablePage name={page.url} index={index} key={page.url }/>
+            ))}
+            {provided.placeholder}
+          </Wrapper>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

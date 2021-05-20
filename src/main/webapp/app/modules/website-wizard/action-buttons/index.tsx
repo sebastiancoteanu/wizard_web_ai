@@ -1,38 +1,17 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { ValidSteps } from "app/modules/website-wizard/types";
 import { Icons } from "app/modules/assets/fonts/icons";
 import styled from "styled-components";
 import Icon from "app/modules/ui-kit/Icon";
-import PrimaryButton from "app/modules/ui-kit/PrimaryButton";
 import BorderButton from "app/modules/ui-kit/BorderButton";
-import { isStepValid } from "app/modules/website-wizard/utils";
+import NextStepButton from "app/modules/website-wizard/action-buttons/NextStepButton";
 
 const Wrapper = styled.div`
   display: flex;
   padding: 0 40px;
   align-self: center;
-  width: 70%;
+  width: 80%;
   justify-content: flex-end;
-`;
-
-const NextStepIcon = styled(Icon)`
-  margin-left: 4px;
-  margin-right: -4px;
-  transition: all 0.1s ease-in;
-`;
-
-const NextStepButton = styled(PrimaryButton)`
-  &, &:focus {
-    background: ${({ theme }) => theme.palette.primary.main};
-    color: ${({ theme }) => theme.palette.neutral.white};
-  }
-  border: 1px solid ${({ theme }) => theme.palette.primary.main};
-  
-  &:hover:not(:disabled) {
-    ${NextStepIcon} {
-      transform: translateX(4px);
-    }
-  }
 `;
 
 const PrevStepIcon = styled(Icon)`
@@ -56,6 +35,7 @@ interface Props {
   activeStep: number;
   setActiveStep: (_: number) => void;
   onOptionsConfirm: () => void;
+  isLoading: boolean;
 }
 
 const ActionButtons: FC<Props> = ({
@@ -63,6 +43,7 @@ const ActionButtons: FC<Props> = ({
   setActiveStep,
   isNextStepDisabled,
   onOptionsConfirm,
+  isLoading,
 }) => {
   const handleNextStep = () => {
     if (activeStep === ValidSteps.PAGES) {
@@ -80,16 +61,12 @@ const ActionButtons: FC<Props> = ({
           Prev Step
         </PrevStepButton>
       )}
-      <NextStepButton onClick={handleNextStep} disabled={isNextStepDisabled}>
-        {activeStep === ValidSteps.PAGES ? (
-          <span>Confirm</span>
-        ) : (
-          <>
-            <span>Next step</span>
-            <NextStepIcon name={Icons.RightArrow}/>
-          </>
-        )}
-      </NextStepButton>
+      <NextStepButton
+        isLastStep={activeStep === ValidSteps.PAGES}
+        disabled={isNextStepDisabled || isLoading}
+        isLoading={isLoading}
+        onClick={handleNextStep}
+      />
     </Wrapper>
   );
 }
