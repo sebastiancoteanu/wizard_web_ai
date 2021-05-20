@@ -4,12 +4,14 @@ import styled from "styled-components";
 import Steps from "app/modules/website-wizard/Steps";
 import BaseInfoStep from "app/modules/website-wizard/BaseInfoStep";
 import { IWebsite } from "app/shared/model/website.model";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import ThemeStep from "app/modules/website-wizard/ThemeStep";
 import { isStepValid } from "app/modules/website-wizard/utils";
 import PageStep from "app/modules/website-wizard/pages-step";
 import ActionButtons from "app/modules/website-wizard/ActionButtons";
+import { IAppUser } from "app/shared/model/app-user.model";
+import { createEntity } from "app/entities/website/website.reducer";
 
 const Wrapper = styled.div`
   max-width: 800px;
@@ -47,8 +49,13 @@ const renderStep = (step: ValidSteps, draftWebsite: IWebsite) => {
   }
 }
 
-const WebsiteWizard: FC = () => {
+interface Props {
+  userId: IAppUser['id'];
+}
+
+const WebsiteWizard: FC<Props> = ({ userId }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const dispatch = useDispatch();
   const draftWebsite = useSelector<IRootState, IWebsite>(state => state.website.entity);
 
   const isNextStepDisabled = useMemo(
@@ -57,7 +64,7 @@ const WebsiteWizard: FC = () => {
   );
 
   const handleOptionsConfirm = () => {
-    console.log(draftWebsite);
+    dispatch(createEntity({ ...draftWebsite, creator: { id: userId } }));
   }
 
   return (

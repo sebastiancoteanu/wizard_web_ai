@@ -20,7 +20,6 @@ const Input = styled.input`
   background: transparent;
   color: ${({ theme }) => theme.colors.darkestGray};
   padding: 8px 40px 8px 16px;
-  margin-bottom: 4px;
 
   ::placeholder {
     color: ${({ theme }) => theme.colors.lightestGray};
@@ -32,6 +31,7 @@ const Input = styled.input`
 `;
 
 const UrlPreview = styled.div`
+  margin-top: 4px;
   font-size: 12px;
   text-transform: lowercase;
 `;

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   width: 100%;
 
   &:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 `;
 
@@ -33,9 +33,18 @@ const CreatePageButtonIcon = styled(Icon)`
 `;
 
 const ReadonlyPage = styled.div`
-  min-height: 46px;
+  min-height: 42px;
   display: flex;
   align-items: center;
+  width: 100%;
+  transition: all 0.1s ease-in;
+  padding-left: 17px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.ivory};
+  }
 `;
 
 interface Props {

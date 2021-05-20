@@ -39,14 +39,10 @@ const Editor: FC = () => {
     );
   }
 
-  return (
-    <>
-      {entity.website ? (
-        <EditorWorkingSpace />
-      ) : (
-        <WebsiteWizard />
-      )}
-    </>
+  return entity.website ? (
+    <EditorWorkingSpace />
+  ) : (
+    <WebsiteWizard userId={entity.id} />
   );
 }
 
