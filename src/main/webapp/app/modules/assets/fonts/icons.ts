@@ -21,6 +21,7 @@ export type IconsId =
   | 'right-arrow'
   | 'scroll'
   | 'teachers-uix-logo'
+  | 'three-image-gallery'
   | 'three-image'
   | 'up-arrow'
   | 'user'
@@ -50,6 +51,7 @@ export type IconsKey =
   | 'RightArrow'
   | 'Scroll'
   | 'TeachersUixLogo'
+  | 'ThreeImageGallery'
   | 'ThreeImage'
   | 'UpArrow'
   | 'User'
@@ -79,6 +81,7 @@ export enum Icons {
   RightArrow = 'right-arrow',
   Scroll = 'scroll',
   TeachersUixLogo = 'teachers-uix-logo',
+  ThreeImageGallery = 'three-image-gallery',
   ThreeImage = 'three-image',
   UpArrow = 'up-arrow',
   User = 'user',
@@ -109,9 +112,10 @@ export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.RightArrow]: '61716',
   [Icons.Scroll]: '61717',
   [Icons.TeachersUixLogo]: '61718',
-  [Icons.ThreeImage]: '61719',
-  [Icons.UpArrow]: '61720',
-  [Icons.User]: '61721',
-  [Icons.Vertical]: '61722',
-  [Icons.Visible]: '61723',
+  [Icons.ThreeImageGallery]: '61719',
+  [Icons.ThreeImage]: '61720',
+  [Icons.UpArrow]: '61721',
+  [Icons.User]: '61722',
+  [Icons.Vertical]: '61723',
+  [Icons.Visible]: '61724',
 };

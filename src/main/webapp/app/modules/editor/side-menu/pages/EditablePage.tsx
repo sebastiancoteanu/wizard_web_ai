@@ -65,6 +65,10 @@ const EditablePage: FC<Props> = ({ name, dragProps}) => {
             onClick={() => setVisibility(!isPageVisible)}
             name={isPageVisible ? Icons.Visible : Icons.Invisible}
           />
+          <VisibilityButton
+            onClick={() => setVisibility(!isPageVisible)}
+            name={Icons.Delete}
+          />
           <ReorderButtonWrapper {...dragProps} >
             <ReorderButton name={Icons.Scroll} />
           </ReorderButtonWrapper>

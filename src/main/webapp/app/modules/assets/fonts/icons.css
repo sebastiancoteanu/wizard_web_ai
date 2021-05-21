@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'icons';
-  src: url('./icons.ttf?1bfb32b0c85957bb13ca4299920b7206') format('truetype');
+  src: url('./icons.ttf?e57227dae24e78869a2e817d040b4ff1') format('truetype');
 }
 
 i[class^='icon-']:before,
@@ -81,18 +81,21 @@ i[class*=' icon-']:before {
 .icon-teachers-uix-logo:before {
   content: '\f116';
 }
-.icon-three-image:before {
+.icon-three-image-gallery:before {
   content: '\f117';
 }
-.icon-up-arrow:before {
+.icon-three-image:before {
   content: '\f118';
 }
-.icon-user:before {
+.icon-up-arrow:before {
   content: '\f119';
 }
-.icon-vertical:before {
+.icon-user:before {
   content: '\f11a';
 }
-.icon-visible:before {
+.icon-vertical:before {
   content: '\f11b';
+}
+.icon-visible:before {
+  content: '\f11c';
 }

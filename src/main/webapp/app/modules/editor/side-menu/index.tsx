@@ -21,7 +21,7 @@ const InnerWrapper = styled.div<{ isMenuOpen: boolean }>`
   padding: 0 12px 60px;
 
   ${({ isMenuOpen }) => isMenuOpen ? css`
-    width: 250px;
+    width: 300px;
     overflow: auto;
     overflow-x: hidden;
   ` : css`

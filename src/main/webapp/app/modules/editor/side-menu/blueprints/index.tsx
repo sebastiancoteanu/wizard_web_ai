@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { blueprints } from "app/common";
-import BlockBluePrint from "app/modules/editor/side-menu/BlockBlueprint";
+import BlockBluePrint from "app/modules/editor/side-menu/blueprints/BlockBlueprint";
 import { Droppable } from "react-beautiful-dnd";
 import { EDITOR_BLUEPRINTS_ID } from "app/config/constants";
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
-const BlockBlueprints: FC = () => (
+const Blueprints: FC = () => (
   <Droppable droppableId={EDITOR_BLUEPRINTS_ID} isDropDisabled>
     {(provided, snapshot) => (
       <Wrapper ref={provided.innerRef}>
@@ -28,4 +29,4 @@ const BlockBlueprints: FC = () => (
   </Droppable>
 );
 
-export default BlockBlueprints;
+export default Blueprints;

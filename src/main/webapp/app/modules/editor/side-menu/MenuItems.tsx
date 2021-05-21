@@ -4,7 +4,7 @@ import TextButton from "app/modules/ui-kit/TextButton";
 import { MenuItemsTypes } from "app/modules/editor/side-menu/types";
 import { Icons } from "app/modules/assets/fonts/icons";
 import Icon from "app/modules/ui-kit/Icon";
-import BlockBlueprints from "app/modules/editor/side-menu/BlockBlueprints";
+import Blueprints from "app/modules/editor/side-menu/blueprints";
 import Pages from "app/modules/editor/side-menu/pages";
 
 const Wrapper = styled.div`
@@ -52,7 +52,7 @@ const menuItems = [MenuItemsTypes.PAGES, MenuItemsTypes.BLUEPRINTS];
 const renderActiveItem = (itemType: MenuItemsTypes) => {
   switch (itemType) {
     case MenuItemsTypes.BLUEPRINTS:
-      return <BlockBlueprints/>;
+      return <Blueprints />;
     case MenuItemsTypes.PAGES:
       return <Pages />;
     default:
