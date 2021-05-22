@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, MouseEvent, useState } from 'react';
 import styled from "styled-components";
 import EditableProp from "app/modules/editor/style-manager/EditableProp";
 import withClickInside from "app/modules/editor/side-menu/withClickInside";
@@ -7,6 +7,10 @@ import { Icons } from "app/modules/assets/fonts/icons";
 import { Draggable, DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import Icon from "app/modules/ui-kit/Icon";
 import { StyledEditablePage } from "app/modules/editor/side-menu/pages/common";
+import { deletePageBlock } from "app/entities/block/block.reducer";
+import { useDispatch } from "react-redux";
+import { deleteEntity } from "app/entities/page/page.reducer";
+import { IPage } from "app/shared/model/page.model";
 
 const Wrapper = styled.div<{ isClickedInside: boolean }>`
   cursor: pointer;
@@ -48,11 +52,17 @@ const VisibilityButton = styled(IconButton)`
 interface Props {
   name?: string;
   dragProps: DraggableProvidedDragHandleProps;
+  pageId: IPage['id'];
 }
 
-const EditablePage: FC<Props> = ({ name, dragProps}) => {
+const EditablePage: FC<Props> = ({ name, dragProps, pageId}) => {
   const { wrapperRef, isClickedInside, clickInside } = withClickInside();
   const [isPageVisible, setVisibility] = useState(true);
+  const dispatch = useDispatch();
+
+  const handleDeletePage = () => {
+    dispatch(deleteEntity(pageId));
+  }
 
   return (
     <Wrapper ref={wrapperRef} isClickedInside={isClickedInside}>
@@ -66,7 +76,7 @@ const EditablePage: FC<Props> = ({ name, dragProps}) => {
             name={isPageVisible ? Icons.Visible : Icons.Invisible}
           />
           <VisibilityButton
-            onClick={() => setVisibility(!isPageVisible)}
+            onClick={handleDeletePage}
             name={Icons.Delete}
           />
           <ReorderButtonWrapper {...dragProps} >

@@ -156,13 +156,14 @@ export const updateEntity: ICrudPutAction<IPage> = entity => async dispatch => {
   return result;
 };
 
-export const deleteEntity: ICrudDeleteAction<IPage> = id => async dispatch => {
+export const deleteEntity: ICrudDeleteAction<IPage> = id => async (dispatch, getState) => {
+  const websiteId = getState().appUser.entity?.websiteId;
   const requestUrl = `${apiUrl}/${id}`;
   const result = await dispatch({
     type: ACTION_TYPES.DELETE_PAGE,
     payload: axios.delete(requestUrl),
   });
-  dispatch(getEntities());
+  dispatch(getEntities(websiteId));
   return result;
 };
 

@@ -13,7 +13,6 @@ import { getEntityByUserId } from "app/entities/app-user/app-user.reducer";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: -12px;
 `;
 
 const Pages: FC = () => {
@@ -41,7 +40,7 @@ const Pages: FC = () => {
           <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
             <NewPage />
             {pages.map((page, index) => (
-              <DraggablePage name={page.url} index={index} key={page.url }/>
+              <DraggablePage name={page.url} index={index} key={page.url} pageId={page.id} />
             ))}
             {provided.placeholder}
           </Wrapper>
