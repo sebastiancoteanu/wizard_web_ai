@@ -4,6 +4,7 @@ export interface IPage {
   id?: number;
   url?: string;
   isRestricted?: boolean;
+  order?: number;
   drafts?: IPageDraft[];
   websiteId?: number;
 }

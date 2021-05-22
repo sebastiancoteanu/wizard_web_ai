@@ -96,6 +96,12 @@ export const PageUpdate = (props: IPageUpdateProps) => {
                 </Label>
               </AvGroup>
               <AvGroup>
+                <Label id="orderLabel" for="page-order">
+                  Order
+                </Label>
+                <AvField id="page-order" type="string" className="form-control" name="order" />
+              </AvGroup>
+              <AvGroup>
                 <Label for="page-website">Website</Label>
                 <AvInput id="page-website" type="select" className="form-control" name="websiteId">
                   <option value="" key="0" />

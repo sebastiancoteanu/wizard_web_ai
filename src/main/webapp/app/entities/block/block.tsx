@@ -35,6 +35,7 @@ export const Block = (props: IBlockProps) => {
                 <th>ID</th>
                 <th>Type</th>
                 <th>Options</th>
+                <th>Order</th>
                 <th>Page Draft</th>
                 <th />
               </tr>
@@ -49,6 +50,7 @@ export const Block = (props: IBlockProps) => {
                   </td>
                   <td>{block.type}</td>
                   <td>{block.options}</td>
+                  <td>{block.order}</td>
                   <td>{block.pageDraftId ? <Link to={`page-draft/${block.pageDraftId}`}>{block.pageDraftId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

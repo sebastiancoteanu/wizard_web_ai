@@ -30,6 +30,9 @@ public class Page implements Serializable {
     @Column(name = "is_restricted", nullable = false)
     private Boolean isRestricted;
 
+    @Column(name = "jhi_order")
+    private Integer order;
+
     @OneToMany(mappedBy = "page")
     private Set<PageDraft> drafts = new HashSet<>();
 
@@ -70,6 +73,19 @@ public class Page implements Serializable {
 
     public void setIsRestricted(Boolean isRestricted) {
         this.isRestricted = isRestricted;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public Page order(Integer order) {
+        this.order = order;
+        return this;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public Set<PageDraft> getDrafts() {
@@ -134,6 +150,7 @@ public class Page implements Serializable {
             "id=" + getId() +
             ", url='" + getUrl() + "'" +
             ", isRestricted='" + isIsRestricted() + "'" +
+            ", order=" + getOrder() +
             "}";
     }
 }

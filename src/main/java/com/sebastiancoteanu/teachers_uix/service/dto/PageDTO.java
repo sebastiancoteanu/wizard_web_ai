@@ -16,6 +16,8 @@ public class PageDTO implements Serializable {
     @NotNull
     private Boolean isRestricted;
 
+    private Integer order;
+
 
     private Long websiteId;
     
@@ -41,6 +43,14 @@ public class PageDTO implements Serializable {
 
     public void setIsRestricted(Boolean isRestricted) {
         this.isRestricted = isRestricted;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public Long getWebsiteId() {
@@ -75,6 +85,7 @@ public class PageDTO implements Serializable {
             "id=" + getId() +
             ", url='" + getUrl() + "'" +
             ", isRestricted='" + isIsRestricted() + "'" +
+            ", order=" + getOrder() +
             ", websiteId=" + getWebsiteId() +
             "}";
     }

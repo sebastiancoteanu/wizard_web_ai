@@ -31,6 +31,9 @@ public class Block implements Serializable {
     @Column(name = "options", length = 2000)
     private String options;
 
+    @Column(name = "jhi_order")
+    private Integer order;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "blocks", allowSetters = true)
     private PageDraft pageDraft;
@@ -70,6 +73,19 @@ public class Block implements Serializable {
         this.options = options;
     }
 
+    public Integer getOrder() {
+        return order;
+    }
+
+    public Block order(Integer order) {
+        this.order = order;
+        return this;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
     public PageDraft getPageDraft() {
         return pageDraft;
     }
@@ -107,6 +123,7 @@ public class Block implements Serializable {
             "id=" + getId() +
             ", type='" + getType() + "'" +
             ", options='" + getOptions() + "'" +
+            ", order=" + getOrder() +
             "}";
     }
 }

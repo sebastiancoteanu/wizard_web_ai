@@ -38,6 +38,9 @@ public class PageResourceIT {
     private static final Boolean DEFAULT_IS_RESTRICTED = false;
     private static final Boolean UPDATED_IS_RESTRICTED = true;
 
+    private static final Integer DEFAULT_ORDER = 1;
+    private static final Integer UPDATED_ORDER = 2;
+
     @Autowired
     private PageRepository pageRepository;
 
@@ -64,7 +67,8 @@ public class PageResourceIT {
     public static Page createEntity(EntityManager em) {
         Page page = new Page()
             .url(DEFAULT_URL)
-            .isRestricted(DEFAULT_IS_RESTRICTED);
+            .isRestricted(DEFAULT_IS_RESTRICTED)
+            .order(DEFAULT_ORDER);
         return page;
     }
     /**
@@ -76,7 +80,8 @@ public class PageResourceIT {
     public static Page createUpdatedEntity(EntityManager em) {
         Page page = new Page()
             .url(UPDATED_URL)
-            .isRestricted(UPDATED_IS_RESTRICTED);
+            .isRestricted(UPDATED_IS_RESTRICTED)
+            .order(UPDATED_ORDER);
         return page;
     }
 
@@ -102,6 +107,7 @@ public class PageResourceIT {
         Page testPage = pageList.get(pageList.size() - 1);
         assertThat(testPage.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testPage.isIsRestricted()).isEqualTo(DEFAULT_IS_RESTRICTED);
+        assertThat(testPage.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -177,7 +183,8 @@ public class PageResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(page.getId().intValue())))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
-            .andExpect(jsonPath("$.[*].isRestricted").value(hasItem(DEFAULT_IS_RESTRICTED.booleanValue())));
+            .andExpect(jsonPath("$.[*].isRestricted").value(hasItem(DEFAULT_IS_RESTRICTED.booleanValue())))
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)));
     }
     
     @Test
@@ -192,7 +199,8 @@ public class PageResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(page.getId().intValue()))
             .andExpect(jsonPath("$.url").value(DEFAULT_URL))
-            .andExpect(jsonPath("$.isRestricted").value(DEFAULT_IS_RESTRICTED.booleanValue()));
+            .andExpect(jsonPath("$.isRestricted").value(DEFAULT_IS_RESTRICTED.booleanValue()))
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER));
     }
     @Test
     @Transactional
@@ -216,7 +224,8 @@ public class PageResourceIT {
         em.detach(updatedPage);
         updatedPage
             .url(UPDATED_URL)
-            .isRestricted(UPDATED_IS_RESTRICTED);
+            .isRestricted(UPDATED_IS_RESTRICTED)
+            .order(UPDATED_ORDER);
         PageDTO pageDTO = pageMapper.toDto(updatedPage);
 
         restPageMockMvc.perform(put("/api/pages")
@@ -230,6 +239,7 @@ public class PageResourceIT {
         Page testPage = pageList.get(pageList.size() - 1);
         assertThat(testPage.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testPage.isIsRestricted()).isEqualTo(UPDATED_IS_RESTRICTED);
+        assertThat(testPage.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test

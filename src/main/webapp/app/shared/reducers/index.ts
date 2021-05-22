@@ -31,6 +31,14 @@ import pageDraft, {
 import block, {
   BlockState,
 } from 'app/entities/block/block.reducer';
+// prettier-ignore
+import page, {
+  PageState
+} from 'app/entities/page/page.reducer';
+// prettier-ignore
+import block, {
+  BlockState
+} from 'app/entities/block/block.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

@@ -33,6 +33,10 @@ export const BlockDetail = (props: IBlockDetailProps) => {
             <span id="options">Options</span>
           </dt>
           <dd>{blockEntity.options}</dd>
+          <dt>
+            <span id="order">Order</span>
+          </dt>
+          <dd>{blockEntity.order}</dd>
           <dt>Page Draft</dt>
           <dd>{blockEntity.pageDraftId ? blockEntity.pageDraftId : ''}</dd>
         </dl>

@@ -13,6 +13,7 @@ enum ThemeType {
 entity Page {
   url String required
   isRestricted Boolean required
+  order Integer
 }
 
 entity PageDraft {
@@ -22,6 +23,7 @@ entity PageDraft {
 entity Block {
   type BlockType required
   options String maxlength(2000)
+  order Integer
 }
 
 enum BlockType {

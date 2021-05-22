@@ -39,6 +39,9 @@ public class BlockResourceIT {
     private static final String DEFAULT_OPTIONS = "AAAAAAAAAA";
     private static final String UPDATED_OPTIONS = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_ORDER = 1;
+    private static final Integer UPDATED_ORDER = 2;
+
     @Autowired
     private BlockRepository blockRepository;
 
@@ -65,7 +68,8 @@ public class BlockResourceIT {
     public static Block createEntity(EntityManager em) {
         Block block = new Block()
             .type(DEFAULT_TYPE)
-            .options(DEFAULT_OPTIONS);
+            .options(DEFAULT_OPTIONS)
+            .order(DEFAULT_ORDER);
         return block;
     }
     /**
@@ -77,7 +81,8 @@ public class BlockResourceIT {
     public static Block createUpdatedEntity(EntityManager em) {
         Block block = new Block()
             .type(UPDATED_TYPE)
-            .options(UPDATED_OPTIONS);
+            .options(UPDATED_OPTIONS)
+            .order(UPDATED_ORDER);
         return block;
     }
 
@@ -103,6 +108,7 @@ public class BlockResourceIT {
         Block testBlock = blockList.get(blockList.size() - 1);
         assertThat(testBlock.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testBlock.getOptions()).isEqualTo(DEFAULT_OPTIONS);
+        assertThat(testBlock.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -158,7 +164,8 @@ public class BlockResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(block.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].options").value(hasItem(DEFAULT_OPTIONS)));
+            .andExpect(jsonPath("$.[*].options").value(hasItem(DEFAULT_OPTIONS)))
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)));
     }
     
     @Test
@@ -173,7 +180,8 @@ public class BlockResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(block.getId().intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.options").value(DEFAULT_OPTIONS));
+            .andExpect(jsonPath("$.options").value(DEFAULT_OPTIONS))
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER));
     }
     @Test
     @Transactional
@@ -197,7 +205,8 @@ public class BlockResourceIT {
         em.detach(updatedBlock);
         updatedBlock
             .type(UPDATED_TYPE)
-            .options(UPDATED_OPTIONS);
+            .options(UPDATED_OPTIONS)
+            .order(UPDATED_ORDER);
         BlockDTO blockDTO = blockMapper.toDto(updatedBlock);
 
         restBlockMockMvc.perform(put("/api/blocks")
@@ -211,6 +220,7 @@ public class BlockResourceIT {
         Block testBlock = blockList.get(blockList.size() - 1);
         assertThat(testBlock.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testBlock.getOptions()).isEqualTo(UPDATED_OPTIONS);
+        assertThat(testBlock.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test

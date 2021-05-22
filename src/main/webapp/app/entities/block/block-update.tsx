@@ -107,6 +107,12 @@ export const BlockUpdate = (props: IBlockUpdateProps) => {
                 />
               </AvGroup>
               <AvGroup>
+                <Label id="orderLabel" for="block-order">
+                  Order
+                </Label>
+                <AvField id="block-order" type="string" className="form-control" name="order" />
+              </AvGroup>
+              <AvGroup>
                 <Label for="block-pageDraft">Page Draft</Label>
                 <AvInput id="block-pageDraft" type="select" className="form-control" name="pageDraftId">
                   <option value="" key="0" />

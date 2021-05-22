@@ -35,6 +35,7 @@ export const Page = (props: IPageProps) => {
                 <th>ID</th>
                 <th>Url</th>
                 <th>Is Restricted</th>
+                <th>Order</th>
                 <th>Website</th>
                 <th />
               </tr>
@@ -49,6 +50,7 @@ export const Page = (props: IPageProps) => {
                   </td>
                   <td>{page.url}</td>
                   <td>{page.isRestricted ? 'true' : 'false'}</td>
+                  <td>{page.order}</td>
                   <td>{page.websiteId ? <Link to={`website/${page.websiteId}`}>{page.websiteId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

@@ -17,6 +17,8 @@ public class BlockDTO implements Serializable {
     @Size(max = 2000)
     private String options;
 
+    private Integer order;
+
 
     private Long pageDraftId;
     
@@ -42,6 +44,14 @@ public class BlockDTO implements Serializable {
 
     public void setOptions(String options) {
         this.options = options;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public Long getPageDraftId() {
@@ -76,6 +86,7 @@ public class BlockDTO implements Serializable {
             "id=" + getId() +
             ", type='" + getType() + "'" +
             ", options='" + getOptions() + "'" +
+            ", order=" + getOrder() +
             ", pageDraftId=" + getPageDraftId() +
             "}";
     }
