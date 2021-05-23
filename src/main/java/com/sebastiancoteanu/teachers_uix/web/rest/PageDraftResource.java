@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,7 +45,7 @@ public class PageDraftResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/page-drafts")
-    public ResponseEntity<PageDraftDTO> createPageDraft(@Valid @RequestBody PageDraftDTO pageDraftDTO) throws URISyntaxException {
+    public ResponseEntity<PageDraftDTO> createPageDraft(@RequestBody PageDraftDTO pageDraftDTO) throws URISyntaxException {
         log.debug("REST request to save PageDraft : {}", pageDraftDTO);
         if (pageDraftDTO.getId() != null) {
             throw new BadRequestAlertException("A new pageDraft cannot already have an ID", ENTITY_NAME, "idexists");
@@ -67,7 +66,7 @@ public class PageDraftResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/page-drafts")
-    public ResponseEntity<PageDraftDTO> updatePageDraft(@Valid @RequestBody PageDraftDTO pageDraftDTO) throws URISyntaxException {
+    public ResponseEntity<PageDraftDTO> updatePageDraft(@RequestBody PageDraftDTO pageDraftDTO) throws URISyntaxException {
         log.debug("REST request to update PageDraft : {}", pageDraftDTO);
         if (pageDraftDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

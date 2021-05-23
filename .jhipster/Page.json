@@ -12,8 +12,17 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "isPublished",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "order",
       "fieldType": "Integer"
+    },
+    {
+      "fieldName": "selectedPageDraftId",
+      "fieldType": "Long"
     }
   ],
   "relationships": [

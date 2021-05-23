@@ -1,12 +1,6 @@
 {
   "name": "PageDraft",
-  "fields": [
-    {
-      "fieldName": "isPublished",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
-    }
-  ],
+  "fields": [],
   "relationships": [
     {
       "relationshipType": "one-to-many",

@@ -1,6 +1,5 @@
 package com.sebastiancoteanu.teachers_uix.service.dto;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 
 /**
@@ -9,9 +8,6 @@ import java.io.Serializable;
 public class PageDraftDTO implements Serializable {
     
     private Long id;
-
-    @NotNull
-    private Boolean isPublished;
 
 
     private Long pageId;
@@ -22,14 +18,6 @@ public class PageDraftDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Boolean isIsPublished() {
-        return isPublished;
-    }
-
-    public void setIsPublished(Boolean isPublished) {
-        this.isPublished = isPublished;
     }
 
     public Long getPageId() {
@@ -62,7 +50,6 @@ public class PageDraftDTO implements Serializable {
     public String toString() {
         return "PageDraftDTO{" +
             "id=" + getId() +
-            ", isPublished='" + isIsPublished() + "'" +
             ", pageId=" + getPageId() +
             "}";
     }

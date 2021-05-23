@@ -22,7 +22,13 @@
             <column name="is_restricted" type="boolean">
                 <constraints nullable="false" />
             </column>
+            <column name="is_published" type="boolean">
+                <constraints nullable="false" />
+            </column>
             <column name="jhi_order" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="selected_page_draft_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="website_id" type="bigint">
@@ -53,7 +59,9 @@
             <column name="id" type="numeric"/>
             <column name="url" type="string"/>
             <column name="is_restricted" type="boolean"/>
+            <column name="is_published" type="boolean"/>
             <column name="jhi_order" type="numeric"/>
+            <column name="selected_page_draft_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

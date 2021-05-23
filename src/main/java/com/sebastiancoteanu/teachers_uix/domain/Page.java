@@ -30,8 +30,15 @@ public class Page implements Serializable {
     @Column(name = "is_restricted", nullable = false)
     private Boolean isRestricted;
 
+    @NotNull
+    @Column(name = "is_published", nullable = false)
+    private Boolean isPublished;
+
     @Column(name = "jhi_order")
     private Integer order;
+
+    @Column(name = "selected_page_draft_id")
+    private Long selectedPageDraftId;
 
     @OneToMany(mappedBy = "page")
     private Set<PageDraft> drafts = new HashSet<>();
@@ -75,6 +82,19 @@ public class Page implements Serializable {
         this.isRestricted = isRestricted;
     }
 
+    public Boolean isIsPublished() {
+        return isPublished;
+    }
+
+    public Page isPublished(Boolean isPublished) {
+        this.isPublished = isPublished;
+        return this;
+    }
+
+    public void setIsPublished(Boolean isPublished) {
+        this.isPublished = isPublished;
+    }
+
     public Integer getOrder() {
         return order;
     }
@@ -86,6 +106,19 @@ public class Page implements Serializable {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Long getSelectedPageDraftId() {
+        return selectedPageDraftId;
+    }
+
+    public Page selectedPageDraftId(Long selectedPageDraftId) {
+        this.selectedPageDraftId = selectedPageDraftId;
+        return this;
+    }
+
+    public void setSelectedPageDraftId(Long selectedPageDraftId) {
+        this.selectedPageDraftId = selectedPageDraftId;
     }
 
     public Set<PageDraft> getDrafts() {
@@ -150,7 +183,9 @@ public class Page implements Serializable {
             "id=" + getId() +
             ", url='" + getUrl() + "'" +
             ", isRestricted='" + isIsRestricted() + "'" +
+            ", isPublished='" + isIsPublished() + "'" +
             ", order=" + getOrder() +
+            ", selectedPageDraftId=" + getSelectedPageDraftId() +
             "}";
     }
 }

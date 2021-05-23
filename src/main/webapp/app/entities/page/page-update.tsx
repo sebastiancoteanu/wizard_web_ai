@@ -95,11 +95,23 @@ export const PageUpdate = (props: IPageUpdateProps) => {
                   Is Restricted
                 </Label>
               </AvGroup>
+              <AvGroup check>
+                <Label id="isPublishedLabel">
+                  <AvInput id="page-isPublished" type="checkbox" className="form-check-input" name="isPublished" />
+                  Is Published
+                </Label>
+              </AvGroup>
               <AvGroup>
                 <Label id="orderLabel" for="page-order">
                   Order
                 </Label>
                 <AvField id="page-order" type="string" className="form-control" name="order" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="selectedPageDraftIdLabel" for="page-selectedPageDraftId">
+                  Selected Page Draft Id
+                </Label>
+                <AvField id="page-selectedPageDraftId" type="string" className="form-control" name="selectedPageDraftId" />
               </AvGroup>
               <AvGroup>
                 <Label for="page-website">Website</Label>

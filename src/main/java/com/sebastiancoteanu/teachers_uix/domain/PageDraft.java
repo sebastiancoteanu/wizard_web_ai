@@ -3,7 +3,6 @@ package com.sebastiancoteanu.teachers_uix.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -22,10 +21,6 @@ public class PageDraft implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "is_published", nullable = false)
-    private Boolean isPublished;
-
     @OneToMany(mappedBy = "pageDraft")
     private Set<Block> blocks = new HashSet<>();
 
@@ -40,19 +35,6 @@ public class PageDraft implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Boolean isIsPublished() {
-        return isPublished;
-    }
-
-    public PageDraft isPublished(Boolean isPublished) {
-        this.isPublished = isPublished;
-        return this;
-    }
-
-    public void setIsPublished(Boolean isPublished) {
-        this.isPublished = isPublished;
     }
 
     public Set<Block> getBlocks() {
@@ -115,7 +97,6 @@ public class PageDraft implements Serializable {
     public String toString() {
         return "PageDraft{" +
             "id=" + getId() +
-            ", isPublished='" + isIsPublished() + "'" +
             "}";
     }
 }

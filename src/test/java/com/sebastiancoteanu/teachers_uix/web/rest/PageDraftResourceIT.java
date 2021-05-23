@@ -32,9 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class PageDraftResourceIT {
 
-    private static final Boolean DEFAULT_IS_PUBLISHED = false;
-    private static final Boolean UPDATED_IS_PUBLISHED = true;
-
     @Autowired
     private PageDraftRepository pageDraftRepository;
 
@@ -59,8 +56,7 @@ public class PageDraftResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static PageDraft createEntity(EntityManager em) {
-        PageDraft pageDraft = new PageDraft()
-            .isPublished(DEFAULT_IS_PUBLISHED);
+        PageDraft pageDraft = new PageDraft();
         return pageDraft;
     }
     /**
@@ -70,8 +66,7 @@ public class PageDraftResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static PageDraft createUpdatedEntity(EntityManager em) {
-        PageDraft pageDraft = new PageDraft()
-            .isPublished(UPDATED_IS_PUBLISHED);
+        PageDraft pageDraft = new PageDraft();
         return pageDraft;
     }
 
@@ -95,7 +90,6 @@ public class PageDraftResourceIT {
         List<PageDraft> pageDraftList = pageDraftRepository.findAll();
         assertThat(pageDraftList).hasSize(databaseSizeBeforeCreate + 1);
         PageDraft testPageDraft = pageDraftList.get(pageDraftList.size() - 1);
-        assertThat(testPageDraft.isIsPublished()).isEqualTo(DEFAULT_IS_PUBLISHED);
     }
 
     @Test
@@ -121,26 +115,6 @@ public class PageDraftResourceIT {
 
     @Test
     @Transactional
-    public void checkIsPublishedIsRequired() throws Exception {
-        int databaseSizeBeforeTest = pageDraftRepository.findAll().size();
-        // set the field null
-        pageDraft.setIsPublished(null);
-
-        // Create the PageDraft, which fails.
-        PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(pageDraft);
-
-
-        restPageDraftMockMvc.perform(post("/api/page-drafts")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(pageDraftDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<PageDraft> pageDraftList = pageDraftRepository.findAll();
-        assertThat(pageDraftList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllPageDrafts() throws Exception {
         // Initialize the database
         pageDraftRepository.saveAndFlush(pageDraft);
@@ -149,8 +123,7 @@ public class PageDraftResourceIT {
         restPageDraftMockMvc.perform(get("/api/page-drafts?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(pageDraft.getId().intValue())))
-            .andExpect(jsonPath("$.[*].isPublished").value(hasItem(DEFAULT_IS_PUBLISHED.booleanValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(pageDraft.getId().intValue())));
     }
     
     @Test
@@ -163,8 +136,7 @@ public class PageDraftResourceIT {
         restPageDraftMockMvc.perform(get("/api/page-drafts/{id}", pageDraft.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(pageDraft.getId().intValue()))
-            .andExpect(jsonPath("$.isPublished").value(DEFAULT_IS_PUBLISHED.booleanValue()));
+            .andExpect(jsonPath("$.id").value(pageDraft.getId().intValue()));
     }
     @Test
     @Transactional
@@ -186,8 +158,6 @@ public class PageDraftResourceIT {
         PageDraft updatedPageDraft = pageDraftRepository.findById(pageDraft.getId()).get();
         // Disconnect from session so that the updates on updatedPageDraft are not directly saved in db
         em.detach(updatedPageDraft);
-        updatedPageDraft
-            .isPublished(UPDATED_IS_PUBLISHED);
         PageDraftDTO pageDraftDTO = pageDraftMapper.toDto(updatedPageDraft);
 
         restPageDraftMockMvc.perform(put("/api/page-drafts")
@@ -199,7 +169,6 @@ public class PageDraftResourceIT {
         List<PageDraft> pageDraftList = pageDraftRepository.findAll();
         assertThat(pageDraftList).hasSize(databaseSizeBeforeUpdate);
         PageDraft testPageDraft = pageDraftList.get(pageDraftList.size() - 1);
-        assertThat(testPageDraft.isIsPublished()).isEqualTo(UPDATED_IS_PUBLISHED);
     }
 
     @Test

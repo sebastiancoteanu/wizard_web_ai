@@ -76,12 +76,6 @@ export const PageDraftUpdate = (props: IPageDraftUpdateProps) => {
                   <AvInput id="page-draft-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
-              <AvGroup check>
-                <Label id="isPublishedLabel">
-                  <AvInput id="page-draft-isPublished" type="checkbox" className="form-check-input" name="isPublished" />
-                  Is Published
-                </Label>
-              </AvGroup>
               <AvGroup>
                 <Label for="page-draft-page">Page</Label>
                 <AvInput id="page-draft-page" type="select" className="form-control" name="pageId">

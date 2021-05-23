@@ -34,9 +34,17 @@ export const PageDetail = (props: IPageDetailProps) => {
           </dt>
           <dd>{pageEntity.isRestricted ? 'true' : 'false'}</dd>
           <dt>
+            <span id="isPublished">Is Published</span>
+          </dt>
+          <dd>{pageEntity.isPublished ? 'true' : 'false'}</dd>
+          <dt>
             <span id="order">Order</span>
           </dt>
           <dd>{pageEntity.order}</dd>
+          <dt>
+            <span id="selectedPageDraftId">Selected Page Draft Id</span>
+          </dt>
+          <dd>{pageEntity.selectedPageDraftId}</dd>
           <dt>Website</dt>
           <dd>{pageEntity.websiteId ? pageEntity.websiteId : ''}</dd>
         </dl>

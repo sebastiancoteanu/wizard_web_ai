@@ -25,10 +25,6 @@ export const PageDraftDetail = (props: IPageDraftDetailProps) => {
           PageDraft [<b>{pageDraftEntity.id}</b>]
         </h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="isPublished">Is Published</span>
-          </dt>
-          <dd>{pageDraftEntity.isPublished ? 'true' : 'false'}</dd>
           <dt>Page</dt>
           <dd>{pageDraftEntity.pageId ? pageDraftEntity.pageId : ''}</dd>
         </dl>

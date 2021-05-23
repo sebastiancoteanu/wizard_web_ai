@@ -13,11 +13,12 @@ enum ThemeType {
 entity Page {
   url String required
   isRestricted Boolean required
+  isPublished Boolean required
   order Integer
+  selectedPageDraftId Long
 }
 
 entity PageDraft {
-  isPublished Boolean required
 }
 
 entity Block {

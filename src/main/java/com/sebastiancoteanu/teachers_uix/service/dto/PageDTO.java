@@ -16,7 +16,12 @@ public class PageDTO implements Serializable {
     @NotNull
     private Boolean isRestricted;
 
+    @NotNull
+    private Boolean isPublished;
+
     private Integer order;
+
+    private Long selectedPageDraftId;
 
 
     private Long websiteId;
@@ -45,12 +50,28 @@ public class PageDTO implements Serializable {
         this.isRestricted = isRestricted;
     }
 
+    public Boolean isIsPublished() {
+        return isPublished;
+    }
+
+    public void setIsPublished(Boolean isPublished) {
+        this.isPublished = isPublished;
+    }
+
     public Integer getOrder() {
         return order;
     }
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Long getSelectedPageDraftId() {
+        return selectedPageDraftId;
+    }
+
+    public void setSelectedPageDraftId(Long selectedPageDraftId) {
+        this.selectedPageDraftId = selectedPageDraftId;
     }
 
     public Long getWebsiteId() {
@@ -85,7 +106,9 @@ public class PageDTO implements Serializable {
             "id=" + getId() +
             ", url='" + getUrl() + "'" +
             ", isRestricted='" + isIsRestricted() + "'" +
+            ", isPublished='" + isIsPublished() + "'" +
             ", order=" + getOrder() +
+            ", selectedPageDraftId=" + getSelectedPageDraftId() +
             ", websiteId=" + getWebsiteId() +
             "}";
     }

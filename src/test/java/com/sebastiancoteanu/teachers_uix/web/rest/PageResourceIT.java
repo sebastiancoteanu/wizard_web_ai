@@ -38,8 +38,14 @@ public class PageResourceIT {
     private static final Boolean DEFAULT_IS_RESTRICTED = false;
     private static final Boolean UPDATED_IS_RESTRICTED = true;
 
+    private static final Boolean DEFAULT_IS_PUBLISHED = false;
+    private static final Boolean UPDATED_IS_PUBLISHED = true;
+
     private static final Integer DEFAULT_ORDER = 1;
     private static final Integer UPDATED_ORDER = 2;
+
+    private static final Long DEFAULT_SELECTED_PAGE_DRAFT_ID = 1L;
+    private static final Long UPDATED_SELECTED_PAGE_DRAFT_ID = 2L;
 
     @Autowired
     private PageRepository pageRepository;
@@ -68,7 +74,9 @@ public class PageResourceIT {
         Page page = new Page()
             .url(DEFAULT_URL)
             .isRestricted(DEFAULT_IS_RESTRICTED)
-            .order(DEFAULT_ORDER);
+            .isPublished(DEFAULT_IS_PUBLISHED)
+            .order(DEFAULT_ORDER)
+            .selectedPageDraftId(DEFAULT_SELECTED_PAGE_DRAFT_ID);
         return page;
     }
     /**
@@ -81,7 +89,9 @@ public class PageResourceIT {
         Page page = new Page()
             .url(UPDATED_URL)
             .isRestricted(UPDATED_IS_RESTRICTED)
-            .order(UPDATED_ORDER);
+            .isPublished(UPDATED_IS_PUBLISHED)
+            .order(UPDATED_ORDER)
+            .selectedPageDraftId(UPDATED_SELECTED_PAGE_DRAFT_ID);
         return page;
     }
 
@@ -107,7 +117,9 @@ public class PageResourceIT {
         Page testPage = pageList.get(pageList.size() - 1);
         assertThat(testPage.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testPage.isIsRestricted()).isEqualTo(DEFAULT_IS_RESTRICTED);
+        assertThat(testPage.isIsPublished()).isEqualTo(DEFAULT_IS_PUBLISHED);
         assertThat(testPage.getOrder()).isEqualTo(DEFAULT_ORDER);
+        assertThat(testPage.getSelectedPageDraftId()).isEqualTo(DEFAULT_SELECTED_PAGE_DRAFT_ID);
     }
 
     @Test
@@ -173,6 +185,26 @@ public class PageResourceIT {
 
     @Test
     @Transactional
+    public void checkIsPublishedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = pageRepository.findAll().size();
+        // set the field null
+        page.setIsPublished(null);
+
+        // Create the Page, which fails.
+        PageDTO pageDTO = pageMapper.toDto(page);
+
+
+        restPageMockMvc.perform(post("/api/pages")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(pageDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Page> pageList = pageRepository.findAll();
+        assertThat(pageList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPages() throws Exception {
         // Initialize the database
         pageRepository.saveAndFlush(page);
@@ -184,7 +216,9 @@ public class PageResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(page.getId().intValue())))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
             .andExpect(jsonPath("$.[*].isRestricted").value(hasItem(DEFAULT_IS_RESTRICTED.booleanValue())))
-            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)));
+            .andExpect(jsonPath("$.[*].isPublished").value(hasItem(DEFAULT_IS_PUBLISHED.booleanValue())))
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)))
+            .andExpect(jsonPath("$.[*].selectedPageDraftId").value(hasItem(DEFAULT_SELECTED_PAGE_DRAFT_ID.intValue())));
     }
     
     @Test
@@ -200,7 +234,9 @@ public class PageResourceIT {
             .andExpect(jsonPath("$.id").value(page.getId().intValue()))
             .andExpect(jsonPath("$.url").value(DEFAULT_URL))
             .andExpect(jsonPath("$.isRestricted").value(DEFAULT_IS_RESTRICTED.booleanValue()))
-            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER));
+            .andExpect(jsonPath("$.isPublished").value(DEFAULT_IS_PUBLISHED.booleanValue()))
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER))
+            .andExpect(jsonPath("$.selectedPageDraftId").value(DEFAULT_SELECTED_PAGE_DRAFT_ID.intValue()));
     }
     @Test
     @Transactional
@@ -225,7 +261,9 @@ public class PageResourceIT {
         updatedPage
             .url(UPDATED_URL)
             .isRestricted(UPDATED_IS_RESTRICTED)
-            .order(UPDATED_ORDER);
+            .isPublished(UPDATED_IS_PUBLISHED)
+            .order(UPDATED_ORDER)
+            .selectedPageDraftId(UPDATED_SELECTED_PAGE_DRAFT_ID);
         PageDTO pageDTO = pageMapper.toDto(updatedPage);
 
         restPageMockMvc.perform(put("/api/pages")
@@ -239,7 +277,9 @@ public class PageResourceIT {
         Page testPage = pageList.get(pageList.size() - 1);
         assertThat(testPage.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testPage.isIsRestricted()).isEqualTo(UPDATED_IS_RESTRICTED);
+        assertThat(testPage.isIsPublished()).isEqualTo(UPDATED_IS_PUBLISHED);
         assertThat(testPage.getOrder()).isEqualTo(UPDATED_ORDER);
+        assertThat(testPage.getSelectedPageDraftId()).isEqualTo(UPDATED_SELECTED_PAGE_DRAFT_ID);
     }
 
     @Test
