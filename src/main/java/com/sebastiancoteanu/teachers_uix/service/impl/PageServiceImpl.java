@@ -1,5 +1,7 @@
 package com.sebastiancoteanu.teachers_uix.service.impl;
 
+import com.sebastiancoteanu.teachers_uix.domain.PageDraft;
+import com.sebastiancoteanu.teachers_uix.repository.PageDraftRepository;
 import com.sebastiancoteanu.teachers_uix.service.PageService;
 import com.sebastiancoteanu.teachers_uix.domain.Page;
 import com.sebastiancoteanu.teachers_uix.repository.PageRepository;
@@ -28,10 +30,13 @@ public class PageServiceImpl implements PageService {
 
     private final PageRepository pageRepository;
 
+    private final PageDraftRepository pageDraftRepository;
+
     private final PageMapper pageMapper;
 
-    public PageServiceImpl(PageRepository pageRepository, PageMapper pageMapper) {
+    public PageServiceImpl(PageRepository pageRepository, PageDraftRepository pageDraftRepository, PageMapper pageMapper) {
         this.pageRepository = pageRepository;
+        this.pageDraftRepository = pageDraftRepository;
         this.pageMapper = pageMapper;
     }
 
@@ -39,6 +44,12 @@ public class PageServiceImpl implements PageService {
     public PageDTO save(PageDTO pageDTO) {
         log.debug("Request to save Page : {}", pageDTO);
         Page page = pageMapper.toEntity(pageDTO);
+
+        /* Create page draft and automatically select it */
+        PageDraft pageDraft = new PageDraft();
+        pageDraft = pageDraftRepository.save(pageDraft);
+        page.setSelectedPageDraftId(pageDraft.getId());
+
         page = pageRepository.save(page);
         return pageMapper.toDto(page);
     }

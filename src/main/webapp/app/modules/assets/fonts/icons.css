@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'icons';
-  src: url('./icons.ttf?e57227dae24e78869a2e817d040b4ff1') format('truetype');
+  src: url('./icons.ttf?a137f26c848ad24332e9fb89efc77da7') format('truetype');
 }
 
 i[class^='icon-']:before,
@@ -21,81 +21,84 @@ i[class*=' icon-']:before {
 .icon-cancel:before {
   content: '\f102';
 }
-.icon-caret-down:before {
+.icon-carret-down:before {
   content: '\f103';
 }
-.icon-check-mark:before {
+.icon-carret-up:before {
   content: '\f104';
 }
-.icon-close:before {
+.icon-check-mark:before {
   content: '\f105';
 }
-.icon-confirm:before {
+.icon-close:before {
   content: '\f106';
 }
-.icon-copy:before {
+.icon-confirm:before {
   content: '\f107';
 }
-.icon-delete:before {
+.icon-copy:before {
   content: '\f108';
 }
-.icon-down-arrow:before {
+.icon-delete:before {
   content: '\f109';
 }
-.icon-drag:before {
+.icon-down-arrow:before {
   content: '\f10a';
 }
-.icon-hamburger-menu:before {
+.icon-drag:before {
   content: '\f10b';
 }
-.icon-header:before {
+.icon-hamburger-menu:before {
   content: '\f10c';
 }
-.icon-image:before {
+.icon-header:before {
   content: '\f10d';
 }
-.icon-invisible:before {
+.icon-image:before {
   content: '\f10e';
 }
-.icon-left-arrow:before {
+.icon-invisible:before {
   content: '\f10f';
 }
-.icon-paragraph:before {
+.icon-left-arrow:before {
   content: '\f110';
 }
-.icon-pen:before {
+.icon-paragraph:before {
   content: '\f111';
 }
-.icon-picture:before {
+.icon-pen:before {
   content: '\f112';
 }
-.icon-plus:before {
+.icon-picture:before {
   content: '\f113';
 }
-.icon-right-arrow:before {
+.icon-plus:before {
   content: '\f114';
 }
-.icon-scroll:before {
+.icon-right-arrow:before {
   content: '\f115';
 }
-.icon-teachers-uix-logo:before {
+.icon-scroll:before {
   content: '\f116';
 }
-.icon-three-image-gallery:before {
+.icon-teachers-uix-logo:before {
   content: '\f117';
 }
-.icon-three-image:before {
+.icon-three-image-gallery:before {
   content: '\f118';
 }
-.icon-up-arrow:before {
+.icon-three-image:before {
   content: '\f119';
 }
-.icon-user:before {
+.icon-up-arrow:before {
   content: '\f11a';
 }
-.icon-vertical:before {
+.icon-user:before {
   content: '\f11b';
 }
-.icon-visible:before {
+.icon-vertical:before {
   content: '\f11c';
+}
+.icon-visible:before {
+  content: '\f11d';
 }

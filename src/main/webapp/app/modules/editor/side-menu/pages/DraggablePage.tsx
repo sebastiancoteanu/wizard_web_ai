@@ -6,6 +6,7 @@ import ActionBar from "app/modules/editor/action-bar";
 import { IPage } from "app/shared/model/page.model";
 
 const Wrapper = styled.div`
+  margin-bottom: 12px;
 `;
 
 interface Props {

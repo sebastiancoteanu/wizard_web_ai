@@ -38,7 +38,13 @@ const NewPage: FC<Props> = ({ totalPages }) => {
   };
 
   const handleCreatePage = () => {
-    dispatch(createEntity({ url, websiteId: entity.websiteId, isRestricted: false, order: totalPages }));
+    dispatch(createEntity({
+      url,
+      websiteId: entity.websiteId,
+      isRestricted: false,
+      isPublished: false,
+      order: totalPages
+    }));
     setUrl('');
   }
 
