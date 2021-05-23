@@ -8,11 +8,13 @@ import { IPage, defaultValue } from 'app/shared/model/page.model';
 
 export const ACTION_TYPES = {
   SET_PAGES: 'page/SET_PAGES',
+  SET_PAGE: 'page/SET_PAGE',
   CREATE_LOCAL_PAGE: 'page/CREATE_LOCAL_PAGE',
   FETCH_PAGE_LIST: 'page/FETCH_PAGE_LIST',
   FETCH_PAGE: 'page/FETCH_PAGE',
   CREATE_PAGE: 'page/CREATE_PAGE',
   UPDATE_PAGE: 'page/UPDATE_PAGE',
+  UPDATE_PAGES: 'page/UPDATE_PAGES',
   DELETE_PAGE: 'page/DELETE_PAGE',
   RESET: 'page/RESET',
 };
@@ -42,6 +44,7 @@ export default (state: PageState = initialState, action): PageState => {
       };
     case REQUEST(ACTION_TYPES.CREATE_PAGE):
     case REQUEST(ACTION_TYPES.UPDATE_PAGE):
+    case REQUEST(ACTION_TYPES.UPDATE_PAGES):
     case REQUEST(ACTION_TYPES.DELETE_PAGE):
       return {
         ...state,
@@ -53,6 +56,7 @@ export default (state: PageState = initialState, action): PageState => {
     case FAILURE(ACTION_TYPES.FETCH_PAGE):
     case FAILURE(ACTION_TYPES.CREATE_PAGE):
     case FAILURE(ACTION_TYPES.UPDATE_PAGE):
+    case FAILURE(ACTION_TYPES.UPDATE_PAGES):
     case FAILURE(ACTION_TYPES.DELETE_PAGE):
       return {
         ...state,
@@ -82,6 +86,18 @@ export default (state: PageState = initialState, action): PageState => {
       return {
         ...state,
         entities: action.payload,
+      };
+    case ACTION_TYPES.SET_PAGE:
+      return {
+        ...state,
+        entity: action.payload,
+      };
+    case SUCCESS(ACTION_TYPES.UPDATE_PAGES):
+      return {
+        ...state,
+        updating: false,
+        updateSuccess: true,
+        entities: action.payload.data,
       };
     case SUCCESS(ACTION_TYPES.CREATE_PAGE):
     case SUCCESS(ACTION_TYPES.UPDATE_PAGE):
@@ -138,6 +154,11 @@ export const setPages = (pages: IPage[]) => ({
   payload: pages,
 });
 
+export const setEditingPage = (page: IPage) => ({
+  type: ACTION_TYPES.SET_PAGE,
+  payload: page,
+});
+
 export const createEntity: ICrudPutAction<IPage> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.CREATE_PAGE,
@@ -153,6 +174,18 @@ export const updateEntity: ICrudPutAction<IPage> = entity => async dispatch => {
     type: ACTION_TYPES.UPDATE_PAGE,
     payload: axios.put(apiUrl, cleanEntity(entity)),
   });
+  await dispatch(getEntities(entity.websiteId));
+  return result;
+};
+
+export const updateAllEntities: ICrudPutAction<IPage[]> = entities => async dispatch => {
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_PAGES,
+    payload: axios.put(`${apiUrl}/all`, {
+      list: entities.map(entity => cleanEntity(entity)),
+    }),
+  });
+  await dispatch(getEntities(entities[0].websiteId));
   return result;
 };
 

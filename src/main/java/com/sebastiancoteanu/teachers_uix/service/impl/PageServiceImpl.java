@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,16 @@ public class PageServiceImpl implements PageService {
         Page page = pageMapper.toEntity(pageDTO);
         page = pageRepository.save(page);
         return pageMapper.toDto(page);
+    }
+
+    @Override
+    public List<PageDTO> saveAll(List<PageDTO> pagesDTO) {
+        List pages = new ArrayList();
+        for (PageDTO pageDTO : pagesDTO) {
+            pages.add(pageMapper.toEntity(pageDTO));
+        }
+        pages = pageRepository.saveAll(pages);
+        return pages;
     }
 
     @Override

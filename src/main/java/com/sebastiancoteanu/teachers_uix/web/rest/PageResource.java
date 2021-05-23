@@ -1,6 +1,8 @@
 package com.sebastiancoteanu.teachers_uix.web.rest;
 
 import com.sebastiancoteanu.teachers_uix.service.PageService;
+import com.sebastiancoteanu.teachers_uix.service.dto.PageDraftDTO;
+import com.sebastiancoteanu.teachers_uix.service.dto.PagesDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
 
@@ -54,6 +56,7 @@ public class PageResource {
             throw new BadRequestAlertException("A new page cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PageDTO result = pageService.save(pageDTO);
+
         return ResponseEntity.created(new URI("/api/pages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -80,6 +83,12 @@ public class PageResource {
             .body(result);
     }
 
+    @PutMapping("/pages/all")
+    public ResponseEntity<List<PageDTO>> updatePages(@Valid @RequestBody PagesDTO pagesDTO) throws URISyntaxException {
+        List<PageDTO> result = pageService.saveAll(pagesDTO.getList());
+        return ResponseEntity.ok().body(result);
+    }
+
     /**
      * {@code GET  /pages} : get all the pages.
      *
@@ -88,7 +97,9 @@ public class PageResource {
     @GetMapping("/pages")
     public List<PageDTO> getAllPages(@RequestParam(required = false, name = "websiteId") Long websiteId) {
         if (websiteId != null) {
-            return pageService.findAll().stream().filter(pageDTO -> pageDTO.getWebsiteId() == websiteId).collect(Collectors.toList());
+            return pageService.findAll().stream().filter(pageDTO -> pageDTO.getWebsiteId() == websiteId).sorted((page1, page2) -> {
+                return page1.getOrder() - page2.getOrder();
+            }).collect(Collectors.toList());
         }
         return pageService.findAll();
     }

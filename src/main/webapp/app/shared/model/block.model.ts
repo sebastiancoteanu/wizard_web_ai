@@ -10,6 +10,7 @@ export interface IBlock {
   id?: number;
   type?: BlockType;
   options?: IBlockOptions;
+  order?: number;
   pageDraftId?: number;
 }
 

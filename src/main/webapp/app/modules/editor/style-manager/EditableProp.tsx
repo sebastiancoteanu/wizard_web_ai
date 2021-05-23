@@ -57,7 +57,7 @@ const EditableProp: FC<EditableProp> = ({
   return (
     <Wrapper className={className}>
       {label && <Label htmlFor={name}>{label}</Label>}
-      <Input name={name} type={type} value={value} onChange={handleChange} {...rest} />
+      <Input name={name} type={type} value={value} onChange={handleChange} spellCheck={false} {...rest} />
     </Wrapper>
   )
 };

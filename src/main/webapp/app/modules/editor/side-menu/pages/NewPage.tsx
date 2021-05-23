@@ -10,7 +10,7 @@ import { IRootState } from "app/shared/reducers";
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 `;
 
 const CreateButton = styled(IconButton)`
@@ -24,7 +24,11 @@ const CreateButton = styled(IconButton)`
   }
 `;
 
-const NewPage: FC = () => {
+interface Props {
+  totalPages: number;
+}
+
+const NewPage: FC<Props> = ({ totalPages }) => {
   const [url, setUrl] = useState('');
   const { entity } = useSelector<IRootState, IRootState['appUser']>(state => state.appUser);
   const dispatch = useDispatch();
@@ -34,7 +38,7 @@ const NewPage: FC = () => {
   };
 
   const handleCreatePage = () => {
-    dispatch(createEntity({ url, websiteId: entity.websiteId, isRestricted: false }));
+    dispatch(createEntity({ url, websiteId: entity.websiteId, isRestricted: false, order: totalPages }));
     setUrl('');
   }
 

@@ -18,6 +18,8 @@ public interface PageService {
      */
     PageDTO save(PageDTO pageDTO);
 
+    List<PageDTO> saveAll(List<PageDTO> pages);
+
     /**
      * Get all the pages.
      *

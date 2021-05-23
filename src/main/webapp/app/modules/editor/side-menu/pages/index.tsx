@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import NewPage from "app/modules/editor/side-menu/pages/NewPage";
 import { reorder } from "app/utils/blockManipulation";
-import { getEntities, setPages } from "app/entities/page/page.reducer";
-import { getEntityByUserId } from "app/entities/app-user/app-user.reducer";
+import { getEntities, setPages, updateAllEntities } from "app/entities/page/page.reducer";
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,7 +28,10 @@ const Pages: FC = () => {
 
   const handleDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination}) => {
     if (source.droppableId === destination?.droppableId && destination?.droppableId === PAGES_DRAG_DROP_ID) {
-      dispatch(setPages(reorder(pages, source.index, destination.index)));
+      let newPagesList = reorder(pages, source.index, destination.index);
+      newPagesList = newPagesList.map((page, index) => ({ ...page, order: index }));
+      dispatch(setPages(newPagesList));
+      dispatch(updateAllEntities(newPagesList));
     }
   };
 
@@ -38,9 +40,9 @@ const Pages: FC = () => {
       <Droppable droppableId={PAGES_DRAG_DROP_ID}>
         {provided => (
           <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
-            <NewPage />
+            <NewPage totalPages={pages.length} />
             {pages.map((page, index) => (
-              <DraggablePage name={page.url} index={index} key={page.url} pageId={page.id} />
+              <DraggablePage page={page} index={index} key={page.url} />
             ))}
             {provided.placeholder}
           </Wrapper>

@@ -10,13 +10,12 @@ const Wrapper = styled.div`
 
 interface Props {
   index: number;
-  name: string;
-  pageId: IPage['id'];
+  page: IPage;
 }
 
-const DraggablePage: FC<Props> = ({ index, name, pageId }) => {
+const DraggablePage: FC<Props> = ({ index, page }) => {
   return (
-    <Draggable draggableId={name} index={index}>
+    <Draggable draggableId={String(page.id)} index={index}>
       {provided => (
         <Wrapper
           ref={provided.innerRef}
@@ -24,7 +23,7 @@ const DraggablePage: FC<Props> = ({ index, name, pageId }) => {
           {...provided.dragHandleProps}
           {...provided.draggableProps}
         >
-          <EditablePage name={name} dragProps={provided.dragHandleProps} pageId={pageId} />
+          <EditablePage dragProps={provided.dragHandleProps} page={page} />
         </Wrapper>
       )}
     </Draggable>

@@ -1,18 +1,17 @@
-import React, { FC, MouseEvent, useState } from 'react';
-import styled from "styled-components";
-import EditableProp from "app/modules/editor/style-manager/EditableProp";
+import React, { ChangeEvent, FC, useCallback, useState } from 'react';
+import styled, { css } from "styled-components";
 import withClickInside from "app/modules/editor/side-menu/withClickInside";
 import IconButton from "app/modules/ui-kit/IconButton";
 import { Icons } from "app/modules/assets/fonts/icons";
-import { Draggable, DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
-import Icon from "app/modules/ui-kit/Icon";
+import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 import { StyledEditablePage } from "app/modules/editor/side-menu/pages/common";
-import { deletePageBlock } from "app/entities/block/block.reducer";
 import { useDispatch } from "react-redux";
-import { deleteEntity } from "app/entities/page/page.reducer";
+import { deleteEntity, setEditingPage, updateEntity } from "app/entities/page/page.reducer";
 import { IPage } from "app/shared/model/page.model";
+import debounce from 'lodash.debounce';
+import useEditingPage from "app/modules/editor/side-menu/pages/useEditingPage";
 
-const Wrapper = styled.div<{ isClickedInside: boolean }>`
+const Wrapper = styled.div<{ isClickedInside: boolean, isEditing: boolean }>`
   cursor: pointer;
   color: ${({ theme }) => theme.colors.lightestGray};
   font-size: 16px;
@@ -24,6 +23,13 @@ const Wrapper = styled.div<{ isClickedInside: boolean }>`
   &:hover, &:active {
     background-color: ${({ theme }) => theme.colors.lightGray};
   }
+  
+  ${({ isEditing }) => isEditing && css`
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    margin-left: -24px;
+    margin-right: -26px;
+    padding: 0 24px;
+  `}
 `;
 
 const PageName = styled.div`
@@ -34,54 +40,80 @@ const PageName = styled.div`
   align-items: center;
 `;
 
-const ReorderButtonWrapper = styled.div`
-`;
-
-const ReorderButton = styled(IconButton)`
+const ActionButton = styled(IconButton)`
   color: ${({ theme }) => theme.colors.lightestGray};
   font-size: 12px;
+  
+  &:not(:last-child) {
+    margin-right: 6px;
+  }
+`;
+
+const ReorderButton = styled(ActionButton)`
   pointer-events: none;
 `;
 
-const VisibilityButton = styled(IconButton)`
-  color: ${({ theme }) => theme.colors.lightestGray};
-  font-size: 12px;
-  margin-right: 4px;
-`;
-
 interface Props {
-  name?: string;
   dragProps: DraggableProvidedDragHandleProps;
-  pageId: IPage['id'];
+  page: IPage;
 }
 
-const EditablePage: FC<Props> = ({ name, dragProps, pageId}) => {
+const EditablePage: FC<Props> = ({ page, dragProps }) => {
+  const [url, setUrl] = useState(page.url);
   const { wrapperRef, isClickedInside, clickInside } = withClickInside();
-  const [isPageVisible, setVisibility] = useState(true);
   const dispatch = useDispatch();
+  const { isEditing } = useEditingPage(page.id);
 
   const handleDeletePage = () => {
-    dispatch(deleteEntity(pageId));
+    dispatch(deleteEntity(page.id));
   }
 
+  const handlePageRestricted = () => {
+    dispatch(updateEntity({
+      ...page,
+      isRestricted: !page.isRestricted
+    }))
+  };
+
+  const handleSave = useCallback(
+    debounce((nextValue) => {
+      dispatch(updateEntity({
+        ...page,
+        url: nextValue,
+      }))
+    }, 1500),
+    [],
+  );
+
+  const handleChange = (_, value) => {
+    setUrl(value);
+    handleSave(value);
+  };
+
+  const handlePageSelect = () => dispatch(setEditingPage(page));
+
   return (
-    <Wrapper ref={wrapperRef} isClickedInside={isClickedInside}>
+    <Wrapper ref={wrapperRef} isClickedInside={isClickedInside} isEditing={isEditing}>
       {isClickedInside ? (
-        <StyledEditablePage onChange={() => {}} value={name} placeholder="Page name" />
+        <StyledEditablePage onChange={handleChange} value={url} placeholder="Page URL" autoFocus />
       ) : (
         <>
-          <PageName onClick={clickInside}>{name}</PageName>
-          <VisibilityButton
-            onClick={() => setVisibility(!isPageVisible)}
-            name={isPageVisible ? Icons.Visible : Icons.Invisible}
+          <PageName onClick={handlePageSelect}>{page.url}</PageName>
+          <ActionButton
+            onClick={handlePageRestricted}
+            name={page.isRestricted ? Icons.Invisible : Icons.Visible}
           />
-          <VisibilityButton
+          <ActionButton
+            onClick={clickInside}
+            name={Icons.Pen}
+          />
+          <ActionButton
             onClick={handleDeletePage}
             name={Icons.Delete}
           />
-          <ReorderButtonWrapper {...dragProps} >
+          <div {...dragProps} >
             <ReorderButton name={Icons.Scroll} />
-          </ReorderButtonWrapper>
+          </div>
         </>
       )}
     </Wrapper>
