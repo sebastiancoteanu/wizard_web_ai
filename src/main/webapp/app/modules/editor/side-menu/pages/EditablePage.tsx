@@ -13,6 +13,7 @@ import PageDrafts from "app/modules/editor/side-menu/pages/page-drafts";
 import ActionButtons from "app/modules/editor/side-menu/pages/ActionButtons";
 
 const Wrapper = styled.div<{ isClickedInside: boolean, isEditing: boolean }>`
+  padding: 4px 24px;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.lightestGray};
   font-size: 16px;
@@ -27,9 +28,6 @@ const Wrapper = styled.div<{ isClickedInside: boolean, isEditing: boolean }>`
   
   ${({ isEditing }) => isEditing && css`
     background-color: ${({ theme }) => theme.colors.darkestGray};
-    margin-left: -24px;
-    margin-right: -26px;
-    padding: 0 24px;
   `}
 `;
 

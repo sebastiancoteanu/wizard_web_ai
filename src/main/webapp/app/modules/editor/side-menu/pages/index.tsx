@@ -14,6 +14,12 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const ExistingPagesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 -24px;
+`;
+
 const Pages: FC = () => {
   const { entities: pages } = useSelector<IRootState, IRootState['page']>(state => state.page);
   const { entity } = useSelector<IRootState, IRootState['appUser']>(state => state.appUser);
@@ -41,9 +47,11 @@ const Pages: FC = () => {
         {provided => (
           <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
             <NewPage totalPages={pages.length} />
-            {pages.map((page, index) => (
-              <DraggablePage page={page} index={index} key={page.url} />
-            ))}
+            <ExistingPagesWrapper>
+              {pages.map((page, index) => (
+                <DraggablePage page={page} index={index} key={page.url} />
+              ))}
+            </ExistingPagesWrapper>
             {provided.placeholder}
           </Wrapper>
         )}
