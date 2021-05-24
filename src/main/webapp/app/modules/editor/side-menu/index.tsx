@@ -39,13 +39,17 @@ const InnerWrapper = styled.div<{ isMenuOpen: boolean }>`
 `;
 
 const OpenMenuIcon = styled(IconButton)`
-  font-size: 16px;
-  background: #d7d7d745;
+  font-size: 12px;
+  background: ${({ theme }) => theme.colors.lightGray};
   border-radius: 50%;
-  padding: 5px;
+  padding: 8px;
   position: fixed;
   top: 70px;
-  left: 10px;
+  left: 12.5px;
+
+  &, &:hover, &:active, &:focus {
+    color: ${({ theme }) => theme.colors.lightestGray};
+  }
 `;
 
 const SideMenu: FC = () => {
