@@ -19,14 +19,14 @@ const Wrapper = styled.div<{ isClickedInside: boolean, isEditing: boolean }>`
   display: flex;
   flex-direction: column;
   transition: all 0.1s ease-in;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  border-bottom: 1px inset ${({ theme }) => theme.colors.lightGray};
 
   &:hover, &:active {
-    background-color: ${({ theme }) => theme.colors.lightGray};
+    background-color: ${({ theme }) => theme.colors.darkestGray};
   }
   
   ${({ isEditing }) => isEditing && css`
-    background-color: ${({ theme }) => theme.colors.lightGray};
+    background-color: ${({ theme }) => theme.colors.darkestGray};
     margin-left: -24px;
     margin-right: -26px;
     padding: 0 24px;

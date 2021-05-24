@@ -6,12 +6,16 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 24px;
+  margin-top: -6px;
 `;
 
 const PageDraft = styled.div`
   font-size: 14px;
-  margin-bottom: 12px;
-  // border-bottom: 1px solid ${({ theme }) => theme.colors.darkestGray};
+  padding: 10px 0;
+  
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  }
 `;
 
 interface Props {
