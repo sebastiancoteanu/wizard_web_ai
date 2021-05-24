@@ -28,7 +28,7 @@ const ActionButtons: FC<Props> = ({ page, dragProps, onEditStart }) => {
     dispatch(updateEntity({
       ...page,
       isRestricted: !page.isRestricted
-    }))
+    }));
   };
 
   return (

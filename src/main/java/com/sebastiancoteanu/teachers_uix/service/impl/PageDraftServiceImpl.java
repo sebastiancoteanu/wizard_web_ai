@@ -1,5 +1,8 @@
 package com.sebastiancoteanu.teachers_uix.service.impl;
 
+import com.sebastiancoteanu.teachers_uix.domain.Page;
+import com.sebastiancoteanu.teachers_uix.domain.User;
+import com.sebastiancoteanu.teachers_uix.repository.PageRepository;
 import com.sebastiancoteanu.teachers_uix.service.PageDraftService;
 import com.sebastiancoteanu.teachers_uix.domain.PageDraft;
 import com.sebastiancoteanu.teachers_uix.repository.PageDraftRepository;
@@ -27,10 +30,13 @@ public class PageDraftServiceImpl implements PageDraftService {
 
     private final PageDraftRepository pageDraftRepository;
 
+    private final PageRepository pageRepository;
+
     private final PageDraftMapper pageDraftMapper;
 
-    public PageDraftServiceImpl(PageDraftRepository pageDraftRepository, PageDraftMapper pageDraftMapper) {
+    public PageDraftServiceImpl(PageDraftRepository pageDraftRepository, PageRepository pageRepository, PageDraftMapper pageDraftMapper) {
         this.pageDraftRepository = pageDraftRepository;
+        this.pageRepository = pageRepository;
         this.pageDraftMapper = pageDraftMapper;
     }
 
@@ -49,6 +55,13 @@ public class PageDraftServiceImpl implements PageDraftService {
         return pageDraftRepository.findAll().stream()
             .map(pageDraftMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<PageDraftDTO>> findByPageId(Long id) {
+        Optional<Page> page = pageRepository.findById(id);
+        return pageDraftRepository.findByPage(page.get()).map(pageDraftMapper::toDto);
     }
 
 

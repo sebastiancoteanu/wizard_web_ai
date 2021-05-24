@@ -1,5 +1,6 @@
 package com.sebastiancoteanu.teachers_uix.service;
 
+import com.sebastiancoteanu.teachers_uix.service.dto.AppUserDTO;
 import com.sebastiancoteanu.teachers_uix.service.dto.PageDraftDTO;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public interface PageDraftService {
      * @return the entity.
      */
     Optional<PageDraftDTO> findOne(Long id);
+
+    Optional<List<PageDraftDTO>> findByPageId(Long id);
 
     /**
      * Delete the "id" pageDraft.

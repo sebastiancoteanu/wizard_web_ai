@@ -5,8 +5,10 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IPageDraft, defaultValue } from 'app/shared/model/page-draft.model';
+import { IPage } from 'app/shared/model/page.model';
 
 export const ACTION_TYPES = {
+  FETCH_PAGEDRAFTS_BY_PAGE: 'pageDraft/FETCH_PAGEDRAFTS_BY_PAGE',
   FETCH_PAGEDRAFT_LIST: 'pageDraft/FETCH_PAGEDRAFT_LIST',
   FETCH_PAGEDRAFT: 'pageDraft/FETCH_PAGEDRAFT',
   CREATE_PAGEDRAFT: 'pageDraft/CREATE_PAGEDRAFT',
@@ -22,6 +24,7 @@ const initialState = {
   entity: defaultValue,
   updating: false,
   updateSuccess: false,
+  pageMappedEntities: {},
 };
 
 export type PageDraftState = Readonly<typeof initialState>;
@@ -30,6 +33,7 @@ export type PageDraftState = Readonly<typeof initialState>;
 
 export default (state: PageDraftState = initialState, action): PageDraftState => {
   switch (action.type) {
+    case REQUEST(ACTION_TYPES.FETCH_PAGEDRAFTS_BY_PAGE):
     case REQUEST(ACTION_TYPES.FETCH_PAGEDRAFT_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PAGEDRAFT):
       return {
@@ -47,6 +51,7 @@ export default (state: PageDraftState = initialState, action): PageDraftState =>
         updateSuccess: false,
         updating: true,
       };
+    case FAILURE(ACTION_TYPES.FETCH_PAGEDRAFTS_BY_PAGE):
     case FAILURE(ACTION_TYPES.FETCH_PAGEDRAFT_LIST):
     case FAILURE(ACTION_TYPES.FETCH_PAGEDRAFT):
     case FAILURE(ACTION_TYPES.CREATE_PAGEDRAFT):
@@ -59,6 +64,18 @@ export default (state: PageDraftState = initialState, action): PageDraftState =>
         updateSuccess: false,
         errorMessage: action.payload,
       };
+    case SUCCESS(ACTION_TYPES.FETCH_PAGEDRAFTS_BY_PAGE):
+      if (action.payload.data.length) {
+        return {
+          ...state,
+          loading: false,
+          pageMappedEntities: {
+            ...state.pageMappedEntities,
+            [action.payload.data[0].pageId]: action.payload.data,
+          },
+        };
+      }
+      break;
     case SUCCESS(ACTION_TYPES.FETCH_PAGEDRAFT_LIST):
       return {
         ...state,
@@ -98,6 +115,10 @@ export default (state: PageDraftState = initialState, action): PageDraftState =>
 const apiUrl = 'api/page-drafts';
 
 // Actions
+export const getPageDraftsByPageId = (pageId: IPage['id']) => ({
+  type: ACTION_TYPES.FETCH_PAGEDRAFTS_BY_PAGE,
+  payload: axios.get<IPageDraft>(`${apiUrl}/page/${pageId}?cacheBuster=${new Date().getTime()}`),
+});
 
 export const getEntities: ICrudGetAllAction<IPageDraft> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_PAGEDRAFT_LIST,

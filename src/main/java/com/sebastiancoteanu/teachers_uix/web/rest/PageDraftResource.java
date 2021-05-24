@@ -1,6 +1,7 @@
 package com.sebastiancoteanu.teachers_uix.web.rest;
 
 import com.sebastiancoteanu.teachers_uix.service.PageDraftService;
+import com.sebastiancoteanu.teachers_uix.service.dto.AppUserDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.PageDraftDTO;
 
@@ -86,6 +87,13 @@ public class PageDraftResource {
     public List<PageDraftDTO> getAllPageDrafts() {
         log.debug("REST request to get all PageDrafts");
         return pageDraftService.findAll();
+    }
+
+    @GetMapping("/page-drafts/page/{id}")
+    public List<PageDraftDTO> getAppUserByUserId(@PathVariable Long id) {
+        log.debug("REST request to get all PageDraft by page id : {}", id);
+        Optional<List<PageDraftDTO>> pageDraftDTOList = pageDraftService.findByPageId(id);
+        return pageDraftDTOList.orElse(null);
     }
 
     /**

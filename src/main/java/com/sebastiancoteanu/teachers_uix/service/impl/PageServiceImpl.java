@@ -44,13 +44,17 @@ public class PageServiceImpl implements PageService {
     public PageDTO save(PageDTO pageDTO) {
         log.debug("Request to save Page : {}", pageDTO);
         Page page = pageMapper.toEntity(pageDTO);
+        page = pageRepository.save(page);
 
         /* Create page draft and automatically select it */
-        PageDraft pageDraft = new PageDraft();
-        pageDraft = pageDraftRepository.save(pageDraft);
-        page.setSelectedPageDraftId(pageDraft.getId());
+        if (page.getSelectedPageDraftId() == null) {
+            PageDraft pageDraft = new PageDraft();
+            pageDraft.setPage(page);
+            pageDraft = pageDraftRepository.save(pageDraft);
+            page.setSelectedPageDraftId(pageDraft.getId());
+            page = pageRepository.save(page);
+        }
 
-        page = pageRepository.save(page);
         return pageMapper.toDto(page);
     }
 
