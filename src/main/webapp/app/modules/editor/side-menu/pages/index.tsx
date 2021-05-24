@@ -17,7 +17,8 @@ const Wrapper = styled.div`
 const ExistingPagesWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 -24px;
+  margin-left: -24px;
+  margin-right: -26px;
 `;
 
 const Pages: FC = () => {

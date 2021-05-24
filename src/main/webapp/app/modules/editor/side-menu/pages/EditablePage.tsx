@@ -39,7 +39,7 @@ const MainContent = styled.div`
 const PageName = styled.div`
   width: 100%;
   min-height: 46px;
-  padding-left: 9px;
+  padding-left: 5px;
   display: flex;
   align-items: center;
 `;
@@ -48,9 +48,9 @@ const PageDraftsShowButton = styled(ActionButton)<{ isDraftListOpen: boolean }>`
   &:not(:last-child) {
     margin-right: 0;
   }
-  font-size: 10px;
+  font-size: 8px;
+  padding: 6px;
   transition: all 0.1s ease-in;
-  margin-left: 4px;
 
   ${({ isDraftListOpen }) => isDraftListOpen && css`
     transform: rotate(180deg);
