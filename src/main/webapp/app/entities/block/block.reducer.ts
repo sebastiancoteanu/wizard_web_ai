@@ -285,6 +285,7 @@ export const updateAllEntities: ICrudPutAction<IBlock[]> = entities => async dis
     }),
   });
 
+  await dispatch(getEntities(entities[0].pageDraftId));
   await dispatch(setDraftHasChanged(false));
 
   return result;

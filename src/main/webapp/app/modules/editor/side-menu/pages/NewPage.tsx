@@ -17,7 +17,7 @@ const CreateButton = styled(IconButton)`
   color: ${({theme}) => theme.colors.darkestGray};
   background: ${({theme}) => theme.colors.lightGray};
   font-size: 10px;
-  width: 30px;
+  width: 40px;
   
   &:hover {
     color: ${({theme}) => theme.colors.lightestGray};
