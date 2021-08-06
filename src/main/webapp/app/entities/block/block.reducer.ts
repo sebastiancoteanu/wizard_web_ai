@@ -6,10 +6,14 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 
 import { IBlock, defaultValue, IBlockOptions } from 'app/shared/model/block.model';
 import { deepDuplicate, reorder } from 'app/utils/blockManipulation';
+import { IPageDraft } from 'app/shared/model/page-draft.model';
+import { setDraftHasChanged } from 'app/entities/page-draft/page-draft.reducer';
+import { parseBlocks } from 'app/utils/blocksParser';
 
 export const ACTION_TYPES = {
   SET_PAGE_BLOCKS: 'block/SET_PAGE_BLOCKS',
   SET_EDITING_PAGE_BLOCK: 'block/SET_EDITING_PAGE_BLOCK',
+  UPDATE_PAGE_BLOCKS: 'block/UPDATE_PAGE_BLOCKS',
   UPDATE_EDITING_PAGE_BLOCK_CSS: 'block/UPDATE_EDITING_PAGE_BLOCK_CSS',
   UPDATE_EDITING_PAGE_BLOCK_CONTENT: 'block/UPDATE_EDITING_PAGE_BLOCK_CONTENT',
   MOVE_PAGE_BLOCK_ONE_POSITION: 'block/MOVE_PAGE_BLOCK_ONE_POSITION',
@@ -49,6 +53,7 @@ export default (state: BlockState = initialState, action): BlockState => {
       };
     case REQUEST(ACTION_TYPES.CREATE_BLOCK):
     case REQUEST(ACTION_TYPES.UPDATE_BLOCK):
+    case REQUEST(ACTION_TYPES.UPDATE_PAGE_BLOCKS):
     case REQUEST(ACTION_TYPES.DELETE_BLOCK):
       return {
         ...state,
@@ -60,6 +65,7 @@ export default (state: BlockState = initialState, action): BlockState => {
     case FAILURE(ACTION_TYPES.FETCH_BLOCK):
     case FAILURE(ACTION_TYPES.CREATE_BLOCK):
     case FAILURE(ACTION_TYPES.UPDATE_BLOCK):
+    case FAILURE(ACTION_TYPES.UPDATE_PAGE_BLOCKS):
     case FAILURE(ACTION_TYPES.DELETE_BLOCK):
       return {
         ...state,
@@ -72,7 +78,7 @@ export default (state: BlockState = initialState, action): BlockState => {
       return {
         ...state,
         loading: false,
-        entities: action.payload.data,
+        entities: parseBlocks(action.payload.data),
       };
     case SUCCESS(ACTION_TYPES.FETCH_BLOCK):
       return {
@@ -87,6 +93,13 @@ export default (state: BlockState = initialState, action): BlockState => {
         updating: false,
         updateSuccess: true,
         entity: action.payload.data,
+      };
+    case SUCCESS(ACTION_TYPES.UPDATE_PAGE_BLOCKS):
+      return {
+        ...state,
+        updating: false,
+        updateSuccess: true,
+        entities: action.payload.data,
       };
     case SUCCESS(ACTION_TYPES.DELETE_BLOCK):
       return {
@@ -167,48 +180,70 @@ const apiUrl = 'api/blocks';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IBlock> = (page, size, sort) => ({
+export const getEntities: ICrudGetAllAction<IBlock> = (pageDraftId: IPageDraft['id']) => ({
   type: ACTION_TYPES.FETCH_BLOCK_LIST,
-  payload: axios.get<IBlock>(`${apiUrl}?cacheBuster=${new Date().getTime()}`),
+  payload: axios.get<IBlock>(`${apiUrl}?cacheBuster=${new Date().getTime()}`, {
+    params: {
+      pageDraftId,
+    },
+  }),
 });
 
-export const setPageBlocks = (blocks: IBlock[]) => ({
-  type: ACTION_TYPES.SET_PAGE_BLOCKS,
-  payload: blocks,
-});
+export const setPageBlocks = (blocks: IBlock[]) => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.SET_PAGE_BLOCKS,
+    payload: blocks,
+  });
+  dispatch(setDraftHasChanged(true));
+};
 
-export const deletePageBlock = index => ({
-  type: ACTION_TYPES.DELETE_PAGE_BLOCK,
-  payload: index,
-});
+export const deletePageBlock = index => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.DELETE_PAGE_BLOCK,
+    payload: index,
+  });
+  dispatch(setDraftHasChanged(true));
+};
 
-export const moveBlockOnePosition = (startIndex: number, endIndex: number) => ({
-  type: ACTION_TYPES.MOVE_PAGE_BLOCK_ONE_POSITION,
-  payload: {
-    startIndex,
-    endIndex,
-  },
-});
+export const moveBlockOnePosition = (startIndex: number, endIndex: number) => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.MOVE_PAGE_BLOCK_ONE_POSITION,
+    payload: {
+      startIndex,
+      endIndex,
+    },
+  });
+  dispatch(setDraftHasChanged(true));
+};
 
-export const duplicateBlock = index => ({
-  type: ACTION_TYPES.DUPLICATE_PAGE_BLOCK,
-  payload: index,
-});
+export const duplicateBlock = index => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.DUPLICATE_PAGE_BLOCK,
+    payload: index,
+  });
+  dispatch(setDraftHasChanged(true));
+};
 
 export const setEditingPageBlock = id => ({
   type: ACTION_TYPES.SET_EDITING_PAGE_BLOCK,
   payload: id,
 });
 
-export const updateEditingPageBlockCss = (cssProperties: IBlockOptions['cssProperties']) => ({
-  type: ACTION_TYPES.UPDATE_EDITING_PAGE_BLOCK_CSS,
-  payload: cssProperties,
-});
+export const updateEditingPageBlockCss = (cssProperties: IBlockOptions['cssProperties']) => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.UPDATE_EDITING_PAGE_BLOCK_CSS,
+    payload: cssProperties,
+  });
+  dispatch(setDraftHasChanged(true));
+};
 
-export const updateEditingPageBlockContent = (content: IBlockOptions['content']) => ({
-  type: ACTION_TYPES.UPDATE_EDITING_PAGE_BLOCK_CONTENT,
-  payload: content,
-});
+export const updateEditingPageBlockContent = (content: IBlockOptions['content']) => dispatch => {
+  dispatch({
+    type: ACTION_TYPES.UPDATE_EDITING_PAGE_BLOCK_CONTENT,
+    payload: content,
+  });
+  dispatch(setDraftHasChanged(true));
+};
 
 export const getEntity: ICrudGetAction<IBlock> = id => {
   const requestUrl = `${apiUrl}/${id}`;
@@ -232,6 +267,26 @@ export const updateEntity: ICrudPutAction<IBlock> = entity => async dispatch => 
     type: ACTION_TYPES.UPDATE_BLOCK,
     payload: axios.put(apiUrl, cleanEntity(entity)),
   });
+  return result;
+};
+
+export const updateAllEntities: ICrudPutAction<IBlock[]> = entities => async dispatch => {
+  const refinedBlocks = entities.map(entity =>
+    cleanEntity({
+      ...entity,
+      options: JSON.stringify(entity.options),
+    })
+  );
+
+  const result = await dispatch({
+    type: ACTION_TYPES.UPDATE_PAGE_BLOCKS,
+    payload: axios.put(`${apiUrl}/all`, {
+      list: refinedBlocks,
+    }),
+  });
+
+  await dispatch(setDraftHasChanged(false));
+
   return result;
 };
 

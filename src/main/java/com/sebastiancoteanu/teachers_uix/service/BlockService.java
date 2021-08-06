@@ -18,6 +18,9 @@ public interface BlockService {
      */
     BlockDTO save(BlockDTO blockDTO);
 
+    List<BlockDTO> saveAll(List<BlockDTO> blocks);
+
+
     /**
      * Get all the blocks.
      *

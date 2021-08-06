@@ -13,6 +13,7 @@ import StyleManager from "app/modules/editor/style-manager";
 import styled from "styled-components";
 import TopActionButtons from "app/modules/editor/TopActionButtons";
 import { IWebsite } from "app/shared/model/website.model";
+import useEditingPage from "app/modules/editor/side-menu/pages/useEditingPage";
 
 const Header = styled.div`
   height: 60px;
@@ -34,7 +35,9 @@ interface Props {
 }
 
 const EditorWorkingSpace: FC<Props> = () => {
-  const { entities: pageBlocks } = useSelector<IRootState, IRootState['block']>(state => state.block);
+  const { page } = useEditingPage();
+
+  const { entities: pageBlocks, loading } = useSelector<IRootState, IRootState['block']>(state => state.block);
   const editingBlockId = useSelector<IRootState, BlockState['editingBlockId']>(state => state.block.editingBlockId);
 
   const dispatch = useDispatch();
@@ -45,7 +48,7 @@ const EditorWorkingSpace: FC<Props> = () => {
     }
 
     if (source.droppableId === EDITOR_BLUEPRINTS_ID && destination.droppableId === EDITOR_DROP_ZONE_ID) {
-      dispatch(setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index)));
+      dispatch(setPageBlocks(copy(blueprints, pageBlocks, source.index, destination.index, page.selectedPageDraftId)));
     } else if (source.droppableId === destination.droppableId && destination.droppableId === EDITOR_DROP_ZONE_ID) {
       dispatch(setPageBlocks(reorder(pageBlocks, source.index, destination.index)));
     }
@@ -59,7 +62,7 @@ const EditorWorkingSpace: FC<Props> = () => {
       <WorkingSpace>
         <DragDropContext onDragEnd={onDragEnd}>
           <SideMenu />
-          <DropZone pageBlocks={pageBlocks as IBlock[]} />
+          <DropZone pageBlocks={pageBlocks as IBlock[]} loading={loading} />
         </DragDropContext>
         {editingBlockId && <StyleManager />}
       </WorkingSpace>

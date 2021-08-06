@@ -1,7 +1,6 @@
 package com.sebastiancoteanu.teachers_uix.web.rest;
 
 import com.sebastiancoteanu.teachers_uix.service.PageService;
-import com.sebastiancoteanu.teachers_uix.service.dto.PageDraftDTO;
 import com.sebastiancoteanu.teachers_uix.service.dto.PagesDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;

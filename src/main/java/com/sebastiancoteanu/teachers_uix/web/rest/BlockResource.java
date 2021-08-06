@@ -1,6 +1,9 @@
 package com.sebastiancoteanu.teachers_uix.web.rest;
 
 import com.sebastiancoteanu.teachers_uix.service.BlockService;
+import com.sebastiancoteanu.teachers_uix.service.dto.BlocksDTO;
+import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
+import com.sebastiancoteanu.teachers_uix.service.dto.PagesDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.BlockDTO;
 
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing {@link com.sebastiancoteanu.teachers_uix.domain.Block}.
@@ -78,14 +83,23 @@ public class BlockResource {
             .body(result);
     }
 
+    @PutMapping("/blocks/all")
+    public ResponseEntity<List<BlockDTO>> updateBlocks(@Valid @RequestBody BlocksDTO blocksDTO) throws URISyntaxException {
+        List<BlockDTO> result = blockService.saveAll(blocksDTO.getList());
+        return ResponseEntity.ok().body(result);
+    }
+
     /**
      * {@code GET  /blocks} : get all the blocks.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of blocks in body.
      */
     @GetMapping("/blocks")
-    public List<BlockDTO> getAllBlocks() {
-        log.debug("REST request to get all Blocks");
+    public List<BlockDTO> getAllBlocks(@RequestParam(required = false, name = "pageDraftId") Long pageDraftId) {
+        log.debug("REST request to get all Blocks based on pageDraftId");
+        if (pageDraftId != null) {
+            return blockService.findAll().stream().filter(pageDTO -> pageDTO.getPageDraftId() == pageDraftId).sorted(Comparator.comparingInt(BlockDTO::getOrder)).collect(Collectors.toList());
+        }
         return blockService.findAll();
     }
 

@@ -92,13 +92,6 @@ export default (state: PageState = initialState, action): PageState => {
         ...state,
         entity: action.payload,
       };
-    case SUCCESS(ACTION_TYPES.UPDATE_PAGES):
-      return {
-        ...state,
-        updating: false,
-        updateSuccess: true,
-        entities: action.payload.data,
-      };
     case SUCCESS(ACTION_TYPES.CREATE_PAGE):
     case SUCCESS(ACTION_TYPES.UPDATE_PAGE):
       return {
@@ -106,6 +99,13 @@ export default (state: PageState = initialState, action): PageState => {
         updating: false,
         updateSuccess: true,
         entity: action.payload.data,
+      };
+    case SUCCESS(ACTION_TYPES.UPDATE_PAGES):
+      return {
+        ...state,
+        updating: false,
+        updateSuccess: true,
+        entities: action.payload.data,
       };
     case SUCCESS(ACTION_TYPES.DELETE_PAGE):
       return {

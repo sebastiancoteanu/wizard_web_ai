@@ -8,7 +8,7 @@ interface ReturnData {
   isEditing: boolean;
 }
 
-type Hook = (pageId: IPage['id']) => ReturnData;
+type Hook = (pageId?: IPage['id']) => ReturnData;
 
 const useEditingPage: Hook = (pageId) => {
   const editingPage = useSelector<IRootState, IPage>(state => state.page.entity);

@@ -35,8 +35,7 @@ const Pages: FC = () => {
 
   const handleDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination}) => {
     if (source.droppableId === destination?.droppableId && destination?.droppableId === PAGES_DRAG_DROP_ID) {
-      let newPagesList = reorder(pages, source.index, destination.index);
-      newPagesList = newPagesList.map((page, index) => ({ ...page, order: index }));
+      const newPagesList = reorder(pages, source.index, destination.index);
       dispatch(setPages(newPagesList));
       dispatch(updateAllEntities(newPagesList));
     }

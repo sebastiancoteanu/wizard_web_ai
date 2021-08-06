@@ -4,6 +4,8 @@ import com.sebastiancoteanu.teachers_uix.service.BlockService;
 import com.sebastiancoteanu.teachers_uix.domain.Block;
 import com.sebastiancoteanu.teachers_uix.repository.BlockRepository;
 import com.sebastiancoteanu.teachers_uix.service.dto.BlockDTO;
+import com.sebastiancoteanu.teachers_uix.service.dto.BlocksDTO;
+import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
 import com.sebastiancoteanu.teachers_uix.service.mapper.BlockMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +43,16 @@ public class BlockServiceImpl implements BlockService {
         Block block = blockMapper.toEntity(blockDTO);
         block = blockRepository.save(block);
         return blockMapper.toDto(block);
+    }
+
+    @Override
+    public List<BlockDTO> saveAll(List<BlockDTO> blocksDTO) {
+        List blocks = new ArrayList();
+        for (BlockDTO blockDTO : blocksDTO) {
+            blocks.add(blockMapper.toEntity(blockDTO));
+        }
+        blocks = blockRepository.saveAll(blocks);
+        return blocks;
     }
 
     @Override

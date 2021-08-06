@@ -8,6 +8,7 @@ import { IPageDraft, defaultValue } from 'app/shared/model/page-draft.model';
 import { IPage } from 'app/shared/model/page.model';
 
 export const ACTION_TYPES = {
+  SET_DRAFT_HAS_CHANGED: 'pageDraft/SET_DRAFT_HAS_CHANGED',
   FETCH_PAGEDRAFTS_BY_PAGE: 'pageDraft/FETCH_PAGEDRAFTS_BY_PAGE',
   FETCH_PAGEDRAFT_LIST: 'pageDraft/FETCH_PAGEDRAFT_LIST',
   FETCH_PAGEDRAFT: 'pageDraft/FETCH_PAGEDRAFT',
@@ -25,6 +26,7 @@ const initialState = {
   updating: false,
   updateSuccess: false,
   pageMappedEntities: {},
+  draftHasChanged: false,
 };
 
 export type PageDraftState = Readonly<typeof initialState>;
@@ -103,6 +105,11 @@ export default (state: PageDraftState = initialState, action): PageDraftState =>
         updateSuccess: true,
         entity: {},
       };
+    case ACTION_TYPES.SET_DRAFT_HAS_CHANGED:
+      return {
+        ...state,
+        draftHasChanged: action.payload,
+      };
     case ACTION_TYPES.RESET:
       return {
         ...initialState,
@@ -159,6 +166,11 @@ export const deleteEntity: ICrudDeleteAction<IPageDraft> = id => async dispatch 
   dispatch(getEntities());
   return result;
 };
+
+export const setDraftHasChanged = hasChanged => ({
+  type: ACTION_TYPES.SET_DRAFT_HAS_CHANGED,
+  payload: hasChanged,
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET,
