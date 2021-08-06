@@ -27,6 +27,7 @@ const Wrapper = styled.div<{ isClickedInside: boolean, isEditing: boolean }>`
   }
   
   ${({ isEditing }) => isEditing && css`
+    cursor: default;
     background-color: ${({ theme }) => theme.colors.darkestGray};
   `}
 `;

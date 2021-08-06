@@ -145,7 +145,13 @@ export const createEntity: ICrudPutAction<IPageDraft> = entity => async dispatch
     type: ACTION_TYPES.CREATE_PAGEDRAFT,
     payload: axios.post(apiUrl, cleanEntity(entity)),
   });
-  dispatch(getEntities());
+
+  if (entity.pageId) {
+    dispatch(getPageDraftsByPageId(entity.pageId));
+  } else {
+    dispatch(getEntities());
+  }
+
   return result;
 };
 
