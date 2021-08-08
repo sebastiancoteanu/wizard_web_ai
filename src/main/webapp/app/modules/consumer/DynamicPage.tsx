@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 40px 20px;
 `;
 
 const BlockWrapper = styled.div`
