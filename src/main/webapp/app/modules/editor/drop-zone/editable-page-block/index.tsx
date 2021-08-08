@@ -55,7 +55,7 @@ const InnerWrapper = styled.div`
   display: flex;
 `;
 
-const renderBlockType = (block: IBlock, isSelected) => {
+export const renderBlockType = (block: IBlock, isSelected?: boolean) => {
   switch (block.type) {
   case BlockType.PARAGRAPH:
     return <Paragraph isSelected={isSelected} options={block?.options} />

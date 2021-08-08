@@ -1,9 +1,9 @@
 package com.sebastiancoteanu.teachers_uix.service.impl;
 
-import com.sebastiancoteanu.teachers_uix.domain.PageDraft;
+import com.sebastiancoteanu.teachers_uix.domain.*;
 import com.sebastiancoteanu.teachers_uix.repository.PageDraftRepository;
+import com.sebastiancoteanu.teachers_uix.repository.WebsiteRepository;
 import com.sebastiancoteanu.teachers_uix.service.PageService;
-import com.sebastiancoteanu.teachers_uix.domain.Page;
 import com.sebastiancoteanu.teachers_uix.repository.PageRepository;
 import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
 import com.sebastiancoteanu.teachers_uix.service.mapper.PageMapper;
@@ -34,10 +34,13 @@ public class PageServiceImpl implements PageService {
 
     private final PageMapper pageMapper;
 
-    public PageServiceImpl(PageRepository pageRepository, PageDraftRepository pageDraftRepository, PageMapper pageMapper) {
+    private final WebsiteRepository websiteRepository;
+
+    public PageServiceImpl(PageRepository pageRepository, PageDraftRepository pageDraftRepository, PageMapper pageMapper, WebsiteRepository websiteRepository) {
         this.pageRepository = pageRepository;
         this.pageDraftRepository = pageDraftRepository;
         this.pageMapper = pageMapper;
+        this.websiteRepository = websiteRepository;
     }
 
     @Override
@@ -77,8 +80,24 @@ public class PageServiceImpl implements PageService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+  @Override
+  public Optional<List<PageDTO>> findAllByWebsiteUrl(String url) {
+    Optional<Website> website = websiteRepository.findByUrl(url);
 
-    @Override
+    if (website.isPresent()) {
+      Optional<List<Page>> pages = pageRepository.findByWebsiteId(website.get().getId());
+
+      if(pages.isPresent()) {
+        return Optional.of(pages.get().stream()
+          .map(pageMapper::toDto).collect(Collectors.toCollection(ArrayList::new)));
+      }
+    }
+
+    return Optional.empty();
+  }
+
+
+  @Override
     @Transactional(readOnly = true)
     public Optional<PageDTO> findOne(Long id) {
         log.debug("Request to get Page : {}", id);

@@ -27,6 +27,8 @@ public interface PageService {
      */
     List<PageDTO> findAll();
 
+    Optional<List<PageDTO>> findAllByWebsiteUrl(String url);
+
 
     /**
      * Get the "id" page.

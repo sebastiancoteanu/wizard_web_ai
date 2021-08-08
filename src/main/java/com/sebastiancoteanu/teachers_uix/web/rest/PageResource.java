@@ -104,6 +104,18 @@ public class PageResource {
     }
 
     /**
+     * {@code GET  /pages/website/:url} : get the "id" page.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of pages in body.
+     */
+    @GetMapping("/pages/url")
+    public ResponseEntity<List<PageDTO>> getPagesByWebsiteUrl(@RequestParam(name = "url") String url) {
+        log.debug("REST request to get Pages by websiteUrl : {}", url);
+        Optional<List<PageDTO>> pages = pageService.findAllByWebsiteUrl(url);
+        return ResponseUtil.wrapOrNotFound(pages);
+    }
+
+    /**
      * {@code GET  /pages/:id} : get the "id" page.
      *
      * @param id the id of the pageDTO to retrieve.

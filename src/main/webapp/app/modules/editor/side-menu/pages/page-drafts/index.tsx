@@ -83,7 +83,7 @@ const PageDrafts: FC<Props> = ({ page }) => {
   };
 
   const handleCreatePageDraft = () => {
-    dispatch(createEntity({ pageId: page.id }, 3));
+    dispatch(createEntity({ pageId: page.id }));
   };
 
   if (!pageDrafts) {

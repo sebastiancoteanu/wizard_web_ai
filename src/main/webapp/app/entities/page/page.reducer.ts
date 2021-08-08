@@ -5,6 +5,7 @@ import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
 import { IPage, defaultValue } from 'app/shared/model/page.model';
+import { IAppUser } from 'app/shared/model/app-user.model';
 
 export const ACTION_TYPES = {
   SET_PAGES: 'page/SET_PAGES',
@@ -135,6 +136,18 @@ export const getEntities: ICrudGetAllAction<IPage> = (websiteId?: number) => ({
     },
   }),
 });
+
+export const getEntitiesByWebsiteUrl: ICrudGetAction<IAppUser> = url => {
+  const requestUrl = `${apiUrl}/url`;
+  return {
+    type: ACTION_TYPES.FETCH_PAGE_LIST,
+    payload: axios.get<IPage>(requestUrl, {
+      params: {
+        url,
+      },
+    }),
+  };
+};
 
 export const getEntity: ICrudGetAction<IPage> = id => {
   const requestUrl = `${apiUrl}/${id}`;
