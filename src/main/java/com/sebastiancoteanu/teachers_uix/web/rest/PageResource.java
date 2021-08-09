@@ -111,7 +111,7 @@ public class PageResource {
     @GetMapping("/pages/url")
     public ResponseEntity<List<PageDTO>> getPagesByWebsiteUrl(@RequestParam(name = "url") String url) {
         log.debug("REST request to get Pages by websiteUrl : {}", url);
-        Optional<List<PageDTO>> pages = pageService.findAllByWebsiteUrl(url);
+        Optional<List<PageDTO>> pages = pageService.findAllByWebsiteUrl(url, true);
         return ResponseUtil.wrapOrNotFound(pages);
     }
 

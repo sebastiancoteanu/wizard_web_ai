@@ -16,4 +16,6 @@ import java.util.Optional;
 @Repository
 public interface PageRepository extends JpaRepository<Page, Long> {
   Optional<List<Page>> findByWebsiteId(Long id);
+
+  Optional<List<Page>> findByWebsiteIdAndIsPublished(Long id, Boolean isPublished);
 }

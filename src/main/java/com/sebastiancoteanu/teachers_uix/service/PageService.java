@@ -27,7 +27,7 @@ public interface PageService {
      */
     List<PageDTO> findAll();
 
-    Optional<List<PageDTO>> findAllByWebsiteUrl(String url);
+    Optional<List<PageDTO>> findAllByWebsiteUrl(String url, Boolean isPublished);
 
 
     /**

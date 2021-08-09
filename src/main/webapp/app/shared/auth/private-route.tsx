@@ -17,12 +17,17 @@ export const PrivateRouteComponent = ({
   sessionHasBeenFetched,
   isAuthorized,
   hasAnyAuthorities = [],
+  children,
   ...rest
 }: IPrivateRouteProps) => {
   const checkAuthorities = props =>
     isAuthorized ? (
       <ErrorBoundary>
-        <Component {...props} />
+        {children ? (
+          <>{children}</>
+        ) : (
+          <Component {...props} />
+        )}
       </ErrorBoundary>
     ) : (
       <div className="insufficient-authority">
@@ -48,7 +53,7 @@ export const PrivateRouteComponent = ({
     }
   };
 
-  if (!Component) throw new Error(`A component needs to be specified for private route for path ${(rest as any).path}`);
+  if (!children && !Component) throw new Error(`A component needs to be specified for private route for path ${(rest as any).path}`);
 
   return <Route {...rest} render={renderRedirect} />;
 };

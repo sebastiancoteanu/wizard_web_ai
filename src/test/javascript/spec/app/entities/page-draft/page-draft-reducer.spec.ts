@@ -33,6 +33,8 @@ describe('Entities reducer tests', () => {
     entity: defaultValue,
     updating: false,
     updateSuccess: false,
+    pageMappedEntities: {},
+    draftHasChanged: false,
   };
 
   function testInitialState(state) {

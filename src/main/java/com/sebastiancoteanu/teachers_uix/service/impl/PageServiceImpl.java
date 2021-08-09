@@ -81,11 +81,15 @@ public class PageServiceImpl implements PageService {
     }
 
   @Override
-  public Optional<List<PageDTO>> findAllByWebsiteUrl(String url) {
+  public Optional<List<PageDTO>> findAllByWebsiteUrl(String url, Boolean isPublished) {
     Optional<Website> website = websiteRepository.findByUrl(url);
 
     if (website.isPresent()) {
-      Optional<List<Page>> pages = pageRepository.findByWebsiteId(website.get().getId());
+      Long websiteId = website.get().getId();
+
+      Optional<List<Page>> pages = isPublished ?
+        pageRepository.findByWebsiteIdAndIsPublished(websiteId, true) :
+        pageRepository.findByWebsiteId(websiteId);
 
       if(pages.isPresent()) {
         return Optional.of(pages.get().stream()

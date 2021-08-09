@@ -1,12 +1,14 @@
 import React, { FC, useEffect } from 'react';
 import Header from "app/shared/layout/header/header";
 import { IWebsite } from "app/shared/model/website.model";
-import { Route, RouteChildrenProps, Switch, useParams } from 'react-router-dom';
+import { RouteChildrenProps, Switch, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { getEntitiesByWebsiteUrl } from "app/entities/page/page.reducer";
 import DynamicPage from "app/modules/consumer/DynamicPage";
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
+import PrivateRoute from "app/shared/auth/private-route";
+import { AUTHORITIES } from "app/config/constants";
 
 interface Params {
   websiteUrl: IWebsite['url'];
@@ -31,10 +33,14 @@ const Consumer: FC<RouteChildrenProps> = ({ match }) => {
     <>
       <Header />
       <Switch>
-        {pages.map((page) =>(
-          <Route path={`${match.url}/${page.url}`} key={page.id} exact>
+        {pages.map((page) => page.isRestricted ? (
+          <PrivateRoute path={`${match.url}/${page.url}`} hasAnyAuthorities={[AUTHORITIES.USER]}>
             <DynamicPage page={page} />
-          </Route>
+          </PrivateRoute>
+        ) : (
+          <ErrorBoundaryRoute path={`${match.url}/${page.url}`} key={page.id} exact>
+            <DynamicPage page={page} />
+          </ErrorBoundaryRoute>
         ))}
       </Switch>
     </>

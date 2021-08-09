@@ -24,7 +24,7 @@ const TopActionButtons: FC = () => {
   const { page } = useEditingPage();
 
   const canSaveAsDraft = useSelector<IRootState, PageDraftState['draftHasChanged']>(state => state.pageDraft.draftHasChanged);
-  const canPublish = !page.isPublished;
+  const canPublish = page.id && !page.isPublished;
 
   const handleSaveAsDraft = () => {
     dispatch(updateAllEntities(blocks as IBlock[]));
