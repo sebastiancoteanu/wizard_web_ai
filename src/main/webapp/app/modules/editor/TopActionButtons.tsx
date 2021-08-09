@@ -9,9 +9,12 @@ import { updateAllEntities } from "app/entities/block/block.reducer";
 import { IBlock } from "app/shared/model/block.model";
 import useEditingPage from "app/modules/editor/side-menu/pages/useEditingPage";
 import { updateEntity } from "app/entities/page/page.reducer";
+import Spinner from "app/modules/ui-kit/Spinner";
 
 const Wrapper = styled.div`
   margin-left: auto;
+  display: flex;
+  align-items: center;
 `;
 
 const PublishButton = styled(PrimaryButton)`
@@ -20,11 +23,20 @@ const PublishButton = styled(PrimaryButton)`
 
 const TopActionButtons: FC = () => {
   const dispatch = useDispatch();
-  const { entities: blocks, updating } = useSelector<IRootState, IRootState['block']>(state => state.block);
+  const {
+    entities: blocks,
+    updating: saveDraftInProgress
+  } = useSelector<IRootState, IRootState['block']>(state => state.block);
+
+  const { updating: publishPageInProgress } = useSelector<IRootState, IRootState['page']>(state => state.page);
+
   const { page } = useEditingPage();
 
-  const canSaveAsDraft = useSelector<IRootState, PageDraftState['draftHasChanged']>(state => state.pageDraft.draftHasChanged);
-  const canPublish = page.id && !page.isPublished;
+  const canSaveAsDraft = useSelector<IRootState, PageDraftState['draftHasChanged']>(
+    state => state.pageDraft.draftHasChanged
+  ) && !saveDraftInProgress;
+
+  const canPublish = page.id && !page.isPublished && !publishPageInProgress;
 
   const handleSaveAsDraft = () => {
     dispatch(updateAllEntities(blocks as IBlock[]));
@@ -39,8 +51,18 @@ const TopActionButtons: FC = () => {
 
   return (
     <Wrapper>
-      <PublishButton disabled={!canPublish} onClick={handlePublishPage}>Publish</PublishButton>
-      <SecondaryButton disabled={!canSaveAsDraft || updating} onClick={handleSaveAsDraft}>Save draft</SecondaryButton>
+      <PublishButton
+        disabled={!canPublish}
+        onClick={handlePublishPage}
+      >
+        {publishPageInProgress ? <Spinner /> : <span>Publish</span>}
+      </PublishButton>
+      <SecondaryButton
+        disabled={!canSaveAsDraft}
+        onClick={handleSaveAsDraft}
+      >
+        {saveDraftInProgress ? <Spinner /> : <span>Save draft</span>}
+      </SecondaryButton>
     </Wrapper>
   );
 }
