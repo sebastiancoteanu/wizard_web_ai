@@ -5,6 +5,7 @@ import { getEntities } from "app/entities/block/block.reducer";
 import { IRootState } from "app/shared/reducers";
 import styled from "styled-components";
 import { renderBlockType } from "app/modules/editor/drop-zone/editable-page-block";
+import PageLoader, { FullPageLoaderWrapper } from "app/modules/ui-kit/PageLoader";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,6 +31,14 @@ const DynamicPage: FC<Props> = ({ page }) => {
   useEffect(() => {
     dispatch(getEntities(page.selectedPageDraftId));
   }, []);
+
+  if (loading) {
+    return (
+      <FullPageLoaderWrapper>
+        <PageLoader />
+      </FullPageLoaderWrapper>
+    );
+  }
 
   return (
     <Wrapper>

@@ -9,6 +9,7 @@ import DynamicPage from "app/modules/consumer/DynamicPage";
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
 import PrivateRoute from "app/shared/auth/private-route";
 import { AUTHORITIES } from "app/config/constants";
+import PageLoader, { FullPageLoaderWrapper } from "app/modules/ui-kit/PageLoader";
 
 interface Params {
   websiteUrl: IWebsite['url'];
@@ -32,17 +33,23 @@ const Consumer: FC<RouteChildrenProps> = ({ match }) => {
   return (
     <>
       <Header />
-      <Switch>
-        {pages.map((page) => page.isRestricted ? (
-          <PrivateRoute path={`${match.url}/${page.url}`} hasAnyAuthorities={[AUTHORITIES.USER]}>
-            <DynamicPage page={page} />
-          </PrivateRoute>
-        ) : (
-          <ErrorBoundaryRoute path={`${match.url}/${page.url}`} key={page.id} exact>
-            <DynamicPage page={page} />
-          </ErrorBoundaryRoute>
-        ))}
-      </Switch>
+      {loading ? (
+        <FullPageLoaderWrapper>
+          <PageLoader />
+        </FullPageLoaderWrapper>
+      ) : (
+        <Switch>
+          {pages.map((page) => page.isRestricted ? (
+            <PrivateRoute path={`${match.url}/${page.url}`} hasAnyAuthorities={[AUTHORITIES.USER]}>
+              <DynamicPage page={page} />
+            </PrivateRoute>
+          ) : (
+            <ErrorBoundaryRoute path={`${match.url}/${page.url}`} key={page.id} exact>
+              <DynamicPage page={page} />
+            </ErrorBoundaryRoute>
+          ))}
+        </Switch>
+      )}
     </>
   );
 };

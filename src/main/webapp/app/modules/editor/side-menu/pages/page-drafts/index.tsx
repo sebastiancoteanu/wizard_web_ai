@@ -9,7 +9,6 @@ import { updateEntity } from "app/entities/page/page.reducer";
 import { Icons } from "app/modules/assets/fonts/icons";
 import Icon from "app/modules/ui-kit/Icon";
 import TextButton from "app/modules/ui-kit/TextButton";
-import generateId from "app/utils/generateId";
 
 const Wrapper = styled.div`
   display: flex;
@@ -86,13 +85,9 @@ const PageDrafts: FC<Props> = ({ page }) => {
     dispatch(createEntity({ pageId: page.id }));
   };
 
-  if (!pageDrafts) {
-    return null;
-  }
-
   return (
     <Wrapper>
-      {pageDrafts.map((pageDraft, index) => (
+      {pageDrafts && pageDrafts.map((pageDraft, index) => (
         <PageDraft key={pageDraft.id} onClick={() => handleSelectPageDraft(pageDraft.id)}>
           {`Draft ${index}`}
           {page.selectedPageDraftId === pageDraft.id && <ActiveLabel>Active</ActiveLabel>}

@@ -8,6 +8,13 @@ const Wrapper = styled.div`
   height: 72px;
 `;
 
+export const FullPageLoaderWrapper = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 const loadingAnimation = keyframes`
   0% { top: 8px; height: 80px; }
   50%, 100% { top: 24px; height: 40px; }

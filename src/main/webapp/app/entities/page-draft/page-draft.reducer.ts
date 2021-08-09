@@ -67,17 +67,16 @@ export default (state: PageDraftState = initialState, action): PageDraftState =>
         errorMessage: action.payload,
       };
     case SUCCESS(ACTION_TYPES.FETCH_PAGEDRAFTS_BY_PAGE):
-      if (action.payload.data.length) {
-        return {
-          ...state,
-          loading: false,
-          pageMappedEntities: {
-            ...state.pageMappedEntities,
-            [action.payload.data[0].pageId]: action.payload.data,
-          },
-        };
-      }
-      break;
+      return {
+        ...state,
+        loading: false,
+        pageMappedEntities: action.payload.data.length
+          ? {
+              ...state.pageMappedEntities,
+              [action.payload.data[0].pageId]: action.payload.data,
+            }
+          : {},
+      };
     case SUCCESS(ACTION_TYPES.FETCH_PAGEDRAFT_LIST):
       return {
         ...state,

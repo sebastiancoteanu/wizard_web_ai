@@ -46,8 +46,8 @@ export const Home = () => {
       <Header />
       <Wrapper>
         <Content>
-          <Brand>Teachers UIX</Brand>
-          <BrandDescription>Designed for teachers</BrandDescription>
+          <Brand>Wizard Web Ai</Brand>
+          <BrandDescription>If you can think it, we can develop it.</BrandDescription>
         </Content>
       </Wrapper>
     </>
