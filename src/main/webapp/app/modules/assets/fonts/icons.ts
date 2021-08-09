@@ -10,6 +10,7 @@ export type IconsId =
   | 'delete'
   | 'down-arrow'
   | 'drag'
+  | 'error'
   | 'hamburger-menu'
   | 'header'
   | 'image'
@@ -41,6 +42,7 @@ export type IconsKey =
   | 'Delete'
   | 'DownArrow'
   | 'Drag'
+  | 'Error'
   | 'HamburgerMenu'
   | 'Header'
   | 'Image'
@@ -72,6 +74,7 @@ export enum Icons {
   Delete = 'delete',
   DownArrow = 'down-arrow',
   Drag = 'drag',
+  Error = 'error',
   HamburgerMenu = 'hamburger-menu',
   Header = 'header',
   Image = 'image',
@@ -104,22 +107,23 @@ export const ICONS_CODEPOINTS: { [key in Icons]: string } = {
   [Icons.Delete]: '61705',
   [Icons.DownArrow]: '61706',
   [Icons.Drag]: '61707',
-  [Icons.HamburgerMenu]: '61708',
-  [Icons.Header]: '61709',
-  [Icons.Image]: '61710',
-  [Icons.Invisible]: '61711',
-  [Icons.LeftArrow]: '61712',
-  [Icons.Paragraph]: '61713',
-  [Icons.Pen]: '61714',
-  [Icons.Picture]: '61715',
-  [Icons.Plus]: '61716',
-  [Icons.RightArrow]: '61717',
-  [Icons.Scroll]: '61718',
-  [Icons.TeachersUixLogo]: '61719',
-  [Icons.ThreeImageGallery]: '61720',
-  [Icons.ThreeImage]: '61721',
-  [Icons.UpArrow]: '61722',
-  [Icons.User]: '61723',
-  [Icons.Vertical]: '61724',
-  [Icons.Visible]: '61725',
+  [Icons.Error]: '61708',
+  [Icons.HamburgerMenu]: '61709',
+  [Icons.Header]: '61710',
+  [Icons.Image]: '61711',
+  [Icons.Invisible]: '61712',
+  [Icons.LeftArrow]: '61713',
+  [Icons.Paragraph]: '61714',
+  [Icons.Pen]: '61715',
+  [Icons.Picture]: '61716',
+  [Icons.Plus]: '61717',
+  [Icons.RightArrow]: '61718',
+  [Icons.Scroll]: '61719',
+  [Icons.TeachersUixLogo]: '61720',
+  [Icons.ThreeImageGallery]: '61721',
+  [Icons.ThreeImage]: '61722',
+  [Icons.UpArrow]: '61723',
+  [Icons.User]: '61724',
+  [Icons.Vertical]: '61725',
+  [Icons.Visible]: '61726',
 };

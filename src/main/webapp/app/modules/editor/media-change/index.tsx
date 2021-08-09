@@ -26,7 +26,6 @@ const Title = styled.div`
   font-size: 22px;
   color: ${({ theme }) => theme.colors.darkestGray};
   text-align: center;
-  //font-weight: bold;
 `;
 
 const Input = styled.input`
