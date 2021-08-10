@@ -10,17 +10,24 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-interface Props extends Pick<IBlock, 'options'>{
+interface Props extends Pick<IBlock, 'options' | 'id'>{
   isSelected: boolean;
 }
 
-const ThreeImageGallery: FC<Props> = ({ isSelected, options }) => {
+const ThreeImageGallery: FC<Props> = ({ isSelected, options, id }) => {
   const sources = options?.content || Array(3).fill('');
 
   return (
     <Wrapper>
       {sources.map((source, index) => (
-        <ImageWithPlaceholder src={source} key={`${source}-${index}`} isSelected={isSelected} options={options} index={index} />
+        <ImageWithPlaceholder
+          src={source}
+          key={`${source}-${index}`}
+          isSelected={isSelected}
+          options={options}
+          index={index}
+          id={id}
+        />
       ))}
     </Wrapper>
   );

@@ -58,13 +58,13 @@ const InnerWrapper = styled.div`
 export const renderBlockType = (block: IBlock, isSelected?: boolean) => {
   switch (block.type) {
   case BlockType.PARAGRAPH:
-    return <Paragraph isSelected={isSelected} options={block?.options} />
+    return <Paragraph isSelected={isSelected} options={block?.options} id={block.id} />
   case BlockType.HEADER:
-    return <Header isSelected={isSelected} options={block?.options} />
+    return <Header isSelected={isSelected} options={block?.options} id={block.id} />
   case BlockType.IMAGE:
-    return <SingleImage isSelected={isSelected} options={block?.options} />
+    return <SingleImage isSelected={isSelected} options={block?.options} id={block.id} />
   case BlockType.THREE_IMAGE_LIST:
-    return <ThreeImageGallery isSelected={isSelected} options={block?.options} />
+    return <ThreeImageGallery isSelected={isSelected} options={block?.options} id={block.id} />
   default:
     return <div>type</div>
   }

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import styled from "styled-components";
 import EditableProp from "app/modules/editor/style-manager/EditableProp";
 import useCurrentEditingBlock from "app/modules/editor/style-manager/useCurrentEditingBlock";
@@ -74,6 +74,17 @@ const SpacingSectionBox: FC<Props> = ({ children, title, namePrefix }) => {
   const getComputedValue = (name) => {
     return (cssProps && cssProps[namePrefix + name]) || 0;
   }
+
+  const baseCssProps = useMemo<CSSStyleDeclaration | null>(
+    () => {
+      if (!editingBlock?.id) {
+        return null;
+      }
+      const domBlock = document.getElementById(editingBlock.id.toString());
+      return domBlock ? getComputedStyle(domBlock) : null;
+    },
+    [editingBlock?.id],
+  );
 
   return (
     <Wrapper>

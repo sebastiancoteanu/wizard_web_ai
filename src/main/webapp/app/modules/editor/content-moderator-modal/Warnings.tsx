@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from "styled-components";
+import { ContentWarnings } from "app/modules/editor/types";
 
 const Wrapper = styled.div`
   padding-bottom: 4px;
@@ -21,7 +22,7 @@ const CategoryWarning = styled.span`
 `;
 
 interface Props {
-  warnings: string[]
+  warnings: ContentWarnings;
 }
 
 const warningParser = (warning: string, idx: number, warningsNo) => {
@@ -33,8 +34,8 @@ const Warnings: FC<Props> = ({ warnings }) => {
     <Wrapper>
       <Warning>
         Your content might be:
-        {warnings.map((warning, idx) => (
-          <CategoryWarning key={idx}>{warningParser(warning, idx, warnings.length)}</CategoryWarning>
+        {warnings?.text.map((warning, idx) => (
+          <CategoryWarning key={idx}>{warningParser(warning, idx, warnings.text.length)}</CategoryWarning>
         ))}
         to some people.
       </Warning>

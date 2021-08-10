@@ -16,16 +16,16 @@ const StyledParagraph = styled(PreStyledParagraph)<{ cssProps: CSSProperties}>((
   ...cssProps,
 }));
 
-interface Props extends Pick<IBlock, 'options'> {
+interface Props extends Pick<IBlock, 'options' | 'id'> {
   isSelected: boolean;
   text?: string;
 }
 
-const Paragraph: FC<Props> = ({ isSelected, options }) => {
+const Paragraph: FC<Props> = ({ isSelected, options, id }) => {
   const text = options?.content?.length ? options.content[0] : textPlaceholder;
 
   return (
-    <StyledParagraph cssProps={options?.cssProperties}>
+    <StyledParagraph cssProps={options?.cssProperties} id={id.toString()}>
       {isSelected ? (
         <EditableText cssProps={options?.cssProperties} placeHolder={textPlaceholder} />
       ) : text}

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import IconButton from "app/modules/ui-kit/IconButton";
 import Icon from "app/modules/ui-kit/Icon";
 import Warnings from "app/modules/editor/content-moderator-modal/Warnings";
+import { ContentWarnings } from "app/modules/editor/types";
 
 const Header = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ const CloseModalButton = styled(IconButton)`
 
 interface Props {
   setModalOpen: (_: boolean) => void;
-  warnings: string[];
+  warnings: ContentWarnings;
 }
 
 const ContentModeratorModal: FC<Props> = ({ setModalOpen, warnings }) => {

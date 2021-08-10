@@ -12,6 +12,7 @@ import { updateEntity } from "app/entities/page/page.reducer";
 import Spinner from "app/modules/ui-kit/Spinner";
 import CognitiveService from "app/utils/CognitiveService";
 import ContentModeratorModal from "app/modules/editor/content-moderator-modal";
+import { ContentWarnings } from "app/modules/editor/types";
 
 const Wrapper = styled.div`
   margin-left: auto;
@@ -25,7 +26,7 @@ const PublishButton = styled(PrimaryButton)`
 
 const TopActionButtons: FC = () => {
   const [isModeratorModalOpen, setModeratorModalOpen] = useState(false);
-  const [warnings, setWarnings] = useState([]);
+  const [warnings, setWarnings] = useState<ContentWarnings>({});
 
   const dispatch = useDispatch();
   const {
@@ -44,12 +45,18 @@ const TopActionButtons: FC = () => {
   const canPublish = page.id && !page.isPublished && !publishPageInProgress;
 
   const handleSaveAsDraft = async () => {
-    const textToAnalyze = CognitiveService.compressTextBlocks(blocks as IBlock[]);
-    const moderationWarnings = await CognitiveService.textModeration(textToAnalyze);
+    const { imageSrcList, text } = CognitiveService.getCompressedBlockContent(blocks as IBlock[]);
+    const { imageModerationWarnings, textModerationWarnings } = await CognitiveService.contentModeration(text, imageSrcList);
 
-    if (moderationWarnings.length) {
-      setWarnings(moderationWarnings);
+    if (textModerationWarnings.length || imageModerationWarnings.length) {
+      setWarnings({
+        ...warnings,
+        text: textModerationWarnings,
+        image: imageModerationWarnings,
+      });
+
       setModeratorModalOpen(true);
+
       return;
     }
 
