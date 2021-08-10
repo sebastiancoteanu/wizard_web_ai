@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { AdminMenu,  AccountMenu, EntitiesMenu } from "app/shared/layout/menus";
 import { useHistory } from "react-router-dom";
 import BaseButton from "app/modules/ui-kit/BaseButton";
+import WebsiteNavigation from "app/shared/layout/header/WebsiteNavigation";
 
 const Navigation = styled.div`
   height: 60px;
@@ -68,6 +69,7 @@ const Header: FC<IHeaderProps> = ({
         </Navbar>
       ) : (
         <Navigation>
+          <WebsiteNavigation />
           <RightAlignedSection>
             {!isAuthenticated && (
               <>

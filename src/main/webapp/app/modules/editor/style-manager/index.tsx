@@ -63,6 +63,7 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="fontSize"
             label="Font size"
+            placeholder={baseCssProps?.fontSize}
             value={cssProps?.fontSize}
             onChange={handleOnChange}
           />
@@ -78,12 +79,14 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="letterSpacing"
             label="Letter spacing"
+            placeholder={baseCssProps?.letterSpacing}
             value={cssProps?.letterSpacing}
             onChange={handleOnChange}
           />
           <EditableProp
             name="textDecoration"
             label="Text decoration"
+            placeholder={baseCssProps?.textDecoration}
             value={cssProps?.textDecoration}
             onChange={handleOnChange}
           />
@@ -92,6 +95,7 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="color"
             label="Font color"
+            placeholder={baseCssProps?.color}
             value={cssProps?.color}
             type="color"
             onChange={handleOnChange}
@@ -99,6 +103,7 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="lineHeight"
             label="Line height"
+            placeholder={baseCssProps?.lineHeight}
             value={cssProps?.lineHeight}
             onChange={handleOnChange}
           />

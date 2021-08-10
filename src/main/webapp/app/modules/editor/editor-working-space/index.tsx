@@ -1,11 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { BlockState, setPageBlocks } from "app/entities/block/block.reducer";
 import { DragDropContext, DragDropContextProps } from "react-beautiful-dnd";
 import { EDITOR_BLUEPRINTS_ID, EDITOR_DROP_ZONE_ID } from "app/config/constants";
 import { copy, reorder } from "app/utils/blockManipulation";
-import { blueprints } from "app/common";
 import SideMenu from "app/modules/editor/side-menu";
 import DropZone from "app/modules/editor/drop-zone";
 import { IBlock } from "app/shared/model/block.model";
@@ -14,6 +13,8 @@ import styled from "styled-components";
 import TopActionButtons from "app/modules/editor/TopActionButtons";
 import { IWebsite } from "app/shared/model/website.model";
 import useEditingPage from "app/modules/editor/side-menu/pages/useEditingPage";
+import { getEntity } from "app/entities/website/website.reducer";
+import blueprints from "app/common/blueprints";
 
 const Header = styled.div`
   height: 60px;
@@ -30,6 +31,10 @@ const WorkingSpace = styled.div`
   display: flex;
 `;
 
+const WebsiteUrl = styled.div`
+  font-weight: bold;
+`;
+
 interface Props {
   websiteId: IWebsite['id'];
 }
@@ -37,10 +42,21 @@ interface Props {
 const EditorWorkingSpace: FC<Props> = () => {
   const { page } = useEditingPage();
 
+  const { entity: appUser } = useSelector<IRootState, IRootState['appUser']>(state => state.appUser);
+  const { entity: website } = useSelector<IRootState, IRootState['website']>(state => state.website);
+
   const { entities: pageBlocks, loading } = useSelector<IRootState, IRootState['block']>(state => state.block);
   const editingBlockId = useSelector<IRootState, BlockState['editingBlockId']>(state => state.block.editingBlockId);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (appUser?.websiteId) {
+      dispatch(getEntity(appUser.websiteId))
+    }
+  }, [appUser]);
+
+  console.log(website);
 
   const onDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination }) => {
     if (!destination) {
@@ -57,6 +73,9 @@ const EditorWorkingSpace: FC<Props> = () => {
   return (
     <>
       <Header>
+        {website?.url && (
+          <WebsiteUrl>{website.url}</WebsiteUrl>
+        )}
         <TopActionButtons/>
       </Header>
       <WorkingSpace>

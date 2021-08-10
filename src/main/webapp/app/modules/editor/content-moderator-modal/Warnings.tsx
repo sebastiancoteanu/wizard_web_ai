@@ -32,13 +32,26 @@ const warningParser = (warning: string, idx: number, warningsNo) => {
 const Warnings: FC<Props> = ({ warnings }) => {
   return (
     <Wrapper>
-      <Warning>
-        Your content might be:
-        {warnings?.text.map((warning, idx) => (
-          <CategoryWarning key={idx}>{warningParser(warning, idx, warnings.text.length)}</CategoryWarning>
-        ))}
-        to some people.
-      </Warning>
+      {!!warnings?.text.length && (
+        <Warning>
+          Your text content might be:
+          {warnings.text.map((warning, idx) => (
+            <CategoryWarning key={idx}>{warningParser(warning, idx, warnings.text.length)}</CategoryWarning>
+          ))}
+          to some people.
+        </Warning>
+      )}
+
+      {!!warnings?.image.length && (
+        <Warning>
+          Your image content might be:
+          {warnings.image.map((warning, idx) => (
+            <CategoryWarning key={idx}>{warningParser(warning, idx, warnings.image.length)}</CategoryWarning>
+          ))}
+          to some people.
+        </Warning>
+      )}
+
       <Warning>Please check again!</Warning>
     </Wrapper>
   )

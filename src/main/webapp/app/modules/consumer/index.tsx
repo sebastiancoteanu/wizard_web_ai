@@ -1,32 +1,17 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import Header from "app/shared/layout/header/header";
-import { IWebsite } from "app/shared/model/website.model";
-import { RouteChildrenProps, Switch, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "app/shared/reducers";
-import { getEntitiesByWebsiteUrl } from "app/entities/page/page.reducer";
+import { RouteChildrenProps, Switch } from 'react-router-dom';
 import DynamicPage from "app/modules/consumer/DynamicPage";
 import ErrorBoundaryRoute from "app/shared/error/error-boundary-route";
 import PrivateRoute from "app/shared/auth/private-route";
 import { AUTHORITIES } from "app/config/constants";
 import PageLoader, { FullPageLoaderWrapper } from "app/modules/ui-kit/PageLoader";
-
-interface Params {
-  websiteUrl: IWebsite['url'];
-}
+import useCurrentVisitingWebsite from "app/common/useCurrentVisitingWebsite";
 
 const Consumer: FC<RouteChildrenProps> = ({ match }) => {
-  const { websiteUrl } = useParams<Params>();
-  const { entities: pages, loading } = useSelector<IRootState, IRootState['page']>(state => state.page);
-  const dispatch = useDispatch();
+  const { pages, loading } = useCurrentVisitingWebsite();
 
-  useEffect(() => {
-    if (websiteUrl) {
-      dispatch(getEntitiesByWebsiteUrl(websiteUrl));
-    }
-  }, [websiteUrl]);
-
-  if (!websiteUrl || !pages) {
+  if (!pages.length) {
     return null;
   }
 

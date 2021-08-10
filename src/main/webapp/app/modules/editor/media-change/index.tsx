@@ -112,14 +112,14 @@ const MediaChange: FC<Props> = ({ index }) => {
             <CloseModalButton name={Icons.Cancel} onClick={onClose} />
           </Header>
           <ModalBody>
-            <DragDropHint>
-              Drag and drop your image here
-            </DragDropHint>
-            <DropToUpload>
-              .JPG, .PNG
-            </DropToUpload>
+            {/* <DragDropHint>*/}
+            {/*  Drag and drop your image here*/}
+            {/* </DragDropHint>*/}
+            {/* <DropToUpload>*/}
+            {/*  .JPG, .PNG*/}
+            {/* </DropToUpload>*/}
             <Input onChange={handleOnChange} placeholder="Image source" />
-            <ConfirmButton onClick={handleConfirm} disabled={!src}>Confirm</ConfirmButton>
+            <ConfirmButton onClick={handleConfirm}>Confirm</ConfirmButton>
           </ModalBody>
         </Modal>
       )}

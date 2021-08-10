@@ -2,7 +2,7 @@ import { BlockType } from 'app/shared/model/enumerations/block-type.model';
 import generateId from 'app/utils/generateId';
 import { IBlock } from 'app/shared/model/block.model';
 
-export const blueprints: IBlock[] = [
+const blueprints: IBlock[] = [
   {
     id: generateId(),
     type: BlockType.HEADER,
@@ -20,3 +20,5 @@ export const blueprints: IBlock[] = [
     type: BlockType.THREE_IMAGE_LIST,
   },
 ];
+
+export default blueprints;

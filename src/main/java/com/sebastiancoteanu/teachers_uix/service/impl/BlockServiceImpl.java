@@ -13,10 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +45,11 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public List<BlockDTO> saveAll(List<BlockDTO> blocksDTO) {
         List blocks = new ArrayList();
+
+        Collection<Long> blockIdList = blocksDTO.stream().map((BlockDTO::getId)).collect(Collectors.toList());
+        Long padeDraftId = blocksDTO.get(0).getPageDraftId();
+        blockRepository.deleteAllByPageDraftIdAndIdIsNotIn(padeDraftId, blockIdList);
+
         for (BlockDTO blockDTO : blocksDTO) {
             blocks.add(blockMapper.toEntity(blockDTO));
         }

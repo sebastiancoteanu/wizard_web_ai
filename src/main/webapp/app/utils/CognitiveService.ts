@@ -125,9 +125,17 @@ const imageModeration = async (imageList: string[]) => {
 };
 
 const contentModeration = async (text, imageSrcList) => {
-  const textModerationWarnings = await textModeration(text);
-  await sleep();
-  const imageModerationWarnings = await imageModeration(imageSrcList);
+  let textModerationWarnings = [];
+  let imageModerationWarnings = [];
+
+  if (text) {
+    textModerationWarnings = await textModeration(text);
+    await sleep();
+  }
+
+  if (imageSrcList.length) {
+    imageModerationWarnings = await imageModeration(imageSrcList);
+  }
 
   return {
     textModerationWarnings,
