@@ -8,6 +8,7 @@ import useCurrentEditingBlock from "app/modules/editor/style-manager/useCurrentE
 import { useDispatch } from "react-redux";
 import { updateEditingPageBlockContent } from "app/entities/block/block.reducer";
 import PrimaryButton from "app/modules/ui-kit/PrimaryButton";
+import CognitiveServices from '../../../utils/cognitive-services';
 
 const OpenModalTrigger = styled(SecondaryButton)`
   font-size: 12px;
@@ -94,10 +95,13 @@ const MediaChange: FC<Props> = ({ index }) => {
     setSrc(e.target.value);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     content[index] = src;
-    dispatch(updateEditingPageBlockContent(content));
-    setModalOpen(false);
+    const imageDescription = await CognitiveServices.computerVision.analyzeImage(src);
+
+    console.log('imageDescription', imageDescription);
+    // dispatch(updateEditingPageBlockContent(content));
+    // setModalOpen(false);
   }
 
   const onClose = () => setModalOpen(false);

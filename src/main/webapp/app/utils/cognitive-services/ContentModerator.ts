@@ -9,11 +9,13 @@ import { ContentClassificationCategories } from 'app/utils/types';
 import { IBlock } from 'app/shared/model/block.model';
 import { BlockType } from 'app/shared/model/enumerations/block-type.model';
 
+// TODO: find wise alternative
+const CONTENT_MODERATOR_KEY = 'daba7141eea043cc97b946420c54b62c';
+const CONTENT_MODERATOR_ENDPOINT = 'https://wizardwebaimoderator.cognitiveservices.azure.com/';
 const TEXT_CONTENT_TYPE = 'text/plain';
 const CATEGORY_THRESHOLD = 0.9;
 const CONTENT_MODERATOR_DELAY = 2000;
 
-let cognitiveServiceCredentials = null;
 let contentModeratorClient: ContentModeratorClient = null;
 
 /**
@@ -67,17 +69,10 @@ const sleep = (multiplier = 0) => {
   return new Promise(resolve => setTimeout(resolve, CONTENT_MODERATOR_DELAY * (multiplier + 1)));
 };
 
-const initializeCognitiveServices = () => {
-  // TODO: find wise alternative
-  const contentModeratorKey = 'daba7141eea043cc97b946420c54b62c';
-  const contentModeratorEndPoint = 'https://wizardwebaimoderator.cognitiveservices.azure.com/';
-
-  if (!cognitiveServiceCredentials) {
-    cognitiveServiceCredentials = new CognitiveServicesCredentials(contentModeratorKey);
-  }
-
+const initializeCognitiveService = () => {
   if (!contentModeratorClient) {
-    contentModeratorClient = new ContentModeratorClient(cognitiveServiceCredentials, contentModeratorEndPoint);
+    const cognitiveServiceCredentials = new CognitiveServicesCredentials(CONTENT_MODERATOR_KEY);
+    contentModeratorClient = new ContentModeratorClient(cognitiveServiceCredentials, CONTENT_MODERATOR_ENDPOINT);
   }
 };
 
@@ -91,7 +86,7 @@ const getCompressedTextBlocks = (blocks: IBlock[]): string =>
     .map(block => block.options.content[0])
     .join('. ');
 
-const getCompressImageBlocks = (blocks: IBlock[]): string[] =>
+const getCompressedImageBlocks = (blocks: IBlock[]): string[] =>
   blocks
     .filter(block => contentCompressBlockFilter(block, [BlockType.IMAGE, BlockType.THREE_IMAGE_LIST]))
     .reduce((currentImageList, currentBlock) => {
@@ -99,8 +94,6 @@ const getCompressImageBlocks = (blocks: IBlock[]): string[] =>
     }, []);
 
 const textModeration = async (text: string) => {
-  initializeCognitiveServices();
-
   const result: TextModerationScreenTextResponse = await contentModeratorClient.textModeration.screenText(TEXT_CONTENT_TYPE, text, {
     classify: true,
   });
@@ -117,16 +110,16 @@ const lazyUrlEvaluate = async (imageUrl: string, imageIdx: number) => {
 };
 
 const imageModeration = async (imageList: string[]) => {
-  initializeCognitiveServices();
-
   const result = await Promise.all(imageList.map(lazyUrlEvaluate));
 
   return imageClassificationCheck(result);
 };
 
-const contentModeration = async (text, imageSrcList) => {
+const imageTextEvaluation = async (text, imageSrcList) => {
   let textModerationWarnings = [];
   let imageModerationWarnings = [];
+
+  initializeCognitiveService();
 
   if (text) {
     textModerationWarnings = await textModeration(text);
@@ -145,7 +138,7 @@ const contentModeration = async (text, imageSrcList) => {
 
 const getCompressedBlockContent = (blocks: IBlock[]) => {
   const text = getCompressedTextBlocks(blocks);
-  const imageSrcList = getCompressImageBlocks(blocks);
+  const imageSrcList = getCompressedImageBlocks(blocks);
 
   return {
     text,
@@ -154,6 +147,6 @@ const getCompressedBlockContent = (blocks: IBlock[]) => {
 };
 
 export default {
-  contentModeration,
+  imageTextEvaluation,
   getCompressedBlockContent,
 };

@@ -56,8 +56,6 @@ const EditorWorkingSpace: FC<Props> = () => {
     }
   }, [appUser]);
 
-  console.log(website);
-
   const onDragEnd: DragDropContextProps['onDragEnd'] = ({ source, destination }) => {
     if (!destination) {
       return;

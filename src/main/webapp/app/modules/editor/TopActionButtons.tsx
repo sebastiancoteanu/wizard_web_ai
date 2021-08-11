@@ -10,9 +10,9 @@ import { IBlock } from "app/shared/model/block.model";
 import useEditingPage from "app/modules/editor/side-menu/pages/useEditingPage";
 import { updateEntity } from "app/entities/page/page.reducer";
 import Spinner from "app/modules/ui-kit/Spinner";
-import CognitiveService from "app/utils/CognitiveService";
 import ContentModeratorModal from "app/modules/editor/content-moderator-modal";
 import { ContentWarnings } from "app/modules/editor/types";
+import CognitiveServices from '../../utils/cognitive-services';
 
 const Wrapper = styled.div`
   margin-left: auto;
@@ -45,8 +45,11 @@ const TopActionButtons: FC = () => {
   const canPublish = page.id && !page.isPublished && !publishPageInProgress;
 
   const handleSaveAsDraft = async () => {
-    const { imageSrcList, text } = CognitiveService.getCompressedBlockContent(blocks as IBlock[]);
-    const { imageModerationWarnings, textModerationWarnings } = await CognitiveService.contentModeration(text, imageSrcList);
+    const { imageSrcList, text } =
+      CognitiveServices.contentModerator.getCompressedBlockContent(blocks as IBlock[]);
+
+    const { imageModerationWarnings, textModerationWarnings } =
+      await CognitiveServices.contentModerator.imageTextEvaluation(text, imageSrcList);
 
     if (textModerationWarnings.length || imageModerationWarnings.length) {
       setWarnings({
