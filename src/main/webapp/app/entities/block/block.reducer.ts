@@ -11,6 +11,7 @@ import { setDraftHasChanged } from 'app/entities/page-draft/page-draft.reducer';
 import { parseBlocks } from 'app/utils/blocksParser';
 
 export const ACTION_TYPES = {
+  SET_UPDATING: 'block/SET_UPDATING',
   SET_PAGE_BLOCKS: 'block/SET_PAGE_BLOCKS',
   SET_EDITING_PAGE_BLOCK: 'block/SET_EDITING_PAGE_BLOCK',
   UPDATE_PAGE_BLOCKS: 'block/UPDATE_PAGE_BLOCKS',
@@ -171,6 +172,11 @@ export default (state: BlockState = initialState, action): BlockState => {
             : block
         ),
       };
+    case ACTION_TYPES.SET_UPDATING:
+      return {
+        ...state,
+        updating: action.payload,
+      };
     default:
       return state;
   }
@@ -179,6 +185,10 @@ export default (state: BlockState = initialState, action): BlockState => {
 const apiUrl = 'api/blocks';
 
 // Actions
+export const setUpdating = (isUpdating: boolean) => ({
+  type: ACTION_TYPES.SET_UPDATING,
+  payload: isUpdating,
+});
 
 export const getEntities: ICrudGetAllAction<IBlock> = (pageDraftId: IPageDraft['id']) => ({
   type: ACTION_TYPES.FETCH_BLOCK_LIST,
@@ -285,8 +295,8 @@ export const updateAllEntities: ICrudPutAction<IBlock[]> = entities => async dis
     }),
   });
 
-  await dispatch(getEntities(entities[0].pageDraftId));
   await dispatch(setDraftHasChanged(false));
+  await dispatch(getEntities(entities[0].pageDraftId));
 
   return result;
 };

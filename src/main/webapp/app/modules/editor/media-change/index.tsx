@@ -10,6 +10,7 @@ import { updateEditingPageBlockContent } from "app/entities/block/block.reducer"
 import PrimaryButton from "app/modules/ui-kit/PrimaryButton";
 import CognitiveServices from '../../../utils/cognitive-services';
 import { IBlockOptions } from "app/shared/model/block.model";
+import Spinner from "app/modules/ui-kit/Spinner";
 
 const OpenModalTrigger = styled(SecondaryButton)`
   font-size: 12px;
@@ -86,6 +87,7 @@ interface Props {
 }
 
 const MediaChange: FC<Props> = ({ index }) => {
+  const [isMediaAnalyzed, setMediaAnalyzed] = useState(false);
   const editingBlock = useCurrentEditingBlock();
 
   const content: IBlockOptions['content'] =
@@ -105,7 +107,10 @@ const MediaChange: FC<Props> = ({ index }) => {
     }
     content[index].value = src;
 
+    setMediaAnalyzed(true);
     const imageDescription = await CognitiveServices.computerVision.analyzeImage(src);
+    setMediaAnalyzed(false);
+
     content[index].description  = imageDescription;
 
     dispatch(updateEditingPageBlockContent(content));
@@ -131,7 +136,9 @@ const MediaChange: FC<Props> = ({ index }) => {
             {/*  .JPG, .PNG*/}
             {/* </DropToUpload>*/}
             <Input onChange={handleOnChange} placeholder="Image source" />
-            <ConfirmButton onClick={handleConfirm}>Confirm</ConfirmButton>
+            <ConfirmButton onClick={handleConfirm} disabled={isMediaAnalyzed}>
+              {isMediaAnalyzed ? <Spinner /> : <span>Confirm</span>}
+            </ConfirmButton>
           </ModalBody>
         </Modal>
       )}

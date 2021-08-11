@@ -5,7 +5,7 @@ import SecondaryButton from "app/modules/ui-kit/SecondaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { PageDraftState } from "app/entities/page-draft/page-draft.reducer";
-import { updateAllEntities } from "app/entities/block/block.reducer";
+import { updateAllEntities, setUpdating } from "app/entities/block/block.reducer";
 import { IBlock } from "app/shared/model/block.model";
 import useEditingPage from "app/modules/editor/side-menu/pages/useEditingPage";
 import { updateEntity } from "app/entities/page/page.reducer";
@@ -47,6 +47,8 @@ const TopActionButtons: FC = () => {
   const handleSaveAsDraft = async () => {
     const { imageSrcList, text } =
       CognitiveServices.contentModerator.getCompressedBlockContent(blocks as IBlock[]);
+
+    dispatch(setUpdating(true));
 
     const { imageModerationWarnings, textModerationWarnings } =
       await CognitiveServices.contentModerator.imageTextEvaluation(text, imageSrcList);
