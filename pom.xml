@@ -7,7 +7,7 @@
     <artifactId>teachers-uix</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Wizard Web Ai</name>
+    <name>Wizard Web AI</name>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->

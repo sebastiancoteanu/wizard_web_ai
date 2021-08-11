@@ -46,7 +46,7 @@ export const Home = () => {
       <Header />
       <Wrapper>
         <Content>
-          <Brand>Wizard Web Ai</Brand>
+          <Brand>Wizard Web AI</Brand>
           <BrandDescription>If you can think it, we can develop it.</BrandDescription>
         </Content>
       </Wrapper>

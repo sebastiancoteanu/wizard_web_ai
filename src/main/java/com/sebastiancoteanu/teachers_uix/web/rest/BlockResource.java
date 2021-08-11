@@ -2,8 +2,6 @@ package com.sebastiancoteanu.teachers_uix.web.rest;
 
 import com.sebastiancoteanu.teachers_uix.service.BlockService;
 import com.sebastiancoteanu.teachers_uix.service.dto.BlocksDTO;
-import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
-import com.sebastiancoteanu.teachers_uix.service.dto.PagesDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.BlockDTO;
 
