@@ -17,5 +17,5 @@ import java.util.Optional;
 public interface PageRepository extends JpaRepository<Page, Long> {
   Optional<List<Page>> findByWebsiteId(Long id);
 
-  Optional<List<Page>> findByWebsiteIdAndIsPublished(Long id, Boolean isPublished);
+  Optional<List<Page>> findByWebsiteIdAndIsPublishedOrderByOrderAsc(Long id, Boolean isPublished);
 }

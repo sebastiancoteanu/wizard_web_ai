@@ -77,7 +77,7 @@ const initializeCognitiveService = () => {
 };
 
 const contentCompressBlockFilter = (block: IBlock, blockTypes: BlockType[]) => {
-  return blockTypes.some(testedType => testedType === block.type) && block.options?.content.length;
+  return blockTypes.some(testedType => testedType === block.type) && block.options?.content?.length;
 };
 
 const getCompressedTextBlocks = (blocks: IBlock[]): string =>

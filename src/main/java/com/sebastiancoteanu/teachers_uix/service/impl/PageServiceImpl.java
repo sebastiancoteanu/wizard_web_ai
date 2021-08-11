@@ -88,7 +88,7 @@ public class PageServiceImpl implements PageService {
       Long websiteId = website.get().getId();
 
       Optional<List<Page>> pages = isPublished ?
-        pageRepository.findByWebsiteIdAndIsPublished(websiteId, true) :
+        pageRepository.findByWebsiteIdAndIsPublishedOrderByOrderAsc(websiteId, true) :
         pageRepository.findByWebsiteId(websiteId);
 
       if(pages.isPresent()) {

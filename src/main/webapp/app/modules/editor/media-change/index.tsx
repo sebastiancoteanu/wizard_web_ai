@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useState, MouseEvent } from 'react';
 import styled from "styled-components";
 import SecondaryButton from "app/modules/ui-kit/SecondaryButton";
 import { Modal, ModalBody } from 'reactstrap';
@@ -90,10 +90,7 @@ const MediaChange: FC<Props> = ({ index }) => {
   const [isMediaAnalyzed, setMediaAnalyzed] = useState(false);
   const editingBlock = useCurrentEditingBlock();
 
-  const content: IBlockOptions['content'] =
-    editingBlock?.options?.content || Array(3).fill({ value: '', description: '' });
-
-  const [src, setSrc] = useState(content[index].value);
+  const [src, setSrc] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -101,18 +98,23 @@ const MediaChange: FC<Props> = ({ index }) => {
     setSrc(e.target.value);
   };
 
-  const handleConfirm = async () => {
-    if (!content[index]) {
-      content[index] = {};
-    }
-    content[index].value = src;
+  const handleConfirm = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const content: IBlockOptions['content'] =
+      editingBlock?.options?.content || Array(3).fill({ value: '', description: '' });
 
     setMediaAnalyzed(true);
-    const imageDescription = await CognitiveServices.computerVision.analyzeImage(src);
+    const description = await CognitiveServices.computerVision.analyzeImage(src);
     setMediaAnalyzed(false);
 
-    content[index].description  = imageDescription;
+    content[index] = {
+      value: src,
+      description,
+    };
 
+    console.log(content);
     dispatch(updateEditingPageBlockContent(content));
     setModalOpen(false);
   }
