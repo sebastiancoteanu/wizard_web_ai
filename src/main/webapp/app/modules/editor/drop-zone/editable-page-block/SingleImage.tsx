@@ -7,14 +7,14 @@ interface Props extends Pick<IBlock, 'options' | 'id'>{
 }
 
 const SingleImage: FC<Props> = ({ options, isSelected, id  }) => {
-  const source = options?.content?.length ? options.content[0] : '';
+  const contentItem = options?.content?.length ? options.content[0] : { value: '', description: '' };
 
   return (
     <ImageWithPlaceholder
-      src={source}
+      src={contentItem.value}
+      description={contentItem.description}
       isSelected={isSelected}
       options={options}
-      id={id}
     />
   );
 };

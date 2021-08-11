@@ -1,14 +1,14 @@
 import { BlockType } from 'app/shared/model/enumerations/block-type.model';
 import { CSSProperties } from 'styled-components';
 
-export interface IBLockOptionsContent {
+export interface IBLockOptionsContentItem {
   value?: string;
   description?: string;
 }
 
 export interface IBlockOptions {
   cssProperties?: CSSProperties;
-  content?: string[];
+  content?: IBLockOptionsContentItem[];
 }
 
 export interface IBlock {

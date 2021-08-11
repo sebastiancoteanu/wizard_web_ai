@@ -47,8 +47,9 @@ const Image = styled.img`
   height: 100%;
 `;
 
-interface Props extends Pick<IBlock, 'options' | 'id'>{
+interface Props extends Pick<IBlock, 'options'>{
   src?: string;
+  description?: string;
   isSelected: boolean;
   index?: number;
 }
@@ -58,11 +59,11 @@ const ImageWithPlaceholder: FC<Props> = ({
   isSelected,
   options,
   index = 0,
-  id,
+  description,
 }) => {
   return (
     <Wrapper cssProps={options?.cssProperties}>
-      {src ? <Image src={src} /> : (
+      {src ? <Image src={src} alt={description} title={description} /> : (
         <Placeholder cssProps={options?.cssProperties}>
           <Icon name={Icons.Picture} />
         </Placeholder>

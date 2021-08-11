@@ -83,14 +83,16 @@ const contentCompressBlockFilter = (block: IBlock, blockTypes: BlockType[]) => {
 const getCompressedTextBlocks = (blocks: IBlock[]): string =>
   blocks
     .filter(block => contentCompressBlockFilter(block, [BlockType.HEADER, BlockType.PARAGRAPH]))
-    .map(block => block.options.content[0])
+    .map(block => block.options.content[0].value)
     .join('. ');
 
 const getCompressedImageBlocks = (blocks: IBlock[]): string[] =>
   blocks
     .filter(block => contentCompressBlockFilter(block, [BlockType.IMAGE, BlockType.THREE_IMAGE_LIST]))
     .reduce((currentImageList, currentBlock) => {
-      return currentImageList.concat(...currentBlock.options.content.filter(url => url));
+      return currentImageList.concat(
+        ...currentBlock.options.content.filter(contentItem => contentItem?.value).map(contentItem => contentItem.value)
+      );
     }, []);
 
 const textModeration = async (text: string) => {

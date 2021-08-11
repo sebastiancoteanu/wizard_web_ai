@@ -19,12 +19,12 @@ interface Props extends Pick<IBlock, 'options' | 'id'> {
 }
 
 const Header: FC<Props> = ({ isSelected, options, id }) => {
-  const text = options?.content?.length ? options.content[0] : textPlaceholder;
+  const text = options?.content?.length ? options.content[0].value : textPlaceholder;
 
   return (
     <StyledHeader cssProps={options?.cssProperties} id={id.toString()}>
       {isSelected ? (
-        <EditableText cssProps={options?.cssProperties} placeHolder={textPlaceholder} />
+        <EditableText cssProps={options?.cssProperties} text={text} />
       ) : text}
     </StyledHeader>
   );

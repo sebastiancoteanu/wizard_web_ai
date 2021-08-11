@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { updateEditingPageBlockContent } from "app/entities/block/block.reducer";
 import PrimaryButton from "app/modules/ui-kit/PrimaryButton";
 import CognitiveServices from '../../../utils/cognitive-services';
+import { IBlockOptions } from "app/shared/model/block.model";
 
 const OpenModalTrigger = styled(SecondaryButton)`
   font-size: 12px;
@@ -86,8 +87,11 @@ interface Props {
 
 const MediaChange: FC<Props> = ({ index }) => {
   const editingBlock = useCurrentEditingBlock();
-  const content = editingBlock?.options?.content || Array(3).fill('');
-  const [src, setSrc] = useState(content['index']);
+
+  const content: IBlockOptions['content'] =
+    editingBlock?.options?.content || Array(3).fill({ value: '', description: '' });
+
+  const [src, setSrc] = useState(content[index].value);
   const [isModalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -96,12 +100,16 @@ const MediaChange: FC<Props> = ({ index }) => {
   };
 
   const handleConfirm = async () => {
-    content[index] = src;
-    const imageDescription = await CognitiveServices.computerVision.analyzeImage(src);
+    if (!content[index]) {
+      content[index] = {};
+    }
+    content[index].value = src;
 
-    console.log('imageDescription', imageDescription);
-    // dispatch(updateEditingPageBlockContent(content));
-    // setModalOpen(false);
+    const imageDescription = await CognitiveServices.computerVision.analyzeImage(src);
+    content[index].description  = imageDescription;
+
+    dispatch(updateEditingPageBlockContent(content));
+    setModalOpen(false);
   }
 
   const onClose = () => setModalOpen(false);

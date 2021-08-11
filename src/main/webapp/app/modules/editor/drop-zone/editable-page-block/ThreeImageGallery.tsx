@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from "styled-components";
 import ImageWithPlaceholder from "app/modules/editor/drop-zone/editable-page-block/common/ImageWithPlaceholder";
-import { IBlock } from "app/shared/model/block.model";
+import { IBlock, IBlockOptions } from "app/shared/model/block.model";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,18 +15,19 @@ interface Props extends Pick<IBlock, 'options' | 'id'>{
 }
 
 const ThreeImageGallery: FC<Props> = ({ isSelected, options, id }) => {
-  const sources = options?.content || Array(3).fill('');
+  const imageContentList: IBlockOptions['content'] =
+    options?.content || Array(3).fill({ value: '', description: '' });
 
   return (
     <Wrapper>
-      {sources.map((source, index) => (
+      {imageContentList.map((contentItem, index) => (
         <ImageWithPlaceholder
-          src={source}
-          key={`${source}-${index}`}
+          description={contentItem.description || ''}
+          src={contentItem.value}
+          key={`${contentItem.value}-${index}`}
           isSelected={isSelected}
           options={options}
           index={index}
-          id={id}
         />
       ))}
     </Wrapper>
