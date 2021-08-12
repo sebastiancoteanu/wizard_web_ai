@@ -36,6 +36,10 @@ const ActionButton = styled(BaseButton)`
   }
 `;
 
+const AdminNavigation = styled(Navbar)`
+  height: 60px;
+`;
+
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -57,7 +61,7 @@ const Header: FC<IHeaderProps> = ({
     <div id="app-header">
       <LoadingBar className="loading-bar" />
       {isAdmin ? (
-        <Navbar dark expand="sm" fixed="top" className="jh-navbar">
+        <AdminNavigation dark expand="sm" className="jh-navbar">
           <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
           <Collapse isOpen={menuOpen} navbar>
             <Nav id="header-tabs" className="ml-auto" navbar>
@@ -66,7 +70,7 @@ const Header: FC<IHeaderProps> = ({
               <AccountMenu isAuthenticated={isAuthenticated} />
             </Nav>
           </Collapse>
-        </Navbar>
+        </AdminNavigation>
       ) : (
         <Navigation>
           <WebsiteNavigation />
