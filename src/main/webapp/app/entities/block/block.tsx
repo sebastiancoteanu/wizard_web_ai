@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction } from 'react-jhipster';
+import { Button, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './block.reducer';
-import { IBlock } from 'app/shared/model/block.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import BlockOptions from "app/entities/block/BlockOptions";
 
 export interface IBlockProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -49,7 +47,9 @@ export const Block = (props: IBlockProps) => {
                     </Button>
                   </td>
                   <td>{block.type}</td>
-                  <td>{block.options}</td>
+                  <td>
+                    <BlockOptions options={JSON.stringify(block.options)} />
+                  </td>
                   <td>{block.order}</td>
                   <td>{block.pageDraftId ? <Link to={`page-draft/${block.pageDraftId}`}>{block.pageDraftId}</Link> : ''}</td>
                   <td className="text-right">

@@ -15,6 +15,8 @@ const Consumer: FC<RouteChildrenProps> = ({ match }) => {
     return null;
   }
 
+  console.log(match.url);
+
   return (
     <>
       <Header />

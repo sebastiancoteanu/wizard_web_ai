@@ -41,8 +41,8 @@ const WebsiteNavigation: FC = () => {
       {pages.map((page) => (
         <Page
           key={page.id}
-          to={`/${websiteUrl}/${page.url}`}
-          isActive={`/${websiteUrl}/${page.url}` === location.pathname}
+          to={`/w/${websiteUrl}/${page.url}`}
+          isActive={`/w/${websiteUrl}/${page.url}` === location.pathname}
         >
           {page.url}
         </Page>
