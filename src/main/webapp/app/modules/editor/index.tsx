@@ -9,7 +9,11 @@ import WebsiteWizard from "app/modules/website-wizard";
 
 const Editor: FC = () => {
   const account = useSelector<IRootState, IUser>(state => state.authentication.account);
-  const { loading, entity, errorMessage } = useSelector<IRootState, IRootState['appUser']>(state => state.appUser);
+  const {
+    loading,
+    entity,
+    errorMessage
+  } = useSelector<IRootState, IRootState['appUser']>(state => state.appUser);
 
   const dispatch = useDispatch();
 

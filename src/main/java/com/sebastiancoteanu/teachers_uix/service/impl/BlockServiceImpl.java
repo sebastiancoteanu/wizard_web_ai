@@ -4,8 +4,6 @@ import com.sebastiancoteanu.teachers_uix.service.BlockService;
 import com.sebastiancoteanu.teachers_uix.domain.Block;
 import com.sebastiancoteanu.teachers_uix.repository.BlockRepository;
 import com.sebastiancoteanu.teachers_uix.service.dto.BlockDTO;
-import com.sebastiancoteanu.teachers_uix.service.dto.BlocksDTO;
-import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
 import com.sebastiancoteanu.teachers_uix.service.mapper.BlockMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
