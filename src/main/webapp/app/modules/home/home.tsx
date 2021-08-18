@@ -31,13 +31,13 @@ const reveal = keyframes`
 const Brand = styled.div`
   font-size: 60px;
   transform-origin: left;
-  animation: ${reveal} 0.5s ease;
+  animation: ${reveal} 0.6s ease;
 `;
 
 const BrandDescription = styled.div`
   font-size: 20px;
   transform-origin: right;
-  animation: ${reveal} 0.5s ease;
+  animation: ${reveal} 0.6s ease;
 `;
 
 export const Home = () => {
