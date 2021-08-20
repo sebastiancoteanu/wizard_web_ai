@@ -4,6 +4,7 @@ import com.sebastiancoteanu.teachers_uix.domain.AppUser;
 import com.sebastiancoteanu.teachers_uix.service.AppUserService;
 import com.sebastiancoteanu.teachers_uix.service.WebsiteService;
 import com.sebastiancoteanu.teachers_uix.service.dto.AppUserDTO;
+import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.WebsiteDTO;
 
@@ -117,6 +118,18 @@ public class WebsiteResource {
     public ResponseEntity<WebsiteDTO> getWebsite(@PathVariable Long id) {
         log.debug("REST request to get Website : {}", id);
         Optional<WebsiteDTO> websiteDTO = websiteService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(websiteDTO);
+    }
+
+    /**
+     * {@code GET  /website/url} : get the url website
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the websiteDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/websites/url")
+    public ResponseEntity<WebsiteDTO> getWebsiteByUrl(@RequestParam(name = "url") String url) {
+        log.debug("REST request to get Website by url : {}", url);
+        Optional<WebsiteDTO> websiteDTO = websiteService.findByUrl(url);
         return ResponseUtil.wrapOrNotFound(websiteDTO);
     }
 

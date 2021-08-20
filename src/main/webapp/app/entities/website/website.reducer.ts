@@ -6,6 +6,7 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { getEntity as getAppUser } from '../app-user/app-user.reducer';
 
 import { IWebsite, defaultValue } from 'app/shared/model/website.model';
+import { IPage } from 'app/shared/model/page.model';
 
 export const ACTION_TYPES = {
   SET_DRAFT_WEBSITE: 'website/SET_DRAFT_WEBSITE',
@@ -134,6 +135,18 @@ export const getEntity: ICrudGetAction<IWebsite> = id => {
   return {
     type: ACTION_TYPES.FETCH_WEBSITE,
     payload: axios.get<IWebsite>(requestUrl),
+  };
+};
+
+export const getEntityByUrl: ICrudGetAction<IPage> = url => {
+  const requestUrl = `${apiUrl}/url`;
+  return {
+    type: ACTION_TYPES.FETCH_WEBSITE,
+    payload: axios.get<IPage>(requestUrl, {
+      params: {
+        url,
+      },
+    }),
   };
 };
 

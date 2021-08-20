@@ -79,7 +79,7 @@ const EditorWorkingSpace: FC<Props> = () => {
       <WorkingSpace>
         <DragDropContext onDragEnd={onDragEnd}>
           <SideMenu />
-          <DropZone pageBlocks={pageBlocks as IBlock[]} loading={loading} />
+          <DropZone website={website} pageBlocks={pageBlocks as IBlock[]} loading={loading} />
         </DragDropContext>
         {editingBlockId && <StyleManager />}
       </WorkingSpace>

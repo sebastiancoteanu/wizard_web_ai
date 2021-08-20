@@ -77,6 +77,14 @@ public class WebsiteServiceImpl implements WebsiteService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<WebsiteDTO> findByUrl(String url) {
+        log.debug("Request to get Website by url : {}", url);
+        return websiteRepository.findByUrl(url)
+          .map(websiteMapper::toDto);
+    }
+
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete Website : {}", id);
         websiteRepository.deleteById(id);

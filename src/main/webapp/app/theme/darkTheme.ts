@@ -1,11 +1,11 @@
 import { DefaultTheme } from 'styled-components';
 
-const lightTheme: DefaultTheme = {
+const darkTheme: DefaultTheme = {
   palette: {
-    text: '#2E3134',
-    navigationText: '#565656',
-    navigationBackground: '#FFFFFF',
-    websiteBackground: '#fafafa',
+    text: '#fafafa',
+    navigationText: '#E3E3E3',
+    navigationBackground: '#1d1d1d',
+    websiteBackground: '#2E3134',
     primary: {
       main: '#18bebb',
       second: '#52dfdc',
@@ -53,4 +53,4 @@ const lightTheme: DefaultTheme = {
   },
 };
 
-export default lightTheme;
+export default darkTheme;

@@ -10,9 +10,6 @@ import Navigation from "app/shared/layout/header/Navigation";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  .navbar-light .navbar-nav .nav-link {
-    color: ${({ theme }) => theme.colors.darkestGray};
-  }
 `;
 
 export interface IHeaderProps {

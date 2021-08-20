@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AccountMenu } from "app/shared/layout/menus";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { Navbar, Nav } from 'reactstrap';
 import { useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
@@ -12,6 +12,14 @@ import { ActionButton } from "../../layout/header/common";
 
 const Wrapper = styled(Navbar)`
   height: 60px;
+
+  &.navbar {
+    background-color: ${({ theme }) => theme.palette.navigationBackground} !important;
+  }
+
+  .navbar-nav .nav-link, a {
+    color: ${({ theme }) => theme.palette.navigationText} !important;
+  }
 `;
 
 const EditorButton = styled(ActionButton)`
