@@ -51,7 +51,6 @@ interface Props {
 }
 
 const ContentModeratorModal: FC<Props> = ({ setModalOpen, warnings }) => {
-  // TODO: loading handle properly
   return (
     <Modal isOpen toggle={() => setModalOpen(false)} centered>
       <Header>

@@ -61,6 +61,7 @@ const TopActionButtons: FC = () => {
       });
 
       setModeratorModalOpen(true);
+      dispatch(setUpdating(false));
 
       return;
     }
