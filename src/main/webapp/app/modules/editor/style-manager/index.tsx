@@ -7,7 +7,6 @@ import { IBlock } from "app/shared/model/block.model";
 import useCurrentEditingBlock from "app/modules/editor/style-manager/useCurrentEditingBlock";
 import { updateEditingPageBlockCss } from "app/entities/block/block.reducer";
 import SpacingSection from "app/modules/editor/style-manager/spacing-section";
-import { isStepValid } from "app/modules/website-wizard/utils";
 
 const Wrapper = styled.div`
   padding: 12px 0;
@@ -55,6 +54,7 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
   );
 
   const cssProps = editingBlock?.options?.cssProperties;
+  const mergedProps = { ...baseCssProps, ...cssProps };
 
   return (
     <Wrapper>
@@ -63,15 +63,13 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="fontSize"
             label="Font size"
-            placeholder={baseCssProps?.fontSize}
-            value={cssProps?.fontSize}
+            value={mergedProps?.fontSize}
             onChange={handleOnChange}
           />
           <EditableProp
-            placeholder={baseCssProps?.fontWeight}
             name="fontWeight"
             label="Font weight"
-            value={cssProps?.fontWeight}
+            value={mergedProps?.fontWeight}
             onChange={handleOnChange}
           />
         </InlineGroupProps>
@@ -79,15 +77,13 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="letterSpacing"
             label="Letter spacing"
-            placeholder={baseCssProps?.letterSpacing}
-            value={cssProps?.letterSpacing}
+            value={mergedProps?.letterSpacing}
             onChange={handleOnChange}
           />
           <EditableProp
             name="textDecoration"
             label="Text decoration"
-            placeholder={baseCssProps?.textDecoration}
-            value={cssProps?.textDecoration}
+            value={mergedProps?.textDecoration}
             onChange={handleOnChange}
           />
         </InlineGroupProps>
@@ -95,16 +91,14 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="color"
             label="Font color"
-            placeholder={baseCssProps?.color}
-            value={cssProps?.color}
+            value={mergedProps?.color}
             type="color"
             onChange={handleOnChange}
           />
           <EditableProp
             name="lineHeight"
             label="Line height"
-            placeholder={baseCssProps?.lineHeight}
-            value={cssProps?.lineHeight}
+            value={mergedProps?.lineHeight}
             onChange={handleOnChange}
           />
         </InlineGroupProps>
@@ -128,13 +122,13 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="minWidth"
             label="Min width"
-            value={cssProps?.minWidth}
+            value={mergedProps?.minWidth}
             onChange={handleOnChange}
           />
           <EditableProp
             name="maxWidth"
             label="Max width"
-            value={cssProps?.maxWidth}
+            value={mergedProps?.maxWidth}
             onChange={handleOnChange}
           />
         </InlineGroupProps>
@@ -142,13 +136,13 @@ const StyleManager: FC<{ options?: IBlock['options'] }> = ({ options }) => {
           <EditableProp
             name="minHeight"
             label="Min height"
-            value={cssProps?.minHeight}
+            value={mergedProps?.minHeight}
             onChange={handleOnChange}
           />
           <EditableProp
             name="maxHeight"
             label="Max height"
-            value={cssProps?.maxHeight}
+            value={mergedProps?.maxHeight}
             onChange={handleOnChange}
           />
         </InlineGroupProps>
