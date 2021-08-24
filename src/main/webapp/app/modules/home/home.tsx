@@ -29,15 +29,17 @@ const reveal = keyframes`
 `;
 
 const Brand = styled.div`
-  font-size: 60px;
+  font-size: 100px;
   transform-origin: left;
   animation: ${reveal} 0.6s ease;
+  letter-spacing: 0.1em;
 `;
 
 const BrandDescription = styled.div`
-  font-size: 20px;
+  font-size: 25px;
   transform-origin: right;
   animation: ${reveal} 0.6s ease;
+  letter-spacing: 0.1em;
 `;
 
 export const Home = () => {
