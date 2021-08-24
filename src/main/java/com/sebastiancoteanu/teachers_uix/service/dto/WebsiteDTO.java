@@ -2,6 +2,8 @@ package com.sebastiancoteanu.teachers_uix.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
+
 import com.sebastiancoteanu.teachers_uix.domain.enumeration.ThemeType;
 
 /**
@@ -18,6 +20,16 @@ public class WebsiteDTO implements Serializable {
     private ThemeType theme;
 
     private Long creatorId;
+
+    private List<PageDTO> pages;
+
+    public List<PageDTO> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<PageDTO> pages) {
+        this.pages = pages;
+    }
 
     public Long getCreatorId() {
         return creatorId;

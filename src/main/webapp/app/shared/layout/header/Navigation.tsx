@@ -19,6 +19,10 @@ const Wrapper = styled(Navbar)`
 
   .navbar-nav .nav-link, a {
     color: ${({ theme }) => theme.palette.navigationText} !important;
+
+    &.active, &:active, &:active {
+      background-color: transparent !important;
+    }
   }
 `;
 

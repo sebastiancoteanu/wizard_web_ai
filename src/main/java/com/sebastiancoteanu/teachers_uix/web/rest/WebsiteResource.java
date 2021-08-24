@@ -1,10 +1,9 @@
 package com.sebastiancoteanu.teachers_uix.web.rest;
 
-import com.sebastiancoteanu.teachers_uix.domain.AppUser;
 import com.sebastiancoteanu.teachers_uix.service.AppUserService;
+import com.sebastiancoteanu.teachers_uix.service.PageService;
 import com.sebastiancoteanu.teachers_uix.service.WebsiteService;
 import com.sebastiancoteanu.teachers_uix.service.dto.AppUserDTO;
-import com.sebastiancoteanu.teachers_uix.service.dto.PageDTO;
 import com.sebastiancoteanu.teachers_uix.web.rest.errors.BadRequestAlertException;
 import com.sebastiancoteanu.teachers_uix.service.dto.WebsiteDTO;
 
@@ -40,9 +39,12 @@ public class WebsiteResource {
 
     private final AppUserService appUserService;
 
-    public WebsiteResource(WebsiteService websiteService, AppUserService appUserService) {
+    private final PageService pageService;
+
+    public WebsiteResource(WebsiteService websiteService, AppUserService appUserService, PageService pageService) {
         this.websiteService = websiteService;
         this.appUserService = appUserService;
+        this.pageService = pageService;
     }
 
     /**
@@ -58,7 +60,13 @@ public class WebsiteResource {
         if (websiteDTO.getId() != null) {
             throw new BadRequestAlertException("A new website cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
         WebsiteDTO result = websiteService.save(websiteDTO);
+
+        websiteDTO.getPages().forEach(pageDTO -> {
+            pageDTO.setWebsiteId(result.getId());
+            pageService.save(pageDTO);
+        });
 
         if (result.getCreatorId() != null) {
             Optional<AppUserDTO> appUser = appUserService.findOne(result.getCreatorId());

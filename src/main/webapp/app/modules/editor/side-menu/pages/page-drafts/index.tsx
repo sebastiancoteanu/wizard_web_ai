@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { IPage } from "app/shared/model/page.model";
 import styled from "styled-components";
-import { createEntity, getPageDraftsByPageId } from "app/entities/page-draft/page-draft.reducer";
+import { createEntity, getPageDraftsByPageId, PageDraftState } from "app/entities/page-draft/page-draft.reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "app/shared/reducers";
 import { IPageDraft } from "app/shared/model/page-draft.model";
@@ -64,9 +64,11 @@ interface Props {
 }
 
 const PageDrafts: FC<Props> = ({ page }) => {
-  const pageDrafts = useSelector<IRootState, IPageDraft[]>(
-    state => state.pageDraft.pageMappedEntities[page.id]
+  const { pageMappedEntities } = useSelector<IRootState, PageDraftState>(
+    state => state.pageDraft
   );
+
+  const pageDrafts = pageMappedEntities[page.id];
 
   const dispatch = useDispatch();
 
