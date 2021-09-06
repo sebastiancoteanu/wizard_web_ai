@@ -11,6 +11,7 @@
     "@azure/cognitiveservices-computervision": "^8.1.0",
     "@azure/cognitiveservices-contentmoderator": "^5.0.1",
     "@azure/ms-rest-azure-js": "^2.1.0",
+    "@azure/storage-blob": "^12.7.0",
     "@fortawesome/fontawesome-svg-core": "1.2.28",
     "@fortawesome/free-solid-svg-icons": "5.13.0",
     "@fortawesome/react-fontawesome": "0.1.9",

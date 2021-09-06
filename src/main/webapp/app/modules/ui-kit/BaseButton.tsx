@@ -9,6 +9,7 @@ const BaseButton = styled.button`
   align-items: center;
   transition: 0.1s all ease-in;
   background: transparent;
+  font-weight: normal;
 
   &:link, &:active, &:hover, &:visited, &:focus {
     text-decoration: none;

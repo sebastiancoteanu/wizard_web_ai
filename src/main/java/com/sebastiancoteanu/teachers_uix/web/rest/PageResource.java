@@ -104,7 +104,7 @@ public class PageResource {
     }
 
     /**
-     * {@code GET  /pages/website/:url} : get the "id" page.
+     * {@code GET  /pages/url} : get pages from specific website url.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of pages in body.
      */

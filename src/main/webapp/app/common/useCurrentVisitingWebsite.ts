@@ -5,32 +5,36 @@ import { IRootState } from 'app/shared/reducers';
 import { useEffect } from 'react';
 import { getEntitiesByWebsiteUrl } from 'app/entities/page/page.reducer';
 import { IPage } from 'app/shared/model/page.model';
+import { getEntityByUrl } from 'app/entities/website/website.reducer';
 
 interface Params {
   websiteUrl: IWebsite['url'];
 }
 
 interface ReturnData {
+  website: IWebsite;
   pages: IPage[];
   loading: boolean;
 }
 
 type Hook = () => ReturnData;
 
-const useCurrentVisitingWebsite = () => {
+const useCurrentVisitingWebsite: Hook = () => {
   const { websiteUrl } = useParams<Params>();
-  const { entities: pages, loading } = useSelector<IRootState, IRootState['page']>(state => state.page);
+  const { website, page } = useSelector<IRootState, IRootState>(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (websiteUrl) {
       dispatch(getEntitiesByWebsiteUrl(websiteUrl));
+      dispatch(getEntityByUrl(websiteUrl));
     }
   }, [websiteUrl]);
 
   return {
-    pages,
-    loading,
+    website: website.entity,
+    pages: page.entities as IPage[],
+    loading: website.loading || page.loading,
   };
 };
 

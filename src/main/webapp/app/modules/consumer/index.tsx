@@ -7,18 +7,28 @@ import PrivateRoute from "app/shared/auth/private-route";
 import { AUTHORITIES } from "app/config/constants";
 import PageLoader, { FullPageLoaderWrapper } from "app/modules/ui-kit/PageLoader";
 import useCurrentVisitingWebsite from "app/common/useCurrentVisitingWebsite";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { ThemeType } from "app/shared/model/enumerations/theme-type.model";
+import lightTheme from "app/theme/lightTheme";
+import darkTheme from "app/theme/darkTheme";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    color: ${({ theme }) => theme.palette.text};
+    background-color: ${({ theme }) => theme.palette.websiteBackground};
+  }
+`;
 
 const Consumer: FC<RouteChildrenProps> = ({ match }) => {
-  const { pages, loading } = useCurrentVisitingWebsite();
+  const { pages, loading, website } = useCurrentVisitingWebsite();
 
   if (!pages.length) {
     return null;
   }
 
-  console.log(match.url);
-
   return (
-    <>
+    <ThemeProvider theme={website?.theme === ThemeType.LIGHT ? lightTheme : darkTheme}>
+      <GlobalStyle />
       <Header />
       {loading ? (
         <FullPageLoaderWrapper>
@@ -37,7 +47,7 @@ const Consumer: FC<RouteChildrenProps> = ({ match }) => {
           ))}
         </Switch>
       )}
-    </>
+    </ThemeProvider>
   );
 };
 

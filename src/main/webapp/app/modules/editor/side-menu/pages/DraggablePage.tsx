@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import EditablePage from "app/modules/editor/side-menu/pages/EditablePage";
-import ActionBar from "app/modules/editor/action-bar";
 import { IPage } from "app/shared/model/page.model";
 
 const Wrapper = styled.div`

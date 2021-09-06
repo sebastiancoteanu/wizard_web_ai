@@ -3,6 +3,10 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
+      text: string;
+      navigationText: string;
+      navigationBackground: string;
+      websiteBackground: string;
       primary: {
         main: string;
         second: string;

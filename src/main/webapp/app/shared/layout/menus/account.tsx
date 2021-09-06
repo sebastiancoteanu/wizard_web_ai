@@ -1,40 +1,40 @@
-import React from 'react';
+import React, { FC } from 'react';
 import MenuItem from 'app/shared/layout/menus/menu-item';
-import { DropdownItem } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NavLink as Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import { NavDropdown } from './menu-components';
+import { ActionButton } from '../../layout/header/common';
 
-const accountMenuItemsAuthenticated = (
+export const AccountMenuItemsAuthenticated: FC = () => (
   <>
-    <MenuItem icon="wrench" to="/account/settings">
+    <MenuItem to="/account/settings">
       Settings
     </MenuItem>
-    <MenuItem icon="lock" to="/account/password">
+    <MenuItem to="/account/password">
       Password
     </MenuItem>
-    <MenuItem icon="sign-out-alt" to="/logout">
-      Sign out
+    <MenuItem to="/logout">
+      Logout
     </MenuItem>
   </>
 );
 
-const accountMenuItems = (
+const UnauthenticatedMenu: FC = () => (
   <>
-    <MenuItem id="login-item" icon="sign-in-alt" to="/login">
-      Sign in
-    </MenuItem>
-    <MenuItem icon="sign-in-alt" to="/account/register">
+    <ActionButton as={Link} id="login-item" to="/login">
+      Login
+    </ActionButton>
+    <ActionButton as={Link} to="/account/register">
       Register
-    </MenuItem>
+    </ActionButton>
   </>
 );
 
-export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name="Account" id="account-menu">
-    {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
+export const AccountMenu = ({ isAuthenticated = false }) =>  isAuthenticated ? (
+  <NavDropdown name="Account" id="account-menu">
+    <AccountMenuItemsAuthenticated />
   </NavDropdown>
+) : (
+  <UnauthenticatedMenu />
 );
 
 export default AccountMenu;

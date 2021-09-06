@@ -71,10 +71,6 @@ const SpacingSectionBox: FC<Props> = ({ children, title, namePrefix }) => {
 
   const cssProps = editingBlock?.options?.cssProperties;
 
-  const getComputedValue = (obj, name) => {
-    return (obj && obj[namePrefix + name]) || undefined;
-  };
-
   const baseCssProps = useMemo<CSSStyleDeclaration | null>(
     () => {
       if (!editingBlock?.id) {
@@ -86,35 +82,36 @@ const SpacingSectionBox: FC<Props> = ({ children, title, namePrefix }) => {
     [editingBlock?.id],
   );
 
+  const getComputedValue = (name) => {
+    const mergedProps = { ...baseCssProps, ...cssProps };
+    return (mergedProps && mergedProps[namePrefix + name]) || undefined;
+  };
+
   return (
     <Wrapper>
       <Title>{title}</Title>
       <EditableSpaceProp
         name="Top"
         onChange={handleOnChange}
-        value={getComputedValue(cssProps, "Top")}
-        placeholder={getComputedValue(baseCssProps, "Top")}
+        value={getComputedValue("Top")}
       />
       <InlineProps>
         <EditableSpaceProp
           name="Left"
           onChange={handleOnChange}
-          value={getComputedValue(cssProps, "Left")}
-          placeholder={getComputedValue(baseCssProps, "Left")}
+          value={getComputedValue("Left")}
         />
         <Placeholder hasChildren={!!children}>{children}</Placeholder>
         <EditableSpaceProp
           name="Right"
           onChange={handleOnChange}
-          value={getComputedValue(cssProps, "Right")}
-          placeholder={getComputedValue(baseCssProps, "Right")}
+          value={getComputedValue("Right")}
         />
       </InlineProps>
       <EditableSpaceProp
         name="Bottom"
         onChange={handleOnChange}
-        value={getComputedValue(cssProps, "Bottom")}
-        placeholder={getComputedValue(baseCssProps, "Bottom")}
+        value={getComputedValue("Bottom")}
       />
     </Wrapper>
   );

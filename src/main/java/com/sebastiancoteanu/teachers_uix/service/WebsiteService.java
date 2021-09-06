@@ -41,6 +41,14 @@ public interface WebsiteService {
     Optional<WebsiteDTO> findOne(Long id);
 
     /**
+     * Get the "url" website.
+     *
+     * @param url the url of the entity.
+     * @return the entity.
+     */
+    Optional<WebsiteDTO> findByUrl(String url);
+
+    /**
      * Delete the "id" website.
      *
      * @param id the id of the entity.

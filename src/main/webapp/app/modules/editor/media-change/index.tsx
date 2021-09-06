@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState, MouseEvent } from 'react';
+import React, { DragEvent, ChangeEvent, FC, useState, MouseEvent } from 'react';
 import styled from "styled-components";
 import SecondaryButton from "app/modules/ui-kit/SecondaryButton";
 import { Modal, ModalBody } from 'reactstrap';
@@ -11,6 +11,7 @@ import PrimaryButton from "app/modules/ui-kit/PrimaryButton";
 import CognitiveServices from '../../../utils/cognitive-services';
 import { IBlockOptions } from "app/shared/model/block.model";
 import Spinner from "app/modules/ui-kit/Spinner";
+import StorageManager from "app/utils/StorageManager";
 
 const OpenModalTrigger = styled(SecondaryButton)`
   font-size: 12px;
@@ -114,12 +115,25 @@ const MediaChange: FC<Props> = ({ index }) => {
       description,
     };
 
-    console.log(content);
     dispatch(updateEditingPageBlockContent(content));
     setModalOpen(false);
   }
 
   const onClose = () => setModalOpen(false);
+
+  const handleDragDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    if (e.dataTransfer?.items?.length) {
+      const file = e.dataTransfer.items[0].getAsFile();
+      const url = await StorageManager.uploadImageFile(file);
+      setSrc(url);
+    }
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  }
 
   return (
     <>
@@ -131,13 +145,13 @@ const MediaChange: FC<Props> = ({ index }) => {
             <CloseModalButton name={Icons.Cancel} onClick={onClose} />
           </Header>
           <ModalBody>
-            {/* <DragDropHint>*/}
-            {/*  Drag and drop your image here*/}
-            {/* </DragDropHint>*/}
-            {/* <DropToUpload>*/}
-            {/*  .JPG, .PNG*/}
-            {/* </DropToUpload>*/}
-            <Input onChange={handleOnChange} placeholder="Image source" />
+            <DragDropHint>
+              Drag and drop your image here
+            </DragDropHint>
+            <DropToUpload id="drop_zone" onDrop={handleDragDrop} onDragOver={handleDragOver}>
+              .JPG, .PNG
+            </DropToUpload>
+            <Input onChange={handleOnChange} value={src} placeholder="Image source" />
             <ConfirmButton onClick={handleConfirm} disabled={isMediaAnalyzed}>
               {isMediaAnalyzed ? <Spinner /> : <span>Confirm</span>}
             </ConfirmButton>

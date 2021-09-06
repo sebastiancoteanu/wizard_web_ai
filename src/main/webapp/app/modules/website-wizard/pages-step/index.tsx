@@ -43,7 +43,12 @@ const PageStep: FC<Props> = ({ pages = [], baseUrl }) => {
   const dispatch = useDispatch();
 
   const createNewPage = () => {
-    dispatch(setDraftWebsite({ pages: [...pages, { url: newPageUrl }] }));
+    dispatch(setDraftWebsite({ pages: [...pages, {
+      url: newPageUrl,
+      order: pages.length,
+      isRestricted: false,
+      isPublished: false,
+    }] }));
     setNewPageUrl('');
   }
 

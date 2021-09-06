@@ -53,7 +53,6 @@ const AppGlobalStyle = createGlobalStyle`
   body {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
-    color: ${({ theme }) => theme.palette.neutral.black};
   }
 `;
 

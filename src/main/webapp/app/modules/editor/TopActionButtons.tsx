@@ -45,7 +45,6 @@ const TopActionButtons: FC = () => {
   const canPublish = page.id && !page.isPublished && !publishPageInProgress;
 
   const handleSaveAsDraft = async () => {
-    console.log(blocks);
     const { imageSrcList, text } =
       CognitiveServices.contentModerator.getCompressedBlockContent(blocks as IBlock[]);
 
@@ -62,6 +61,7 @@ const TopActionButtons: FC = () => {
       });
 
       setModeratorModalOpen(true);
+      dispatch(setUpdating(false));
 
       return;
     }
